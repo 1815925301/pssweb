@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="FTPUSER_CONFIGDao">
+	<resultMap id="BaseResultMap" type="FtpuserConfig">
+        	<result property="id" column="ID"/>
+        	<result property="company" column="COMPANY"/>
+        	<result property="ipaddress" column="IPADDRESS"/>
+        	<result property="port" column="PORT"/>
+        	<result property="cusername" column="CUSERNAME"/>
+        	<result property="cpassword" column="CPASSWORD"/>
+        	<result property="createtime" column="CREATETIME"/>
+        	<result property="companyimg" column="COMPANYIMG"/>
+        	<result property="transtype" column="TRANSTYPE"/>
+        	<result property="targetlocalpath" column="TARGETLOCALPATH"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ID,COMPANY,IPADDRESS,PORT,CUSERNAME,CPASSWORD,to_char(CREATETIME,'yyyy-MM-dd HH24:mi:ss') as CREATETIME,TRANSTYPE,TARGETLOCALPATH
+	</sql>
+
+	<!-- 插入语句-->
+	<insert id="insertFtpuserConfig" parameterType="FtpuserConfig">
+        INSERT INTO FTPUSER_CONFIG 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        	        ID,
+	        	
+		        	     <if test="company != null" >
+	        		         COMPANY,
+	     		        </if> 
+	        	
+		        	     <if test="ipaddress != null" >
+	        		         IPADDRESS,
+	     		        </if> 
+	        	
+		        	     <if test="port != null" >
+	        		         PORT,
+	     		        </if> 
+	        	
+		        	     <if test="cusername != null" >
+	        		         CUSERNAME,
+	     		        </if> 
+	        	
+		        	     <if test="cpassword != null" >
+	        		         CPASSWORD,
+	     		        </if> 
+	        	
+		        	     <if test="createtime != null" >
+	        		         CREATETIME,
+	     		        </if> 
+	        	
+		        	     <if test="transtype != null" >
+	        		         TRANSTYPE,
+	     		        </if> 
+	        	
+		        	     <if test="targetlocalpath != null" >
+	        		         TARGETLOCALPATH
+	     		        </if> 
+	        	
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+	        	        PSS_ORDER_INFO_SEQ.nextval,
+	     		
+		        	     <if test="company != null" >
+		        	      #{company},
+		        	     </if> 
+	     		
+		        	     <if test="ipaddress != null" >
+		        	      #{ipaddress},
+		        	     </if> 
+	     		
+		        	     <if test="port != null" >
+		        	      #{port},
+		        	     </if> 
+	     		
+		        	     <if test="cusername != null" >
+		        	      #{cusername},
+		        	     </if> 
+	     		
+		        	     <if test="cpassword != null" >
+		        	      #{cpassword},
+		        	     </if> 
+	     		
+		        	     <if test="createtime != null" >
+		        	      to_date(#{createtime},'yyyy-mm-dd HH24:mi:ss'),
+		        	     </if> 
+	     		
+		        	     <if test="transtype != null" >
+		        	      #{transtype},
+		        	     </if> 
+	     		
+		        	     <if test="targetlocalpath != null" >
+		        	      #{targetlocalpath}
+		        	     </if> 
+	     		
+   	 </trim>
+	</insert>
+    
+   <!--更新语句-->
+	<update id="updateFtpuserConfig" parameterType="FtpuserConfig">
+        UPDATE FTPUSER_CONFIG 
+        <set >
+	        	<if test="company  != null" >
+	        		COMPANY = #{company} ,
+	     	 	</if>
+	        	<if test="ipaddress  != null" >
+	        		IPADDRESS = #{ipaddress} ,
+	     	 	</if>
+	        	<if test="port  != null" >
+	        		PORT = #{port} ,
+	     	 	</if>
+	        	<if test="cusername  != null" >
+	        		CUSERNAME = #{cusername} ,
+	     	 	</if>
+	        	<if test="cpassword  != null" >
+	        		CPASSWORD = #{cpassword} ,
+	     	 	</if>
+	        	<if test="createtime  != null" >
+	        		CREATETIME = #{createtime} ,
+	     	 	</if>
+	        	
+	        	<if test="transtype  != null" >
+	        		TRANSTYPE = #{transtype} ,
+	     	 	</if>
+	        	<if test="targetlocalpath  != null" >
+	        		TARGETLOCALPATH = #{targetlocalpath} 
+	     	 	</if>
+	    </set>
+        WHERE 
+    			ID = #{id} 
+	</update>
+
+	<!--删除语句-->
+		    <delete id="deleteFtpuserConfig" parameterType="Double">
+		        DELETE FROM FTPUSER_CONFIG WHERE
+		    			ID = #{id} 
+		    </delete>
+    
+    <!--查询语句-->
+    <select id="getFtpuserConfigById" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM FTPUSER_CONFIG 
+	    WHERE 
+				ID = #{id} 
+	</select>
+	
+		<!--列表查询-->
+		<select id="getFtpuserConfigListByQuery" resultType="FtpuserConfig" resultMap="BaseResultMap" parameterType="FtpuserConfigQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM FTPUSER_CONFIG 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="company  != null" >
+	        	AND 	COMPANY = #{company} 
+	     	 	</if>
+				<if test="ipaddress  != null" >
+	        	AND 	IPADDRESS = #{ipaddress} 
+	     	 	</if>
+				<if test="port  != null" >
+	        	AND 	PORT = #{port} 
+	     	 	</if>
+				<if test="cusername  != null" >
+	        	AND 	CUSERNAME = #{cusername} 
+	     	 	</if>
+				<if test="cpassword  != null" >
+	        	AND 	CPASSWORD = #{cpassword} 
+	     	 	</if>
+				<if test="createtime  != null" >
+	        	AND 	CREATETIME = #{createtime} 
+	     	 	</if>
+				<if test="transtype  != null" >
+	        	AND 	TRANSTYPE = #{transtype} 
+	     	 	</if>
+				<if test="targetlocalpath  != null" >
+	        	AND 	TARGETLOCALPATH = #{targetlocalpath} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--分页查询-->
+	<select id="getFtpuserConfigInfoByQuery" resultType="FtpuserConfig" resultMap="BaseResultMap" parameterType="FtpuserConfigQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM FTPUSER_CONFIG 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="company  != null" >
+	        	 AND COMPANY like CONCAT('%${company}','%' )
+	     	 	</if>
+				<if test="ipaddress  != null" >
+	        	 AND IPADDRESS like CONCAT('%${ipaddress}','%' )
+	     	 	</if>
+				<if test="port  != null" >
+	        	 AND PORT like CONCAT('%${port}','%' )
+	     	 	</if>
+				<if test="cusername  != null" >
+	        	 AND CUSERNAME like CONCAT('%${cusername}','%' )
+	     	 	</if>
+				<if test="cpassword  != null" >
+	        	 AND CPASSWORD like CONCAT('%${cpassword}','%' )
+	     	 	</if>
+				<if test="createtime  != null" >
+	        	 AND CREATETIME like CONCAT('%${createtime}','%' )
+	     	 	</if>
+				<if test="transtype  != null" >
+	        	 AND TRANSTYPE like CONCAT('%${transtype}','%' )
+	     	 	</if>
+				<if test="targetlocalpath  != null" >
+	        	 AND TARGETLOCALPATH like CONCAT('%${targetlocalpath}','%' )
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="FtpuserConfigQuery">
+        SELECT count(*) FROM FTPUSER_CONFIG 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="company  != null" >
+	        	AND 	COMPANY = #{company}
+	     	 	</if>
+				<if test="ipaddress  != null" >
+	        	AND 	IPADDRESS = #{ipaddress}
+	     	 	</if>
+				<if test="port  != null" >
+	        	AND 	PORT = #{port}
+	     	 	</if>
+				<if test="cusername  != null" >
+	        	AND 	CUSERNAME = #{cusername}
+	     	 	</if>
+				<if test="cpassword  != null" >
+	        	AND 	CPASSWORD = #{cpassword}
+	     	 	</if>
+				<if test="createtime  != null" >
+	        	AND 	CREATETIME = #{createtime}
+	     	 	</if>
+				<if test="transtype  != null" >
+	        	AND 	TRANSTYPE = #{transtype}
+	     	 	</if>
+				<if test="targetlocalpath  != null" >
+	        	AND 	TARGETLOCALPATH = #{targetlocalpath}
+	     	 	</if>
+	     	 <if test="sqlWhere  != null" >
+	        	${sqlWhere}
+	     	 	</if>
+		</trim> 
+    </select>
+    
+</mapper>
+

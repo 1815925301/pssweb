@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="PSS_ORDER_PAYDao">
+	<resultMap id="BaseResultMap" type="PssOrderPay">
+        	<result property="id" column="ID"/>
+        	<result property="pssuserbank" column="PSSUSERBANK"/>
+        	<result property="abaesbank" column="ABAESBANK"/>
+        	<result property="abaeaccount" column="ABAEACCOUNT"/>
+        	<result property="ticketid" column="TICKETID"/>
+        	<result property="trantype" column="TRANTYPE"/>
+        	<result property="trandate" column="TRANDATE"/>
+        	<result property="amount" column="AMOUNT"/>
+        	<result property="companyaddress" column="COMPANYADDRESS"/>
+        	<result property="imageaddress" column="IMAGEADDRESS"/>
+        	<result property="orderMainId" column="ORDERMAINID"/>
+        	<result property="unit" column="UNIT"/>
+
+        	<result property="collectid" column="COLLECTID"/>
+        	<result property="banktype" column="BANKTYPE"/>
+
+        	<result property="userid" column="USERID"/>
+
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ID,PSSUSERBANK,ABAESBANK,ABAEACCOUNT,TICKETID,TRANTYPE,to_char(TRANDATE,'yyyy-MM-dd HH24:mi:ss') as TRANDATE,AMOUNT,COMPANYADDRESS,IMAGEADDRESS,ORDERMAINID,UNIT,COLLECTID,BANKTYPE
+	</sql>
+
+	<!-- 插入语句-->
+	<insert id="insertPssOrderPay" parameterType="PssOrderPay">
+        INSERT INTO PSS_ORDER_PAY 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        	        ID,
+	        	
+		        	     <if test="pssuserbank != null" >
+	        		         PSSUSERBANK,
+	     		        </if> 
+	        	
+		        	     <if test="abaesbank != null" >
+	        		         ABAESBANK,
+	     		        </if> 
+	        	
+		        	     <if test="abaeaccount != null" >
+	        		         ABAEACCOUNT,
+	     		        </if> 
+	        	
+		        	     <if test="ticketid != null" >
+	        		         TICKETID,
+	     		        </if> 
+	        	
+		        	     <if test="trantype != null" >
+	        		         TRANTYPE,
+	     		        </if> 
+	        	
+		        	     <if test="trandate != null" >
+	        		         TRANDATE,
+	     		        </if> 
+	        	
+		        	     <if test="amount != null" >
+	        		         AMOUNT,
+	     		        </if> 
+	        	
+		        	     <if test="companyaddress != null" >
+	        		         COMPANYADDRESS,
+	     		        </if> 
+	     		        <if test="orderMainId != null" >
+	        		         ORDERMAINID,
+	     		        </if> 
+	     		         <if test="collectid != null" >
+	        		         COLLECTID,
+	     		        </if> 
+	     		         <if test="banktype != null" >
+	        		         BANKTYPE,
+	     		        </if> 
+	     		         <if test="unit != null" >
+	        		         UNIT,
+	     		        </if> 
+	        	
+		        	   
+	        			
+						<if test="userid != null">
+	     		        	USERID,
+	     		        	STATS,
+	     		        </if>
+	     		          <if test="imageaddress != null" >
+	        		         IMAGEADDRESS
+	     		        </if> 
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+	        	        PSS_ORDER_PAY_SEQ.nextval,
+	     		
+		        	     <if test="pssuserbank != null" >
+		        	      #{pssuserbank},
+		        	     </if> 
+	     		
+		        	     <if test="abaesbank != null" >
+		        	      #{abaesbank},
+		        	     </if> 
+	     		
+		        	     <if test="abaeaccount != null" >
+		        	      #{abaeaccount},
+		        	     </if> 
+	     		
+		        	     <if test="ticketid != null" >
+		        	      #{ticketid},
+		        	     </if> 
+	     		
+		        	     <if test="trantype != null" >
+		        	      #{trantype},
+		        	     </if> 
+	     		
+		        	     <if test="trandate != null" >
+		        	     
+		        	      to_date(#{trandate},'yyyy-mm-dd HH24:mi:ss'),
+		        	     </if> 
+	     		
+		        	     <if test="amount != null" >
+		        	      #{amount},
+		        	     </if> 
+	     		
+		        	     <if test="companyaddress != null" >
+		        	      #{companyaddress},
+		        	     </if> 
+		        	      <if test="orderMainId != null" >
+		        	      #{orderMainId},
+		        	     </if>
+		        	     <if test="collectid != null" >
+		        	      #{collectid},
+		        	     </if>
+		        	    
+		        	      <if test="banktype != null" >
+		        	      #{banktype},
+		        	     </if>
+		        	      <if test="unit != null" >
+		        	      #{unit},
+		        	     </if>
+	     					
+		        	     
+		        	     <if test="userid != null">
+		        	     #{userid},
+		        	     0,
+		        	     </if>
+		        	     <if test="imageaddress != null" >
+		        	      #{imageaddress}
+		        	     </if> 
+	     		
+   	 </trim>
+	</insert>
+    
+   <!--更新语句-->
+	<update id="updatePssOrderPay" parameterType="PssOrderPay">
+        UPDATE PSS_ORDER_PAY 
+        <set >
+	        	<if test="pssuserbank  != null" >
+	        		PSSUSERBANK = #{pssuserbank} ,
+	     	 	</if>
+	        	<if test="abaesbank  != null" >
+	        		ABAESBANK = #{abaesbank} ,
+	     	 	</if>
+	        	<if test="abaeaccount  != null" >
+	        		ABAEACCOUNT = #{abaeaccount} ,
+	     	 	</if>
+	        	<if test="ticketid  != null" >
+	        		TICKETID = #{ticketid} ,
+	     	 	</if>
+	        	<if test="trantype  != null" >
+	        		TRANTYPE = #{trantype} ,
+	     	 	</if>
+	        	<if test="trandate  != null" >
+	        		TRANDATE = #{trandate} ,
+	     	 	</if>
+	        	<if test="amount  != null" >
+	        		AMOUNT = #{amount} ,
+	     	 	</if>
+	        	<if test="companyaddress  != null" >
+	        		COMPANYADDRESS = #{companyaddress} ,
+	     	 	</if>
+	        	<if test="imageaddress  != null" >
+	        		IMAGEADDRESS = #{imageaddress} 
+	     	 	</if>
+	    </set>
+        WHERE 
+    			ID = #{id} 
+	</update>
+
+	<!--删除语句-->
+		    <delete id="deletePssOrderPay" parameterType="Long">
+		        DELETE FROM PSS_ORDER_PAY WHERE
+		    			ID = #{id} 
+		    </delete>
+    
+    <!--查询语句-->
+    <select id="getPssOrderPayById" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_ORDER_PAY 
+	    WHERE 
+	   
+	    ORDERMAINID = #{orderMainId} 
+	   		
+	</select>
+	  <!--查询语句-->
+    <select id="getPssOrderPayByCollId" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_ORDER_PAY 
+	    WHERE 
+	   
+	    COLLECTID = #{collectid} 
+	   		
+	</select>
+		<!--列表查询-->
+		<select id="getPssOrderPayListByQuery" resultType="PssOrderPay" resultMap="BaseResultMap" parameterType="PssOrderPayQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_ORDER_PAY 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="pssuserbank  != null" >
+	        	AND 	PSSUSERBANK = #{pssuserbank} 
+	     	 	</if>
+				<if test="abaesbank  != null" >
+	        	AND 	ABAESBANK = #{abaesbank} 
+	     	 	</if>
+				<if test="abaeaccount  != null" >
+	        	AND 	ABAEACCOUNT = #{abaeaccount} 
+	     	 	</if>
+				<if test="ticketid  != null" >
+	        	AND 	TICKETID = #{ticketid} 
+	     	 	</if>
+				<if test="trantype  != null" >
+	        	AND 	TRANTYPE = #{trantype} 
+	     	 	</if>
+				<if test="trandate  != null" >
+	        	AND 	TRANDATE = #{trandate} 
+	     	 	</if>
+				<if test="amount  != null" >
+	        	AND 	AMOUNT = #{amount} 
+	     	 	</if>
+				<if test="companyaddress  != null" >
+	        	AND 	COMPANYADDRESS = #{companyaddress} 
+	     	 	</if>
+				<if test="imageaddress  != null" >
+	        	AND 	IMAGEADDRESS = #{imageaddress} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--分页查询-->
+	<select id="getPssOrderPayInfoByQuery" resultType="PssOrderPay" resultMap="BaseResultMap" parameterType="PssOrderPayQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_ORDER_PAY 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="pssuserbank  != null" >
+	        	AND 	PSSUSERBANK = #{pssuserbank} 
+	     	 	</if>
+				<if test="abaesbank  != null" >
+	        	AND 	ABAESBANK = #{abaesbank} 
+	     	 	</if>
+				<if test="abaeaccount  != null" >
+	        	AND 	ABAEACCOUNT = #{abaeaccount} 
+	     	 	</if>
+				<if test="ticketid  != null" >
+	        	AND 	TICKETID = #{ticketid} 
+	     	 	</if>
+				<if test="trantype  != null" >
+	        	AND 	TRANTYPE = #{trantype} 
+	     	 	</if>
+				<if test="trandate  != null" >
+	        	AND 	TRANDATE = #{trandate} 
+	     	 	</if>
+				<if test="amount  != null" >
+	        	AND 	AMOUNT = #{amount} 
+	     	 	</if>
+				<if test="companyaddress  != null" >
+	        	AND 	COMPANYADDRESS = #{companyaddress} 
+	     	 	</if>
+				<if test="imageaddress  != null" >
+	        	AND 	IMAGEADDRESS = #{imageaddress} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="PssOrderPayQuery">
+        SELECT count(*) FROM PSS_ORDER_PAY 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="pssuserbank  != null" >
+	        	AND 	PSSUSERBANK = #{pssuserbank}
+	     	 	</if>
+				<if test="abaesbank  != null" >
+	        	AND 	ABAESBANK = #{abaesbank}
+	     	 	</if>
+				<if test="abaeaccount  != null" >
+	        	AND 	ABAEACCOUNT = #{abaeaccount}
+	     	 	</if>
+				<if test="ticketid  != null" >
+	        	AND 	TICKETID = #{ticketid}
+	     	 	</if>
+				<if test="trantype  != null" >
+	        	AND 	TRANTYPE = #{trantype}
+	     	 	</if>
+				<if test="trandate  != null" >
+	        	AND 	TRANDATE = #{trandate}
+	     	 	</if>
+				<if test="amount  != null" >
+	        	AND 	AMOUNT = #{amount}
+	     	 	</if>
+				<if test="companyaddress  != null" >
+	        	AND 	COMPANYADDRESS = #{companyaddress}
+	     	 	</if>
+				<if test="imageaddress  != null" >
+	        	AND 	IMAGEADDRESS = #{imageaddress}
+	     	 	</if>
+	     	 <if test="sqlWhere  != null" >
+	        	${sqlWhere}
+	     	 	</if>
+		</trim> 
+    </select>
+    
+</mapper>
+

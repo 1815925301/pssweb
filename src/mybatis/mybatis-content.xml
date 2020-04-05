@@ -1,0 +1,260 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="ContentDao">
+	<resultMap id="contentResultMap" type="Content">
+		<result property="contentid" column="CONTENTID"/>
+		<result property="contenttitle" column="CONTENTTITLE" />
+		<result property="content" column="CONTENT" />
+		<result property="isrelease" column="ISRELEASE"/>
+		<result property="contenttype" column="CONTENTTYPE"/>
+		<result property="createtime" column="CREATETIME"/>
+	    <result property="image" column="IMAGE" />
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		CONTENTID,CONTENTTITLE,CONTENT,ISRELEASE,CONTENTTYPE,to_char(CREATETIME,'yyyy-MM-dd HH24:mi:ss') as CREATETIME,IMAGE
+    </sql>
+  <!-- 插入语句-->
+	<insert id="insertContent" parameterType="Content">
+        INSERT INTO PSS_CONTENT_ZH_CN 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        		         CONTENTID, 
+	        		         
+		        	     <if test="contenttitle != null" >
+	        		         CONTENTTITLE,
+	     		        </if> 
+	        	
+		        	     <if test="content != null" >
+	        		         CONTENT,
+	     		        </if> 
+	        	
+		        	     <if test="isrelease != null" >
+	        		         ISRELEASE,
+	     		        </if> 
+	        	
+		        	     <if test="contenttype != null" >
+	        		         CONTENTTYPE,
+	     		        </if> 
+	        	
+		        	     <if test="createtime != null" >
+	        		         CREATETIME
+	     		        </if> 
+	        	  		<if test="image != null" >
+	        		         IMAGE
+	     		        </if> 
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+ 		        	     PSS_CONTENT_ZH_CN_SEQ.nextval,
+	     		
+		        	     <if test="contenttitle != null" >
+		        	      #{contenttitle},
+		        	     </if> 
+	     		
+		        	     <if test="content != null" >
+		        	      #{content},
+		        	     </if> 
+	     		
+		        	     <if test="isrelease != null" >
+		        	      #{isrelease},
+		        	     </if> 
+	     				<if test="contenttype != null" >
+		        	      #{contenttype},
+		        	     </if> 
+		        	     <if test="createtime != null" >
+		        	      to_date(#{createtime},'yyyy-mm-dd hh24:mi:ss'),
+		        	     </if> 
+	     		
+		        	     <if test="image != null" >
+		        	      #{image}
+		        	     </if> 
+   	 </trim>
+	</insert>
+    
+   <!--更新语句-->
+	<update id="updateContent" parameterType="Content">
+        UPDATE PSS_CONTENT_ZH_CN 
+        <set >
+       	 		 <if test="contenttitle != null and contenttitle!=''" >
+        	      CONTENTTITLE = #{contenttitle} ,
+        	     </if> 
+        	     <if test="content != null and content!=''" >
+        	     CONTENT= #{content},
+        	     </if> 
+    		
+        	     <if test="isrelease != null and isrelease!=''" >
+        	     ISRELEASE = #{isrelease},
+        	     </if> 
+    				<if test="contenttype != null and contenttype!=''" >
+        	    CONTENTTYPE =  #{contenttype},
+        	     </if> 
+        	     <if test="createtime != null and createtime!=''" >
+        	     CREATETIME =  to_date(#{createtime},'yyyy-mm-dd hh24:mi:ss'),
+        	     </if> 
+    		
+        	     <if test="image != null " >
+        	     IMAGE =  #{image}
+        	     </if> 
+	    </set>
+        WHERE 
+    			CONTENTID = #{contentid} 
+	</update>
+
+	<!--删除语句-->
+		    <delete id="deleteContent" parameterType="long">
+		        DELETE FROM PSS_CONTENT_ZH_CN WHERE
+		    			CONTENTID = #{contentid}  
+		    </delete>
+    
+    <!--查询语句通过id-->
+    <select id="selectcontentById" resultMap="contentResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_CONTENT_ZH_CN 
+	    WHERE 
+				CONTENTID = #{contentid} 
+	</select>
+	<!-- 查询内容类型 -->
+	<select id="getContentType"  resultMap="contentResultMap">
+		SELECT CONTENTTYPE FROM PSS_CONTENT_ZH_CN GROUP BY CONTENTTYPE
+	</select>
+	<!-- 查询是否发布 -->
+	<select id="getisrelease"  resultMap="contentResultMap">
+		SELECT ISRELEASE FROM PSS_CONTENT_ZH_CN GROUP BY ISRELEASE
+	</select>
+	
+	 <!--通过查询条件查询列表-->
+<!--   	 	 <select id="getPssSysConfigListByname" resultMap="SystemConfigResultMap"> -->
+<!-- 		SELECT -->
+<!-- 		  <include refid="Base_Column_List" /> -->
+<!-- 		FROM PSS_SYS_CONFIG  -->
+<!-- 	    WHERE  -->
+<!-- 				CONFIGKEY = #{configkey}  -->
+<!-- 		</select> -->
+	 <!--查询全部语句-->
+    <select id="getContent" resultMap="contentResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_SYS_CONFIG 
+	</select>
+		<!--列表查询-->
+<!-- 		<select id="selectContentQuery" resultType="SystemConfig" resultMap="SystemConfigResultMap" parameterType="SystemConfigQuery"> -->
+<!-- 		SELECT -->
+<!-- 		  <include refid="Base_Column_List" /> -->
+<!-- 		FROM PSS_SYS_CONFIG  -->
+<!-- 			<trim prefix="WHERE" prefixOverrides="AND | OR"> -->
+<!-- 				<if test="contenttitle != null" > -->
+<!--         	      #{contenttitle}, -->
+<!--         	     </if>  -->
+<!--         	     <if test="content != null" > -->
+<!--         	      #{content}, -->
+<!--         	     </if>  -->
+<!--         	     <if test="isrelease != null" > -->
+<!--         	      #{isrelease}, -->
+<!--         	     </if>  -->
+<!--     			 <if test="contenttype != null" > -->
+<!--         	      #{contenttype}, -->
+<!--         	     </if>  -->
+<!--         	     <if test="createtime != null" > -->
+<!--         	      to_date('#{createtime}','yyyy-mm-dd hh24:mi:ss'), -->
+<!--         	     </if>  -->
+<!--         	     <if test="image != null" > -->
+<!--         	      #{image} -->
+<!--         	     </if>  -->
+<!-- 			</trim> -->
+<!-- 		<choose> -->
+<!-- 			<when test="sortBy != null and sortBy != ''"> -->
+<!-- 				<if test="sortType == 1"> -->
+<!-- 					ORDER BY  ${sortBy}  ASC -->
+<!-- 				</if> -->
+<!-- 				<if test="sortType == 2"> -->
+<!-- 					ORDER BY  ${sortBy}  DESC -->
+<!-- 				</if> -->
+<!-- 			</when> -->
+<!-- 			<otherwise> -->
+<!-- 				ORDER BY contentid ASC -->
+<!-- 			</otherwise> -->
+<!-- 		</choose> -->
+<!-- 	</select> -->
+	
+	<!--分页查询-->
+	<select id="getContentByQuery" resultType="Content" resultMap="contentResultMap" parameterType="ContentQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_CONTENT_ZH_CN 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				 		 <if test="contenttitle != null and contenttitle!=''" >
+		        	    AND  CONTENTTITLE like CONCAT('%${contenttitle}','%' )
+		        	     </if> 
+		        	     <if test="content != null and content!=''" >
+		        	    AND  CONTENT =  #{content}
+		        	     </if> 
+	     		
+		        	     <if test="isrelease != null and isrelease!='-1'" >
+		        	    AND  ISRELEASE = #{isrelease}
+		        	     </if> 
+	     				 <if test="contenttype != null and contenttype!='-1'" >
+		        	    AND CONTENTTYPE = #{contenttype}
+		        	     </if> 
+		        	     <if test="createtime != null" >
+		        	   AND  CREATETIME = to_date('#{createtime}','yyyy-mm-dd hh24:mi:ss')
+		        	     </if> 
+			     		<if test="btime != null and etime!=null and btime !='' and etime !=''" >
+				       AND CREATETIME &gt;=to_date(#{btime},'yyyy-mm-dd HH24:mi:ss')
+				         </if> 
+				         <if test="etime != null and btime!=null  and btime !='' and etime !=''" >
+				       AND CREATETIME &lt;=to_date(#{etime},'yyyy-mm-dd HH24:mi:ss')
+				         </if>
+		        	     <if test="image != null and image!=''" >
+		        	     IMAGE = #{image}
+		        	     </if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY createtime DESC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="ContentQuery">
+        SELECT count(*) FROM PSS_CONTENT_ZH_CN 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="contenttitle  != null" >
+	        	AND 	CONTENTTITLE = #{contenttitle}
+	     	 	</if>
+				<if test="content  != null" >
+	        	AND 	CONTENT = #{content}
+	     	 	</if>
+				<if test="isrelease  != null" >
+	        	AND 	ISRELEASE = #{isrelease}
+	     	 	</if>
+				<if test="contenttype  != null" >
+	        	AND 	CONTENTTYPE = #{contenttype}
+	     	 	</if>
+				<if test="createtime  != null" >
+	        	AND 	CREATETIME = #{createtime}
+	     	 	</if>
+	     	 	<if test="image  != null" >
+	        	AND 	IMAGE = #{image}
+	     	 	</if>
+    	</trim> 
+    </select>
+</mapper>

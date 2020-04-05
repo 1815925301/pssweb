@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="resourceModuleDao">
+	<resultMap id="resourceModuleInfoResult" type="resourceModule">
+		<id property="id" column="id"/>
+		<result property="moduleName" column="module_name"/>
+		<result property="name" column="module_name"/>
+		<result property="sortNum" column="sort_num"/>
+		<result property="pId" column="pid"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createUserId" column="create_userid"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateUserId" column="update_userid"/>
+		<result property="note" column="note"/>
+		<result property="moduleStyle" column="module_style"/>
+		<result property="moduleUrl" column="module_url"/>
+
+	</resultMap>
+	
+	<sql id="allColumn">
+		id, module_name, sort_num, pid, create_time, create_userid, update_time, update_userid, note, module_style, module_url
+    </sql>
+  
+	<!-- 获取所有的系统资源信息 -->
+	<select id="selectAllResourceModule" resultMap="resourceModuleInfoResult" resultType="resourceModule">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_resource_module 
+			ORDER BY sort_num,id ASC
+	</select>
+	
+	<!-- 获取功能树 -->
+	<select id="selectResourceModuleInfo" resultMap="resourceModuleInfoResult" resultType="resourceModule">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_resource_module
+			ORDER BY sort_num,id ASC
+	</select>
+	
+	<!-- 根据模块id集合获取资源模块信息 -->
+	<select id="selectResourceModuleInfoByIdList" resultMap="resourceModuleInfoResult" 
+				resultType="resourceModule" parameterType="java.util.List">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_resource_module  
+		WHERE id IN
+			<foreach collection="list" item="id"
+				open="(" separator="," close=")">
+				#{id}
+			</foreach> 
+		ORDER BY sort_num,id ASC
+	</select>
+	
+	<insert id="insertNewResourceModule" parameterType="resourceModule" useGeneratedKeys="false" keyProperty="id">
+		insert into sys_resource_module (
+		<trim suffix="" suffixOverrides=",">
+		     id,
+		    <if test="moduleName != null">
+				module_name,
+			</if>
+			<if test="pId != null">
+				pId,
+			</if>
+			<if test="sortNum != null">
+				sort_num,
+			</if>
+			<if test="note != null">
+				note,
+			</if>
+			<if test="createUserId != null">
+				create_userid,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateUserId != null">
+				update_userid,
+			</if>
+			<if test="moduleStyle != null">
+				module_style,
+			</if>
+			<if test="moduleUrl != null">
+				module_url,
+			</if>
+		</trim>
+		) values(
+		<trim suffix="" suffixOverrides=",">
+		    SYS_resource_module_SEQ.nextval,
+		   <if test="moduleName != null">
+				#{moduleName},
+			</if>
+			<if test="pId != null">
+				#{pId},
+			</if>
+			<if test="sortNum != null">
+				#{sortNum},
+			</if>
+			<if test="note != null">
+				#{note},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId},
+			</if>
+				<if test="moduleStyle != null">
+				#{moduleStyle},
+			</if>
+					<if test="moduleUrl != null">
+				#{moduleUrl},
+			</if>
+			
+		</trim>
+		)
+	</insert>
+	
+	<!-- 根据模块id获取模块信息 -->
+	<select id="selectModuleInfoByModuleId" resultMap="resourceModuleInfoResult" resultType="resourceModule" parameterType="long">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_resource_module
+		WHERE id = #{moduleId}
+	</select>
+	
+	<!-- 获取模块树 -->
+	<select id="selectModuleInfoTree" resultMap="resourceModuleInfoResult" resultType="resourceModule">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_resource_module
+				ORDER BY sort_num,id ASC
+	</select>
+	
+	<!-- 根据模块名称获取模块信息 -->
+	<select id="selectModuleInfoByModuleName" resultMap="resourceModuleInfoResult" resultType="resourceModule" parameterType="string">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_resource_module
+		WHERE module_name = #{moduleName}
+	</select>
+	
+	<!-- 根据模块名称获取模块信息 -->
+	<select id="selectModuleCountByModuleName" resultType="Integer" parameterType="resourceModuleQuery">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			sys_resource_module
+		WHERE module_name = #{moduleName}
+			<if test="id != null">
+				AND <![CDATA[ id <> #{id} ]]>
+			</if>
+	</select>
+	
+	<!-- 根据检索条件获取模块的数量 -->
+	<select id="selectModuleCountByQuery" resultType="Integer" parameterType="resourceModuleQuery">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			sys_resource_module 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="moduleName !=null">
+				AND module_name like '%${moduleName}%'
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 根据检索条件获取模块的信息 -->
+	<select id="selectModuleInfoByQuery" resultType="resourceModule" resultMap="resourceModuleInfoResult" parameterType="resourceModuleQuery">
+	    <if	 test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_resource_module 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="moduleName !=null">
+				AND module_name like '%${moduleName}%'
+			</if>
+		</trim>
+		ORDER BY sort_num,id ASC
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum} ]]>
+		</if>
+	</select>
+	
+	<!-- 根据模块ID更新模块信息 -->
+    <update id="updateModuleInfoByModuleId" parameterType="resourceModule">
+    	UPDATE sys_resource_module SET
+			<trim suffix="" suffixOverrides=",">
+				<if test="moduleName != null and moduleName != ''">
+					module_name = #{moduleName},
+				</if>
+				<if test="sortNum != null and sortNum != ''">
+					sort_num = #{sortNum},
+				</if>
+				<if test="note != null and note != ''">
+					note = #{note},
+				</if>
+				<if test="moduleStyle != null and moduleStyle != ''">
+					module_style = #{moduleStyle},
+				</if>
+				<if test="moduleUrl != null and moduleUrl != ''">
+					module_url = #{moduleUrl},
+				</if>
+				update_time = sysdate,
+				<if test="updateUserId != null">
+					update_userid = #{updateUserId},
+				</if>
+			</trim>
+			WHERE id = #{id} 
+    </update>
+    
+    <!-- 根据模块ID删除模块信息 物理删除 -->
+    <delete id="deleteModuleInfoByModuleId" parameterType="long">
+    	DELETE FROM sys_resource_module WHERE id = #{id}
+    </delete>
+	
+	
+</mapper>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="userUpdateDao">
+	<resultMap id="BaseResultMap" type="userUpdate">
+        	<result property="id" column="ID"/>
+        	<result property="frequency" column="FREQUENCY"/>
+        	<result property="updatetime" column="UPDATETIME"/>
+        	<result property="username" column="USERNAME"/>
+        	<result property="frequencyColumn" column="FREQUENCYCOLUMN"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ID,FREQUENCY,to_char(UPDATETIME,'yyyy-MM-dd HH24:mi:ss') as UPDATETIME,USERNAME,FREQUENCYCOLUMN
+	</sql>
+
+	<!-- 插入语句-->
+	<insert id="insertUserUpdate" parameterType="UserUpdate">
+        INSERT INTO PSS_USERMESSAGE_UPDATE 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        	        ID,
+	        	
+		        	     <if test="frequency != null" >
+	        		         FREQUENCY,
+	     		        </if> 
+	        	
+	        	
+		        	     <if test="updatetime != null" >
+	        		         UPDATETIME,
+	     		        </if> 
+	     		         <if test="username != null" >
+	        		         USERNAME,
+	     		        </if> 
+	     		         <if test="frequencyColumn != null" >
+	        		         FREQUENCYCOLUMN
+	     		        </if> 
+	        	
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+	        	        PSS_USERMESSAGE_UPDATE_SEQ.nextval,
+	     		
+		        	     <if test="frequency != null" >
+		        	      #{frequency},
+		        	     </if> 
+	     		
+		        	     
+	     		
+		        	     <if test="updatetime != null" >
+		        	      #{updatetime},
+		        	     </if> 
+	     		         <if test="username != null" >
+	        		        #{username}, 
+	     		        </if> 
+	     		         <if test="frequencyColumn != null" >
+	        		          #{frequencyColumn}
+	     		        </if>
+   	 </trim>
+	</insert>
+    
+   <!--更新语句-->
+	<update id="updateUser" parameterType="UserUpdate">
+        UPDATE PSS_USERMESSAGE_UPDATE 
+        <set >
+	        	<if test="frequency  != null" >
+	        		FREQUENCY = #{frequency} ,
+	     	 	</if>
+	        	
+	        	<if test="updatetime  != null" >
+	        		UPDATETIME = #{updatetime}, 
+	     	 	</if>
+	     	    <if test="frequencyColumn != null" >
+	        		FREQUENCYCOLUMN= #{frequencyColumn}
+	     		</if>
+	    </set>
+        WHERE 
+    			USERNAME = #{username} 
+	</update>
+
+	<!--删除语句-->
+		    <delete id="deleteUserUpdate" parameterType="Double">
+		        DELETE FROM PSS_USERMESSAGE_UPDATE WHERE
+		    			ID = #{id} 
+		    </delete>
+    
+    <!--查询语句-->
+    <select id="getUserUpdateById" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_USERMESSAGE_UPDATE 
+	    WHERE 
+				ID = #{id} 
+	</select>
+	
+		<!--列表查询-->
+		<select id="getUserUpdateListByQuery" resultType="UserUpdate" resultMap="BaseResultMap" parameterType="UserUpdateQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_USERMESSAGE_UPDATE 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="frequency  != null" >
+	        	AND 	FREQUENCY = #{frequency} 
+	     	 	</if>
+				<if test="updatetime  != null" >
+	        	AND 	UPDATETIME = #{updatetime} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	
+	
+    
+</mapper>
+

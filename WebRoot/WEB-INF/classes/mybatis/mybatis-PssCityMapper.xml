@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="PssCityDao">
+	<resultMap id="BaseResultMap" type="PssCity">
+        	<result property="name" column="NAME"/>
+        	<result property="code" column="CODE"/>
+        	<!-- <result property="enName" column="EN_NAME"/> -->
+        	<result property="provinceCode" column="PROVINCECODE"/>
+        	<result property="inprovince" column="INPROVINCE"/>
+        	<result property="gid" column="GID"/>
+        	<result property="area" column="AREA"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		NAME,CODE,PROVINCECODE,INPROVINCE,GID,AREA
+	</sql>
+    
+   <!--更新语句-->
+	<update id="updatePssCity" parameterType="PssCity">
+        UPDATE S_CITY 
+        <set >
+	        	<if test="name  != null" >
+	        		NAME = #{name} ,
+	     	 	</if>
+	        	<if test="enName  != null" >
+	        		EN_NAME = #{enName} ,
+	     	 	</if>
+	        	<if test="inprovince  != null" >
+	        		INPROVINCE = #{inprovince} ,
+	     	 	</if>
+	        	<if test="gid  != null" >
+	        		GID = #{gid} 
+	     	 	</if>
+	    </set>
+        WHERE 
+	</update>
+
+	<!--删除语句-->
+    
+	
+	<!--通过省份查询城市-->
+    <select id="getPssCityByProvince" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM S_CITY 
+	    WHERE PROVINCECODE = #{provinceCode}
+	</select>
+	
+		<!--列表查询-->
+		<select id="getPssCityListByQuery" resultType="PssCity" resultMap="BaseResultMap" parameterType="PssCityQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM S_CITY 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="name  != null" >
+	        	AND 	NAME = #{name} 
+	     	 	</if>
+				<if test="enName  != null" >
+	        	AND 	EN_NAME = #{enName} 
+	     	 	</if>
+				<if test="inprovince  != null" >
+	        	AND 	INPROVINCE = #{inprovince} 
+	     	 	</if>
+				<if test="gid  != null" >
+	        	AND 	GID = #{gid} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--分页查询-->
+	<select id="getPssCityInfoByQuery" resultType="PssCity" resultMap="BaseResultMap" parameterType="PssCityQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM S_CITY
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="name  != null" >
+	        	AND 	NAME = #{name} 
+	     	 	</if>
+				<if test="enName  != null" >
+	        	AND 	EN_NAME = #{enName} 
+	     	 	</if>
+				<if test="inprovince  != null" >
+	        	AND 	INPROVINCE = #{inprovince} 
+	     	 	</if>
+				<if test="gid  != null" >
+	        	AND 	GID = #{gid} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="PssCityQuery">
+        SELECT count(*) FROM S_CITY
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="name  != null" >
+	        	AND 	NAME = #{name}
+	     	 	</if>
+				<if test="enName  != null" >
+	        	AND 	EN_NAME = #{enName}
+	     	 	</if>
+				<if test="inprovince  != null" >
+	        	AND 	INPROVINCE = #{inprovince}
+	     	 	</if>
+				<if test="gid  != null" >
+	        	AND 	GID = #{gid}
+	     	 	</if>
+	     	 <if test="sqlWhere  != null" >
+	        	${sqlWhere}
+	     	 	</if>
+		</trim> 
+    </select>
+    
+</mapper>
+

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="SystemConfigDao">
+	<resultMap id="SystemConfigResultMap" type="SystemConfig">
+        	<result property="configid" column="CONFIGID"/>
+        	<result property="configkey" column="CONFIGKEY"/>
+        	<result property="configvalue" column="CONFIGVALUE"/>
+        	<result property="configdes" column="CONFIGDES"/>
+        	<result property="createtime" column="CREATETIME"/>
+        	<result property="configtype" column="CONFIGTYPE"/>
+        	<result property="imagelocation" column="IMAGELOCATION"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		CONFIGID,CONFIGKEY,CONFIGVALUE,CONFIGDES,to_char(CREATETIME,'yyyy-MM-dd HH24:mi:ss') as CREATETIME,CONFIGTYPE
+	</sql>
+
+	<!-- 插入语句-->
+	<insert id="insertSystemConfig" parameterType="SystemConfig">
+        INSERT INTO PSS_SYS_CONFIG 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        		       CONFIGID, 
+	        		         
+		        	     <if test="configkey != null" >
+	        		         CONFIGKEY,
+	     		        </if> 
+	        	
+		        	     <if test="configvalue != null" >
+	        		         CONFIGVALUE,
+	     		        </if> 
+	        	
+		        	     <if test="configdes != null" >
+	        		         CONFIGDES,
+	     		        </if> 
+	        	
+		        	     <if test="createtime != null" >
+	        		         CREATETIME,
+	     		        </if> 
+	        	
+		        	     <if test="configtype != null" >
+	        		         CONFIGTYPE,
+	     		        </if>
+	     		        <if test="imagelocation != null" >
+	        		         IMAGELOCATION
+	     		        </if> 
+	        	
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+ 		        	     PSS_SYS_CONFIG_SEQ.nextval,
+	     		
+		        	     <if test="configkey != null " >
+		        	      #{configkey},
+		        	     </if> 
+	     		
+		        	     <if test="configvalue != null" >
+		        	      #{configvalue},
+		        	     </if> 
+	     		
+		        	     <if test="configdes != null" >
+		        	      #{configdes},
+		        	     </if> 
+	     		
+		        	     <if test="createtime != null" >
+		        	      to_date(#{createtime},'yyyy-mm-dd HH24:mi:ss'),
+		        	     </if> 
+		        	      <if test="configtype != null" >
+	        		         #{configtype},
+	     		        </if> 
+	     		        <if test="imagelocation != null" >
+	        		         #{imagelocation}
+	     		        </if> 
+   	 </trim>
+	</insert>
+    <!-- 查询配置类型 -->
+    <select id="getsystemtypeList" resultMap="SystemConfigResultMap">
+	SELECT CONFIGTYPE FROM PSS_SYS_CONFIG GROUP BY CONFIGTYPE
+	</select>
+    
+   <!--更新语句-->
+	<update id="updatePssSysConfig" parameterType="SystemConfig">
+        UPDATE PSS_SYS_CONFIG 
+        <set >
+	        	<if test="configkey  != null" >
+	        		CONFIGKEY = #{configkey} ,
+	     	 	</if>
+	        	<if test="configvalue  != null" >
+	        		CONFIGVALUE = #{configvalue} ,
+	     	 	</if>
+	        	<if test="configdes  != null" >
+	        		CONFIGDES = #{configdes} ,
+	     	 	</if>
+	        	<if test="createtime  != null" >
+	        		CREATETIME = to_date(#{createtime},'yyyy-MM-dd HH24:mi:ss') ,
+	     	 	</if>
+	        	<if test="configtype  != null" >
+	        		CONFIGTYPE = #{configtype} 
+	     	 	</if>
+	    </set>
+        WHERE 
+    			CONFIGID = #{configid} 
+	</update>
+
+	<!--删除语句-->
+		    <delete id="deletePssSysConfig" parameterType="long">
+		        DELETE FROM PSS_SYS_CONFIG WHERE
+		    			CONFIGID = #{configId}  
+		    </delete>
+    
+    <!--查询语句通过id-->
+    <select id="selectDataById" resultMap="SystemConfigResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_SYS_CONFIG 
+	    WHERE 
+				CONFIGID = #{configId} 
+	</select>
+	
+	
+	 <!--通过查询条件查询列表-->
+  	 	 <select id="getPssSysConfigListByname" resultMap="SystemConfigResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_SYS_CONFIG 
+	    WHERE 
+				CONFIGKEY = #{configkey} 
+		</select>
+	 <!--查询全部语句-->
+    <select id="getSystemConfig" resultMap="SystemConfigResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_SYS_CONFIG 
+	</select>
+		<!--列表查询-->
+		<select id="selectSystemConfigQuery" resultType="SystemConfig" resultMap="SystemConfigResultMap" parameterType="SystemConfigQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_SYS_CONFIG 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="configkey  != null" >
+	        	AND 	CONFIGKEY = #{configkey} 
+	     	 	</if>
+				<if test="configvalue  != null" >
+	        	AND 	CONFIGVALUE = #{configvalue} 
+	     	 	</if>
+				<if test="configdes  != null" >
+	        	AND 	CONFIGDES = #{configdes} 
+	     	 	</if>
+				<if test="createtime  != null" >
+	        	AND 	CREATETIME = #{createtime} 
+	     	 	</if>
+				<if test="configtype  != null" >
+	        	AND 	CONFIGTYPE = #{configtype} 
+	     	 	</if>
+		</trim>
+<!-- 		<if -->
+<!-- 			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0"> -->
+<!-- 			limit #{startNum}, #{pageSize} -->
+<!-- 		</if> -->
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY configid ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--分页查询-->
+	<select id="getPssSysConfigListByQuery" resultType="SystemConfig" resultMap="SystemConfigResultMap" parameterType="SystemConfigQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_SYS_CONFIG 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="configkey  != null" >
+	        	AND 	CONFIGKEY = #{configkey} 
+	     	 	</if>
+				<if test="configvalue  != null" >
+	        	AND 	CONFIGVALUE = #{configvalue} 
+	     	 	</if>
+				<if test="configdes  != null" >
+	        	AND 	CONFIGDES = #{configdes} 
+	     	 	</if>
+				<if test="createtime  != null" >
+	        	AND 	CREATETIME = #{createtime} 
+	     	 	</if>
+	     	 	
+	     	 	<if test="btime != null and etime!=null and btime !='' and etime !=''" >
+		        CREATETIME &gt;=to_date(#{btime},'yyyy-mm-dd HH24:mi:ss')
+		         </if> 
+		         <if test="etime != null and btime!=null  and btime !='' and etime !=''" >
+		       AND CREATETIME &lt;=to_date(#{etime},'yyyy-mm-dd HH24:mi:ss')
+		         </if>
+	     	 	
+				<if test="configtype  != null and configtype!='-1'" >
+	        	AND 	CONFIGTYPE = #{configtype} 
+	     	 	</if>
+	     	 	 
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY createtime DESC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getPssSysConfigListByCondition" resultType="Integer" parameterType="SystemConfigQuery">
+        SELECT count(*) FROM PSS_SYS_CONFIG 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="configkey  != null" >
+	        	AND 	CONFIGKEY = #{configkey}
+	     	 	</if>
+				<if test="configvalue  != null" >
+	        	AND 	CONFIGVALUE = #{configvalue}
+	     	 	</if>
+				<if test="configdes  != null" >
+	        	AND 	CONFIGDES = #{configdes}
+	     	 	</if>
+				<if test="createtime  != null" >
+	        	AND 	CREATETIME = #{createtime}
+	     	 	</if>
+				<if test="configtype  != null and configtype!='-1'" >
+	        	AND 	CONFIGTYPE = #{configtype}
+	     	 	</if>
+<!-- 	     	 <if test="sqlWhere  != null" > -->
+<!-- 	        	${sqlWhere} -->
+<!-- 	     	 	</if> -->
+		</trim> 
+    </select>
+    
+    
+    
+    <!--列表查询-->
+		<select id="getAllDataByKeyDesc" resultType="SystemConfig" resultMap="SystemConfigResultMap" parameterType="systemConfig">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_SYS_CONFIG 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="configkey  != null" >
+	        	AND 	CONFIGKEY = #{configkey} 
+	     	 	</if>
+				<if test="configvalue  != null" >
+	        	AND 	CONFIGVALUE = #{configvalue} 
+	     	 	</if>
+				<if test="configdes  != null" >
+	        	AND 	CONFIGDES = #{configdes} 
+	     	 	</if>
+				<if test="createtime  != null" >
+	        	AND 	CREATETIME = #{createtime} 
+	     	 	</if>
+				<if test="configtype  != null" >
+	        	AND 	CONFIGTYPE = #{configtype} 
+	     	 	</if>
+		</trim>
+		
+	</select>
+</mapper>
+

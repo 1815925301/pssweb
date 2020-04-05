@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="userRoleDao">
+	<resultMap id="userRoleInfoResult" type="userRole">
+		<id property="id" column="id"/>
+		<result property="userId" column="user_id"/>
+		<result property="roleId" column="role_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createUserId" column="create_userid"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateUserId" column="update_userid"/>
+		<result property="note" column="note"/>
+	</resultMap>
+	
+	<sql id="allColumn">
+		id, user_id, role_id, create_time, create_userid, update_time, update_userid, note
+  	</sql>
+  
+	<insert id="inserNewUserRole" parameterType="userRole" useGeneratedKeys="false">
+		insert into sys_user_role (
+		<trim suffix="" suffixOverrides=",">
+		    id,
+			<if test="userId != null">
+				user_id,
+			</if>
+		    <if test="roleId != null">
+				role_id,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createUserId != null">
+				create_userid,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateUserId != null">
+				update_userid,
+			</if>
+			<if test="note != null">
+				note,
+			</if>
+		</trim>
+		) values(
+		<trim suffix="" suffixOverrides=",">
+		   SYS_USER_ROLE_SEQ.nextval,
+		   <if test="userId != null">
+				#{userId},
+			</if>
+			<if test="roleId != null">
+				#{roleId},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId},
+			</if>
+			<if test="note != null">
+				#{note},
+			</if>
+		</trim>
+		)
+		<!-- <selectKey keyProperty="id" resultType="long" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>-->
+	</insert>
+	
+	<!-- 根据用户id获取用户的角色信息 -->
+	<select id="selectRoleIdListByUserId" resultMap="userRoleInfoResult" resultType="userRole" parameterType="long">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_user_role 
+		WHERE
+			user_id = #{userID}
+		ORDER BY role_id ASC
+	</select>
+	
+	<!-- 根据检索条件获取系统用户角色的关联信息 -->
+	<select id="selectUserRoleByQuery" resultType="userRole" resultMap="userRoleInfoResult" parameterType="userRoleQuery">
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_user_role 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="userId !=null">
+				AND user_id = #{userId} 
+			</if>
+			<if test="roleId !=null">
+				AND role_id = #{roleId} 
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType != 1">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id DESC
+			</otherwise>
+		</choose>
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum} ]]>
+		</if>
+    </select>
+    
+    <!-- 根据检索条件获取系统用户角色的关联信息数量 -->
+	<select id="selectUserRoleCountByQuery" resultType="Integer" parameterType="userRoleQuery">
+		SELECT 
+			count(1) 
+		FROM 
+			sys_user_role
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="userId !=null">
+				AND <![CDATA[ user_id = #{userId} ]]>
+			</if>
+			<if test="roleId !=null">
+				AND <![CDATA[ role_id = #{roleId} ]]>
+			</if>
+		</trim>
+    </select>
+    
+    <!-- 根据用户id删除用户角色信息 物理删除 -->
+    <delete id="deleteUserRoleByUserId" parameterType="long">
+    	DELETE FROM sys_user_role WHERE user_id = #{userId}
+    </delete>
+    
+	<!-- 根据用户ID查询会员信息 -->
+	<select id="selectVipInfoByUserId" parameterType="userRole" resultType="map">
+		SELECT
+			pme.ONEMONTH,
+			pme.TREEMONTHS,
+			pme. YEAR,
+			sur.DREDGE_TYPE,
+			SUR.DREDGE_TIME,
+			PME.MEMBERTYPE,
+			sr.NOTE,
+			SUR.VIP_PRICE,
+			POP.UNIT
+		FROM
+			PSS_MEMBERPRICE pme,
+			SYS_USER_ROLE sur,
+			SYS_ROLES sr,
+			PSS_ORDER_PAY pop
+		WHERE
+			PME.MEMBERTYPE = SUR.ROLE_ID
+		AND SUR.USER_ID = #{userId}
+		AND SR. ID = PME.MEMBERTYPE
+		AND POP.USERID = SUR.USER_ID
+	</select>
+	
+	<!-- 根据会员等级查询价格信息 -->
+	<select id="getDerdgeVIPinfoByRoleId" parameterType="String" resultType="map">
+		SELECT
+			pme.ONEMONTH,
+			pme.TREEMONTHS,
+			pme. YEAR,
+			sr.NOTE
+		FROM
+			PSS_MEMBERPRICE pme,
+			SYS_ROLES sr
+		WHERE
+			SR. ID = PME.MEMBERTYPE
+		AND PME.MEMBERTYPE = #{roleId}
+	</select>
+	
+	<!-- 修改支付前会员用户角色信息 -->
+	<update id="updateBeforeUserRoleInfo" parameterType="map">
+	UPDATE SYS_USER_ROLE
+		SET ROLE_ID_BEFORE = #{roleId},
+		 DREDGE_TYPE = #{dredgeType},
+		 VIP_PRICE = #{price}
+		WHERE
+			USER_ID = #{userId}
+	</update>	
+	
+	<!-- 根据用户ID查询会员信息 -->
+	<select id="getroleInfoByUserId" parameterType="Long" resultType="map">
+	SELECT
+		SU.USER_NAME,
+		SR.NOTE,
+		SUR.DREDGE_TIME,
+		SUR.DREDGE_TYPE,
+		SUR.VIP_PRICE,
+		POP.UNIT
+	FROM
+		SYS_USERS su,
+		SYS_USER_ROLE sur,
+		SYS_ROLES sr,
+		PSS_ORDER_PAY pop
+	WHERE
+	SU.ID = SUR.USER_ID 
+	AND SUR.ROLE_ID = SR.ID
+	AND SU.ID = #{userId}
+	AND POP.USERID = SUR.USER_ID
+	</select>
+	
+		<!-- 根据用户ID查询会员支付信息条数 -->
+	<select id="getRolePayCountByUserId" parameterType="map" resultType="int">
+		SELECT
+			COUNT(ID) num
+		FROM
+			PSS_ORDER_PAY
+		WHERE
+			USERID = #{userid}
+	</select>
+</mapper>

@@ -1,0 +1,1101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="PssCollectInfoDao">
+	<resultMap id="pssCollectInfoResultMap" type="PssCollectInfo">
+        	<result property="id" column="ID"/>
+        	<result property="taskid" column="TASKID"/>
+        	<result property="operatorname" column="OPERATORNAME"/>
+        	<result property="priority" column="PRIORITY"/>
+        	<result property="username" column="USERNAME"/>
+        	<result property="satelliteid" column="SATELLITEID"/>
+        	<result property="sensorid" column="SENSORID"/>
+        	<result property="begintime" column="BEGINTIME"/>
+        	<result property="endtime" column="ENDTIME"/>
+        	<result property="upperleftlong" column="UPPERLEFTLONG"/>
+        	<result property="upperleftlat" column="UPPERLEFTLAT"/>
+        	<result property="upperrightlong" column="UPPERRIGHTLONG"/>
+        	<result property="upperrightlat" column="UPPERRIGHTLAT"/>
+        	<result property="lowerleftlong" column="LOWERLEFTLONG"/>
+        	<result property="lowerleftlat" column="LOWERLEFTLAT"/>
+        	<result property="lowerrightlong" column="LOWERRIGHTLONG"/>
+        	<result property="lowerrightlat" column="LOWERRIGHTLAT"/>
+        	<result property="productlevel" column="PRODUCTLEVEL"/>
+        	<result property="polarizealogrithm" column="POLARIZEALOGRITHM"/>
+        	<result property="cloudcover" column="CLOUDCOVER"/>
+        	<result property="price" column="PRICE"/>
+        	<result property="remark" column="REMARK"/>
+        	<result property="finishdownloadif" column="FINISHDOWNLOADIF"/>
+        	<result property="finishdownloadtime" column="FINISHDOWNLOADTIME"/>
+        	<result property="status" column="STATUS"/>
+        	<result property="stationid" column="STATIONID"/>
+        	<result property="reason" column="REASON"/>
+        	<result property="subdate" column="SUBDATE"/>
+        	<result property="areacenterlat" column="AREACENTERLAT"/>
+        	<result property="areacenterlong" column="AREACENTERLONG"/>
+        	<result property="averagecloud" column="AVERAGECLOUD"/>
+        	<result property="sideangle" column="SIDEANGLE"/>
+        	<result property="usertype" column="USERTYPE"/>
+        	<result property="urgencylevel" column="URGENCYLEVEL"/>
+        	<result property="issend" column="ISSEND"/>
+        	<result property="iscancel" column="ISCANCEL"/>
+        	<result property="createtime" column="CREATETIME"/>
+        	<result property="collectidstr" column="COLLECTIDSTR"/>
+        	<result property="earthsurfacename" column="EARTHSURFACENAME"/>
+        	<result property="surfacereflectivity" column="SURFACEREFLECTIVITY"/>
+        	<result property="observationinterval" column="OBSERVATIONINTERVAL"/>
+        	<result property="gatherareaname" column="GATHERAREANAME"/>
+        	<result property="gatherareadescription" column="GATHERAREADESCRIPTION"/>
+        	<result property="instrumentmode" column="INSTRUMENTMODE"/>
+        	<result property="area" column="AREA"/>
+        	<result property="checkstate" column="CHECKSTATE"/>
+        	<result property="note" column="NOTE"/>
+        	<result property="isfault" column="ISFAULT"/>
+        	<result property="friendlyprompt" column="FRIENDLYPROMPT"/>
+        	<result property="unit" column="UNIT"/>
+        	<result property="ispay" column="ISPAY"/>
+        	<result property="checkispay" column="CHECKISPAY"/>
+        	<result property="isrefund" column="ISREFUND"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ID,TASKID,OPERATORNAME,PRIORITY,USERNAME,SATELLITEID,SENSORID,to_char(BEGINTIME,'yyyy-MM-dd HH24:mi:ss') as BEGINTIME,to_char(ENDTIME,'yyyy-MM-dd HH24:mi:ss') as ENDTIME,UPPERLEFTLONG,UPPERLEFTLAT,UPPERRIGHTLONG,UPPERRIGHTLAT,LOWERLEFTLONG,LOWERLEFTLAT,LOWERRIGHTLONG,LOWERRIGHTLAT,PRODUCTLEVEL,POLARIZEALOGRITHM,CLOUDCOVER,PRICE,REMARK,FINISHDOWNLOADIF,to_char(FINISHDOWNLOADTIME,'yyyy-MM-dd HH24:mi:ss') as FINISHDOWNLOADTIME,STATUS,STATIONID,REASON,to_char(SUBDATE,'yyyy-MM-dd HH24:mi:ss') as SUBDATE,AREACENTERLAT,AREACENTERLONG,AVERAGECLOUD,SIDEANGLE,USERTYPE,URGENCYLEVEL,ISSEND,ISCANCEL,to_char(CREATETIME,'yyyy-MM-dd HH24:mi:ss') as CREATETIME,COLLECTIDSTR,EARTHSURFACENAME,SURFACEREFLECTIVITY,OBSERVATIONINTERVAL,GATHERAREANAME,GATHERAREADESCRIPTION,INSTRUMENTMODE,AREA,CHECKSTATE,NOTE,ISFAULT,FRIENDLYPROMPT,UNIT,ISPAY,CHECKISPAY,ISREFUND
+	</sql>
+
+	<!-- 插入语句-->
+	<insert id="insertPssCollectInfo" parameterType="PssCollectInfo">
+        INSERT INTO PSS_COLLECT_INFO 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        	        ID,
+	        	
+		        	     <if test="taskid != null" >
+	        		         TASKID,
+	     		        </if> 
+	        	
+		        	     <if test="operatorname != null" >
+	        		         OPERATORNAME,
+	     		        </if> 
+	        	
+		        	     <if test="priority != null" >
+	        		         PRIORITY,
+	     		        </if> 
+	        	
+		        	     <if test="username != null" >
+	        		         USERNAME,
+	     		        </if> 
+	        	
+		        	     <if test="satelliteid != null" >
+	        		         SATELLITEID,
+	     		        </if> 
+	        	
+		        	     <if test="sensorid != null" >
+	        		         SENSORID,
+	     		        </if> 
+	        	
+		        	     <if test="begintime != null and begintime !=''">
+							BEGINTIME,
+	     		        </if> 
+	        	
+		        	     <if test="endtime != null and endtime !=''" >
+	        		         ENDTIME,
+	     		        </if> 
+	        	
+		        	     <if test="upperleftlong != null" >
+	        		         UPPERLEFTLONG,
+	     		        </if> 
+	        	
+		        	     <if test="upperleftlat != null" >
+	        		         UPPERLEFTLAT,
+	     		        </if> 
+	        	
+		        	     <if test="upperrightlong != null" >
+	        		         UPPERRIGHTLONG,
+	     		        </if> 
+	        	
+		        	     <if test="upperrightlat != null" >
+	        		         UPPERRIGHTLAT,
+	     		        </if> 
+	        	
+		        	     <if test="lowerleftlong != null" >
+	        		         LOWERLEFTLONG,
+	     		        </if> 
+	        	
+		        	     <if test="lowerleftlat != null" >
+	        		         LOWERLEFTLAT,
+	     		        </if> 
+	        	
+		        	     <if test="lowerrightlong != null" >
+	        		         LOWERRIGHTLONG,
+	     		        </if> 
+	        	
+		        	     <if test="lowerrightlat != null" >
+	        		         LOWERRIGHTLAT,
+	     		        </if> 
+	        	
+		        	     <if test="productlevel != null" >
+	        		         PRODUCTLEVEL,
+	     		        </if> 
+	        	
+		        	     <if test="polarizealogrithm != null" >
+	        		         POLARIZEALOGRITHM,
+	     		        </if> 
+	        	
+		        	     <if test="cloudcover != null" >
+	        		         CLOUDCOVER,
+	     		        </if> 
+	        	
+		        	     <if test="price != null" >
+	        		         PRICE,
+	     		        </if> 
+	        	
+		        	     <if test="remark != null" >
+	        		         REMARK,
+	     		        </if> 
+	        	
+		        	     <if test="finishdownloadif != null" >
+	        		         FINISHDOWNLOADIF,
+	     		        </if> 
+	        	
+		        	     <if test="finishdownloadtime != null and finishdownloadtime !=''" >
+	        		         FINISHDOWNLOADTIME,
+	     		        </if> 
+	        	
+		        	     <if test="status != null" >
+	        		         STATUS,
+	     		        </if> 
+	        	
+		        	     <if test="stationid != null" >
+	        		         STATIONID,
+	     		        </if> 
+	        	
+		        	     <if test="reason != null" >
+	        		         REASON,
+	     		        </if> 
+	        	
+		        	     <if test="subdate != null and subdate !=''" >
+	        		         SUBDATE,
+	     		        </if> 
+	        	
+		        	     <if test="areacenterlat != null" >
+	        		         AREACENTERLAT,
+	     		        </if> 
+	        	
+		        	     <if test="areacenterlong != null" >
+	        		         AREACENTERLONG,
+	     		        </if> 
+	        	
+		        	     <if test="averagecloud != null" >
+	        		         AVERAGECLOUD,
+	     		        </if> 
+	        	
+		        	     <if test="sideangle != null" >
+	        		         SIDEANGLE,
+	     		        </if> 
+	        	
+		        	     <if test="usertype != null" >
+	        		         USERTYPE,
+	     		        </if> 
+	        	
+		        	     <if test="urgencylevel != null" >
+	        		         URGENCYLEVEL,
+	     		        </if> 
+	        	
+		        	     <if test="issend != null" >
+	        		         ISSEND,
+	     		        </if> 
+	        	
+		        	     <if test="iscancel != null" >
+	        		         ISCANCEL,
+	     		        </if> 
+	        	
+		        	     <if test="createtime != null" >
+	        		        CREATETIME,
+	     		        </if> 
+	        	
+		        	     <if test="collectidstr != null" >
+	        		         COLLECTIDSTR,
+	     		        </if> 
+	        	
+		        	     <if test="earthsurfacename != null" >
+	        		         EARTHSURFACENAME,
+	     		        </if> 
+	        	
+		        	     <if test="surfacereflectivity != null" >
+	        		         SURFACEREFLECTIVITY,
+	     		        </if> 
+	        	
+		        	     <if test="observationinterval != null" >
+	        		         OBSERVATIONINTERVAL,
+	     		        </if> 
+	        	
+		        	     <if test="gatherareaname != null" >
+	        		         GATHERAREANAME,
+	     		        </if> 
+	        	
+		        	     <if test="gatherareadescription != null" >
+	        		         GATHERAREADESCRIPTION,
+	     		        </if> 
+	     		         <if test="area != null" >
+	        		         AREA,
+	     		        </if>
+	     		         <if test="unit != null" >
+	        		         UNIT,
+	     		        </if>
+	     		        <if test="ispay != null" >
+	        		         ISPAY,
+	     		        </if>
+	     		         <if test="checkispay != null" >
+	        		         CHECKISPAY,
+	     		        </if>
+	        	
+		        	     <if test="instrumentmode != null" >
+	        		         INSTRUMENTMODE,
+	     		        </if> 
+	        	
+		        	     <if test="firstprinciple != null" >
+	        		         FIRSTPRINCIPLE
+	     		        </if> 
+	        	
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+	        	        PSS_COLLECT_INFO_SEQ.nextval,
+	     		
+		        	     <if test="taskid != null" >
+		        	      #{taskid},
+		        	     </if> 
+	     		
+		        	     <if test="operatorname != null" >
+		        	      #{operatorname},
+		        	     </if> 
+	     		
+		        	     <if test="priority != null" >
+		        	      #{priority},
+		        	     </if> 
+	     		
+		        	     <if test="username != null" >
+		        	      #{username},
+		        	     </if> 
+	     		
+		        	     <if test="satelliteid != null" >
+		        	      #{satelliteid},
+		        	     </if> 
+	     		
+		        	     <if test="sensorid != null" >
+		        	      #{sensorid},
+		        	     </if> 
+	     		
+		        	     <if test="begintime != null" >
+		        	      to_date(#{begintime},'yyyy-mm-dd hh24:mi:ss'),
+		        	     </if> 
+	     		
+		        	     <if test="endtime != null" >
+		        	      to_date(#{endtime},'yyyy-mm-dd hh24:mi:ss'),
+		        	     </if> 
+	     		
+		        	     <if test="upperleftlong != null" >
+		        	      #{upperleftlong},
+		        	     </if> 
+	     		
+		        	     <if test="upperleftlat != null" >
+		        	      #{upperleftlat},
+		        	     </if> 
+	     		
+		        	     <if test="upperrightlong != null" >
+		        	      #{upperrightlong},
+		        	     </if> 
+	     		
+		        	     <if test="upperrightlat != null" >
+		        	      #{upperrightlat},
+		        	     </if> 
+	     		
+		        	     <if test="lowerleftlong != null" >
+		        	      #{lowerleftlong},
+		        	     </if> 
+	     		
+		        	     <if test="lowerleftlat != null" >
+		        	      #{lowerleftlat},
+		        	     </if> 
+	     		
+		        	     <if test="lowerrightlong != null" >
+		        	      #{lowerrightlong},
+		        	     </if> 
+	     		
+		        	     <if test="lowerrightlat != null" >
+		        	      #{lowerrightlat},
+		        	     </if> 
+	     		
+		        	     <if test="productlevel != null" >
+		        	      #{productlevel},
+		        	     </if> 
+	     		
+		        	     <if test="polarizealogrithm != null" >
+		        	      #{polarizealogrithm},
+		        	     </if> 
+	     		
+		        	     <if test="cloudcover != null" >
+		        	      #{cloudcover},
+		        	     </if> 
+	     		
+		        	     <if test="price != null" >
+		        	      #{price},
+		        	     </if> 
+	     		
+		        	     <if test="remark != null" >
+		        	      #{remark},
+		        	     </if> 
+	     		
+		        	     <if test="finishdownloadif != null" >
+		        	      #{finishdownloadif},
+		        	     </if> 
+	     		
+		        	     <if test="finishdownloadtime != null" >
+		        	      #{finishdownloadtime},
+		        	     </if> 
+	     		
+		        	     <if test="status != null" >
+		        	      #{status},
+		        	     </if> 
+	     		
+		        	     <if test="stationid != null" >
+		        	      #{stationid},
+		        	     </if> 
+	     		
+		        	     <if test="reason != null" >
+		        	      #{reason},
+		        	     </if> 
+	     		
+		        	     <if test="subdate != null" >
+		        	      #{subdate},
+		        	     </if> 
+	     		
+		        	     <if test="areacenterlat != null" >
+		        	      #{areacenterlat},
+		        	     </if> 
+	     		
+		        	     <if test="areacenterlong != null" >
+		        	      #{areacenterlong},
+		        	     </if> 
+	     		
+		        	     <if test="averagecloud != null" >
+		        	      #{averagecloud},
+		        	     </if> 
+	     		
+		        	     <if test="sideangle != null" >
+		        	      #{sideangle},
+		        	     </if> 
+	     		
+		        	     <if test="usertype != null" >
+		        	      #{usertype},
+		        	     </if> 
+	     		
+		        	     <if test="urgencylevel != null" >
+		        	      #{urgencylevel},
+		        	     </if> 
+	     		
+		        	     <if test="issend != null" >
+		        	      #{issend},
+		        	     </if> 
+	     		
+		        	     <if test="iscancel != null" >
+		        	      #{iscancel},
+		        	     </if> 
+	     		
+		        	      <if test="createtime != null and createtime !='' " >
+		        	      to_date(#{createtime},'yyyy-mm-dd hh24:mi:ss'),
+		        	     
+		        	     </if> 
+	     		
+	     		
+		        	     <if test="collectidstr != null" >
+		        	      #{collectidstr},
+		        	     </if> 
+	     		
+		        	     <if test="earthsurfacename != null" >
+		        	      #{earthsurfacename},
+		        	     </if> 
+	     		
+		        	     <if test="surfacereflectivity != null" >
+		        	      #{surfacereflectivity},
+		        	     </if> 
+	     		
+		        	     <if test="observationinterval != null" >
+		        	      #{observationinterval},
+		        	     </if> 
+	     		
+		        	     <if test="gatherareaname != null" >
+		        	      #{gatherareaname},
+		        	     </if> 
+	     		
+		        	     <if test="gatherareadescription != null" >
+		        	      #{gatherareadescription},
+		        	     </if> 
+		        	       <if test="area != null" >
+		        	      #{area},
+		        	     </if> 
+		        	      <if test="unit != null" >
+		        	      #{unit},
+		        	     </if> 
+		        	      <if test="ispay != null" >
+		        	      #{ispay},
+		        	     </if> 
+		        	     <if test="checkispay != null" >
+		        	      #{checkispay},
+		        	     </if> 
+	     		
+		        	     <if test="instrumentmode != null" >
+		        	      #{instrumentmode},
+		        	     </if> 
+		        	     <if test="firstprinciple != null" >
+		        	      #{firstprinciple}
+		        	     </if> 
+	     		
+   	 </trim>
+	</insert>
+    
+   <!--更新语句-->
+	<update id="updatePssCollectInfo" parameterType="PssCollectInfo">
+        UPDATE PSS_COLLECT_INFO 
+        <set >
+	        
+	        	<if test="operatorname  != null" >
+	        		OPERATORNAME = #{operatorname} ,
+	     	 	</if>
+	        	<if test="priority  != null" >
+	        		PRIORITY = #{priority} ,
+	     	 	</if>
+	        	<if test="username  != null" >
+	        		USERNAME = #{username} ,
+	     	 	</if>
+	        	<if test="satelliteid  != null" >
+	        		SATELLITEID = #{satelliteid} ,
+	     	 	</if>
+	        	<if test="sensorid  != null" >
+	        		SENSORID = #{sensorid} ,
+	     	 	</if>
+	        	<if test="begintime  != null" >
+	        		BEGINTIME = #{begintime} ,
+	     	 	</if>
+	        	<if test="endtime  != null" >
+	        		ENDTIME = #{endtime} ,
+	     	 	</if>
+	        	<if test="upperleftlong  != null" >
+	        		UPPERLEFTLONG = #{upperleftlong} ,
+	     	 	</if>
+	        	<if test="upperleftlat  != null" >
+	        		UPPERLEFTLAT = #{upperleftlat} ,
+	     	 	</if>
+	        	<if test="upperrightlong  != null" >
+	        		UPPERRIGHTLONG = #{upperrightlong} ,
+	     	 	</if>
+	        	<if test="upperrightlat  != null" >
+	        		UPPERRIGHTLAT = #{upperrightlat} ,
+	     	 	</if>
+	        	<if test="lowerleftlong  != null" >
+	        		LOWERLEFTLONG = #{lowerleftlong} ,
+	     	 	</if>
+	        	<if test="lowerleftlat  != null" >
+	        		LOWERLEFTLAT = #{lowerleftlat} ,
+	     	 	</if>
+	        	<if test="lowerrightlong  != null" >
+	        		LOWERRIGHTLONG = #{lowerrightlong} ,
+	     	 	</if>
+	        	<if test="lowerrightlat  != null" >
+	        		LOWERRIGHTLAT = #{lowerrightlat} ,
+	     	 	</if>
+	        	<if test="productlevel  != null" >
+	        		PRODUCTLEVEL = #{productlevel} ,
+	     	 	</if>
+	        	<if test="polarizealogrithm  != null" >
+	        		POLARIZEALOGRITHM = #{polarizealogrithm} ,
+	     	 	</if>
+	        	<if test="cloudcover  != null" >
+	        		CLOUDCOVER = #{cloudcover} ,
+	     	 	</if>
+	        	<if test="price  != null" >
+	        		PRICE = #{price} ,
+	     	 	</if>
+	        	<if test="remark  != null" >
+	        		REMARK = #{remark} ,
+	     	 	</if>
+	        	<if test="finishdownloadif  != null" >
+	        		FINISHDOWNLOADIF = #{finishdownloadif} ,
+	     	 	</if>
+	        	<if test="finishdownloadtime  != null" >
+	        		FINISHDOWNLOADTIME = #{finishdownloadtime} ,
+	     	 	</if>
+	        	<if test="status  != null" >
+	        		STATUS = #{status} ,
+	     	 	</if>
+	        	<if test="stationid  != null" >
+	        		STATIONID = #{stationid} ,
+	     	 	</if>
+	        	<if test="reason  != null" >
+	        		REASON = #{reason} ,
+	     	 	</if>
+	        	<if test="subdate  != null" >
+	        		SUBDATE = #{subdate} ,
+	     	 	</if>
+	        	<if test="areacenterlat  != null" >
+	        		AREACENTERLAT = #{areacenterlat} ,
+	     	 	</if>
+	        	<if test="areacenterlong  != null" >
+	        		AREACENTERLONG = #{areacenterlong} ,
+	     	 	</if>
+	        	<if test="averagecloud  != null" >
+	        		AVERAGECLOUD = #{averagecloud} ,
+	     	 	</if>
+	        	<if test="sideangle  != null" >
+	        		SIDEANGLE = #{sideangle} ,
+	     	 	</if>
+	        	<if test="usertype  != null" >
+	        		USERTYPE = #{usertype} ,
+	     	 	</if>
+	        	<if test="urgencylevel  != null" >
+	        		URGENCYLEVEL = #{urgencylevel} ,
+	     	 	</if>
+	        	<if test="issend  != null" >
+	        		ISSEND = #{issend} ,
+	     	 	</if>
+	        	<if test="iscancel  != null" >
+	        		ISCANCEL = #{iscancel} ,
+	     	 	</if>
+	        	<if test="createtime  != null" >
+	        		CREATETIME = #{createtime} ,
+	     	 	</if>
+	        	<if test="collectidstr  != null" >
+	        		COLLECTIDSTR = #{collectidstr} ,
+	     	 	</if>
+	        	<if test="earthsurfacename  != null" >
+	        		EARTHSURFACENAME = #{earthsurfacename} ,
+	     	 	</if>
+	        	<if test="surfacereflectivity  != null" >
+	        		SURFACEREFLECTIVITY = #{surfacereflectivity} ,
+	     	 	</if>
+	        	<if test="observationinterval  != null" >
+	        		OBSERVATIONINTERVAL = #{observationinterval} ,
+	     	 	</if>
+	        	<if test="gatherareaname  != null" >
+	        		GATHERAREANAME = #{gatherareaname} ,
+	     	 	</if>
+	        	<if test="gatherareadescription  != null" >
+	        		GATHERAREADESCRIPTION = #{gatherareadescription} ,
+	     	 	</if>
+	     	 	<if test="ispay  != null" >
+	        		ISPAY = #{ispay} ,
+	     	 	</if>
+	     	 	<if test="checkispay  != null" >
+	        		CHECKISPAY = #{checkispay} ,
+	     	 	</if>
+	        	<if test="instrumentmode  != null" >
+	        		INSTRUMENTMODE = #{instrumentmode} 
+	     	 	</if>
+	    </set>
+        WHERE 
+    			TASKID = #{taskid} 
+	</update>
+
+	<!--删除语句-->
+		    <delete id="deletePssCollectInfo" parameterType="Double">
+		        DELETE FROM PSS_COLLECT_INFO WHERE
+		    			ID = #{id} 
+		    </delete>
+    
+    <!--查询语句-->
+    <select id="getPssCollectInfoById" resultMap="pssCollectInfoResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_COLLECT_INFO 
+	    WHERE 
+				ID = #{id} 
+	</select>
+	 <select id="getCollectByid" resultMap="pssCollectInfoResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_COLLECT_INFO 
+	    WHERE 
+				TASKID = #{taskid} 
+	</select>
+		<!--列表查询-->
+		<select id="getPssCollectInfoListByQuery" resultType="PssCollectInfo" resultMap="pssCollectInfoResultMap" parameterType="PssCollectInfoQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_COLLECT_INFO 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="taskid  != null" >
+	        	AND TASKID like CONCAT('%${taskid}','%' ) 
+	     	 	</if>
+				<if test="operatorname  != null" >
+	        	AND 	OPERATORNAME = #{operatorname} 
+	     	 	</if>
+				<if test="priority  != null" >
+	        	AND 	PRIORITY = #{priority} 
+	     	 	</if>
+				<if test="username  != null" >
+	        	AND 	USERNAME = #{username} 
+	     	 	</if>
+	     	 	<if test="satelliteid != null ">
+        		 AND SATELLITEID like CONCAT('%${satelliteid}','%' )
+        		</if>
+				<if test="sensorid  != null" >
+				AND SENSORID like CONCAT('%${sensorid}','%' )
+	     	 	</if>
+				<if test="begintime  != null" >
+	        	AND 	BEGINTIME = #{begintime} 
+	     	 	</if>
+				<if test="endtime  != null" >
+	        	AND 	ENDTIME = #{endtime} 
+	     	 	</if>
+				<if test="upperleftlong  != null" >
+	        	AND 	UPPERLEFTLONG = #{upperleftlong} 
+	     	 	</if>
+				<if test="upperleftlat  != null" >
+	        	AND 	UPPERLEFTLAT = #{upperleftlat} 
+	     	 	</if>
+				<if test="upperrightlong  != null" >
+	        	AND 	UPPERRIGHTLONG = #{upperrightlong} 
+	     	 	</if>
+				<if test="upperrightlat  != null" >
+	        	AND 	UPPERRIGHTLAT = #{upperrightlat} 
+	     	 	</if>
+				<if test="lowerleftlong  != null" >
+	        	AND 	LOWERLEFTLONG = #{lowerleftlong} 
+	     	 	</if>
+				<if test="lowerleftlat  != null" >
+	        	AND 	LOWERLEFTLAT = #{lowerleftlat} 
+	     	 	</if>
+				<if test="lowerrightlong  != null" >
+	        	AND 	LOWERRIGHTLONG = #{lowerrightlong} 
+	     	 	</if>
+				<if test="lowerrightlat  != null" >
+	        	AND 	LOWERRIGHTLAT = #{lowerrightlat} 
+	     	 	</if>
+				<if test="productlevel  != null" >
+	        	AND 	PRODUCTLEVEL = #{productlevel} 
+	     	 	</if>
+				<if test="polarizealogrithm  != null" >
+	        	AND 	POLARIZEALOGRITHM = #{polarizealogrithm} 
+	     	 	</if>
+				<if test="cloudcover  != null" >
+	        	AND 	CLOUDCOVER = #{cloudcover} 
+	     	 	</if>
+				<if test="price  != null" >
+	        	AND 	PRICE = #{price} 
+	     	 	</if>
+				<if test="remark  != null" >
+	        	AND 	REMARK = #{remark} 
+	     	 	</if>
+				<if test="finishdownloadif  != null" >
+	        	AND 	FINISHDOWNLOADIF = #{finishdownloadif} 
+	     	 	</if>
+				<if test="finishdownloadtime  != null" >
+	        	AND 	FINISHDOWNLOADTIME = #{finishdownloadtime} 
+	     	 	</if>
+				<if test="status  != null" >
+	        	AND STATUS like CONCAT('%${status}','%' ) 
+	     	 	</if>
+				<if test="stationid  != null" >
+	        	AND 	STATIONID = #{stationid} 
+	     	 	</if>
+				<if test="reason  != null" >
+	        	AND 	REASON = #{reason} 
+	     	 	</if>
+				<if test="subdate  != null" >
+	        	AND 	SUBDATE = #{subdate} 
+	     	 	</if>
+				<if test="areacenterlat  != null" >
+	        	AND 	AREACENTERLAT = #{areacenterlat} 
+	     	 	</if>
+				<if test="areacenterlong  != null" >
+	        	AND 	AREACENTERLONG = #{areacenterlong} 
+	     	 	</if>
+				<if test="averagecloud  != null" >
+	        	AND 	AVERAGECLOUD = #{averagecloud} 
+	     	 	</if>
+				<if test="sideangle  != null" >
+	        	AND 	SIDEANGLE = #{sideangle} 
+	     	 	</if>
+				<if test="usertype  != null" >
+	        	AND 	USERTYPE = #{usertype} 
+	     	 	</if>
+				<if test="urgencylevel  != null" >
+	        	AND 	URGENCYLEVEL = #{urgencylevel} 
+	     	 	</if>
+				<if test="issend  != null" >
+	        	AND 	ISSEND = #{issend} 
+	     	 	</if>
+				<if test="iscancel  != null" >
+	        	AND 	ISCANCEL = #{iscancel} 
+	     	 	</if>
+				<if test="createtime  != null" >
+	        	AND 	CREATETIME = #{createtime} 
+	     	 	</if>
+				<if test="collectidstr  != null" >
+	        	AND 	COLLECTIDSTR = #{collectidstr} 
+	     	 	</if>
+				<if test="earthsurfacename  != null" >
+	        	AND 	EARTHSURFACENAME = #{earthsurfacename} 
+	     	 	</if>
+				<if test="surfacereflectivity  != null" >
+	        	AND 	SURFACEREFLECTIVITY = #{surfacereflectivity} 
+	     	 	</if>
+				<if test="observationinterval  != null" >
+	        	AND 	OBSERVATIONINTERVAL = #{observationinterval} 
+	     	 	</if>
+				<if test="gatherareaname  != null" >
+	        	AND 	GATHERAREANAME = #{gatherareaname} 
+	     	 	</if>
+				<if test="gatherareadescription  != null" >
+	        	AND 	GATHERAREADESCRIPTION = #{gatherareadescription} 
+	     	 	</if>
+				<if test="instrumentmode  != null" >
+	        	AND 	INSTRUMENTMODE = #{instrumentmode} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 查询卫星 -->
+	<select id="getSatelliteList" resultMap="pssCollectInfoResultMap">
+	SELECT SATELLITEID FROM PSS_COLLECT_INFO GROUP BY SATELLITEID
+	</select>
+	<!-- 传感器 -->
+	<select id="getSensoridList" resultMap="pssCollectInfoResultMap">
+	SELECT SENSORID FROM PSS_COLLECT_INFO GROUP BY SENSORID
+	</select>
+	<!-- 采集单状态 -->
+	<select id="getStatusList" resultMap="pssCollectInfoResultMap">
+	SELECT STATUS FROM PSS_COLLECT_INFO GROUP BY STATUS
+	</select>
+
+	<!--分页查询-->
+	<select id="getPssCollectInfoInfoByQuery" resultType="PssCollectInfo" resultMap="pssCollectInfoResultMap" parameterType="PssCollectInfoQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_COLLECT_INFO 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="taskid  != null" >
+	        	AND TASKID like CONCAT('%${taskid}','%' ) 
+	     	 	</if>
+				<if test="operatorname  != null" >
+	        	AND 	OPERATORNAME = #{operatorname} 
+	     	 	</if>
+				<if test="priority  != null" >
+	        	AND 	PRIORITY = #{priority} 
+	     	 	</if>
+				<if test="username  != null" >
+	        	AND 	USERNAME = #{username} 
+	     	 	</if>
+				<if test="satelliteid  != null" >
+	        	AND 	SATELLITEID = #{satelliteid} 
+	     	 	</if>
+				<if test="sensorid  != null" >
+	        	AND 	SENSORID like CONCAT('%${sensorid}','%' )
+	     	 	</if>
+				<if test="begintime  != null" >
+	        	AND 	BEGINTIME = #{begintime} 
+	     	 	</if>
+	     	 	<if test="beginStarttime != null and beginEndtime!=null and beginStarttime !='' and beginEndtime !=''" >
+		       AND BEGINTIME &gt;=to_date(#{beginStarttime},'yyyy-mm-dd HH24:mi:ss')
+		         </if> 
+		         <if test="beginEndtime != null and beginStarttime!=null  and beginStarttime !='' and beginEndtime !=''" >
+		       AND BEGINTIME &lt;=to_date(#{beginEndtime},'yyyy-mm-dd HH24:mi:ss')
+		         </if>
+				<if test="endtime  != null" >
+	        	AND 	ENDTIME = #{endtime} 
+	     	 	</if>
+	     	 	<if test="endStarttime != null and endEndtime!=null and endStarttime !='' and endEndtime !=''" >
+		       AND ENDTIME &gt;=to_date(#{endStarttime},'yyyy-mm-dd HH24:mi:ss')
+		         </if> 
+		         <if test="endEndtime != null and endStarttime!=null  and endStarttime !='' and endEndtime !=''" >
+		       AND ENDTIME &lt;=to_date(#{endEndtime},'yyyy-mm-dd HH24:mi:ss')
+		         </if>
+				<if test="upperleftlong  != null" >
+	        	AND 	UPPERLEFTLONG = #{upperleftlong} 
+	     	 	</if>
+				<if test="upperleftlat  != null" >
+	        	AND 	UPPERLEFTLAT = #{upperleftlat} 
+	     	 	</if>
+				<if test="upperrightlong  != null" >
+	        	AND 	UPPERRIGHTLONG = #{upperrightlong} 
+	     	 	</if>
+				<if test="upperrightlat  != null" >
+	        	AND 	UPPERRIGHTLAT = #{upperrightlat} 
+	     	 	</if>
+				<if test="lowerleftlong  != null" >
+	        	AND 	LOWERLEFTLONG = #{lowerleftlong} 
+	     	 	</if>
+				<if test="lowerleftlat  != null" >
+	        	AND 	LOWERLEFTLAT = #{lowerleftlat} 
+	     	 	</if>
+				<if test="lowerrightlong  != null" >
+	        	AND 	LOWERRIGHTLONG = #{lowerrightlong} 
+	     	 	</if>
+				<if test="lowerrightlat  != null" >
+	        	AND 	LOWERRIGHTLAT = #{lowerrightlat} 
+	     	 	</if>
+				<if test="productlevel  != null" >
+	        	AND 	PRODUCTLEVEL = #{productlevel} 
+	     	 	</if>
+				<if test="polarizealogrithm  != null" >
+	        	AND 	POLARIZEALOGRITHM = #{polarizealogrithm} 
+	     	 	</if>
+				<if test="cloudcover  != null" >
+	        	AND 	CLOUDCOVER = #{cloudcover} 
+	     	 	</if>
+				<if test="price  != null" >
+	        	AND 	PRICE = #{price} 
+	     	 	</if>
+				<if test="remark  != null" >
+	        	AND 	REMARK = #{remark} 
+	     	 	</if>
+				<if test="finishdownloadif  != null" >
+	        	AND 	FINISHDOWNLOADIF = #{finishdownloadif} 
+	     	 	</if>
+				<if test="finishdownloadtime  != null" >
+	        	AND 	FINISHDOWNLOADTIME = #{finishdownloadtime} 
+	     	 	</if>
+				<if test="status  != null" >
+	        	AND 	STATUS = #{status} 
+	     	 	</if>
+				<if test="stationid  != null" >
+	        	AND 	STATIONID = #{stationid} 
+	     	 	</if>
+				<if test="reason  != null" >
+	        	AND 	REASON = #{reason} 
+	     	 	</if>
+				<if test="subdate  != null" >
+	        	AND 	SUBDATE = #{subdate} 
+	     	 	</if>
+				<if test="areacenterlat  != null" >
+	        	AND 	AREACENTERLAT = #{areacenterlat} 
+	     	 	</if>
+				<if test="areacenterlong  != null" >
+	        	AND 	AREACENTERLONG = #{areacenterlong} 
+	     	 	</if>
+				<if test="averagecloud  != null" >
+	        	AND 	AVERAGECLOUD = #{averagecloud} 
+	     	 	</if>
+				<if test="sideangle  != null" >
+	        	AND 	SIDEANGLE = #{sideangle} 
+	     	 	</if>
+				<if test="usertype  != null" >
+	        	AND 	USERTYPE = #{usertype} 
+	     	 	</if>
+				<if test="urgencylevel  != null" >
+	        	AND 	URGENCYLEVEL = #{urgencylevel} 
+	     	 	</if>
+				<if test="issend  != null" >
+	        	AND 	ISSEND = #{issend} 
+	     	 	</if>
+				<if test="iscancel  != null" >
+	        	AND 	ISCANCEL = #{iscancel} 
+	     	 	</if>
+				<if test="createtime  != null" >
+	        	AND 	CREATETIME = #{createtime} 
+	     	 	</if>
+	     	 	<if test="createStarttime != null and createEndtime!=null and createStarttime !='' and createEndtime !=''" >
+		       AND CREATETIME &gt;=to_date(#{createStarttime},'yyyy-mm-dd HH24:mi:ss')
+		         </if> 
+		         <if test="createEndtime != null and createStarttime  and createStarttime !='' and createEndtime !=''" >
+		       AND CREATETIME &lt;=to_date(#{createEndtime},'yyyy-mm-dd HH24:mi:ss')
+		         </if>
+	     	 	
+	     	 	
+				<if test="collectidstr  != null" >
+	        	AND 	COLLECTIDSTR = #{collectidstr} 
+	     	 	</if>
+				<if test="earthsurfacename  != null" >
+	        	AND 	EARTHSURFACENAME = #{earthsurfacename} 
+	     	 	</if>
+				<if test="surfacereflectivity  != null" >
+	        	AND 	SURFACEREFLECTIVITY = #{surfacereflectivity} 
+	     	 	</if>
+				<if test="observationinterval  != null" >
+	        	AND 	OBSERVATIONINTERVAL = #{observationinterval} 
+	     	 	</if>
+				<if test="gatherareaname  != null" >
+	        	AND 	GATHERAREANAME = #{gatherareaname} 
+	     	 	</if>
+				<if test="gatherareadescription  != null" >
+	        	AND 	GATHERAREADESCRIPTION = #{gatherareadescription} 
+	     	 	</if>
+				<if test="instrumentmode  != null" >
+	        	AND 	INSTRUMENTMODE = #{instrumentmode} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType != 1">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum} ]]>
+		</if>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="PssCollectInfoQuery">
+        SELECT count(*) FROM PSS_COLLECT_INFO 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="taskid  != null" >
+	        	AND 	TASKID = #{taskid}
+	     	 	</if>
+				<if test="operatorname  != null" >
+	        	AND 	OPERATORNAME = #{operatorname}
+	     	 	</if>
+				<if test="priority  != null" >
+	        	AND 	PRIORITY = #{priority}
+	     	 	</if>
+				<if test="username  != null" >
+	        	AND 	USERNAME = #{username}
+	     	 	</if>
+				<if test="satelliteid  != null" >
+	        	AND 	SATELLITEID = #{satelliteid}
+	     	 	</if>
+				<if test="sensorid  != null" >
+	        	AND 	SENSORID like CONCAT('%${sensorid}','%' )
+	     	 	</if>
+				<if test="begintime  != null" >
+	        	AND 	BEGINTIME = #{begintime}
+	     	 	</if>
+				<if test="endtime  != null" >
+	        	AND 	ENDTIME = #{endtime}
+	     	 	</if>
+				<if test="upperleftlong  != null" >
+	        	AND 	UPPERLEFTLONG = #{upperleftlong}
+	     	 	</if>
+				<if test="upperleftlat  != null" >
+	        	AND 	UPPERLEFTLAT = #{upperleftlat}
+	     	 	</if>
+				<if test="upperrightlong  != null" >
+	        	AND 	UPPERRIGHTLONG = #{upperrightlong}
+	     	 	</if>
+				<if test="upperrightlat  != null" >
+	        	AND 	UPPERRIGHTLAT = #{upperrightlat}
+	     	 	</if>
+				<if test="lowerleftlong  != null" >
+	        	AND 	LOWERLEFTLONG = #{lowerleftlong}
+	     	 	</if>
+				<if test="lowerleftlat  != null" >
+	        	AND 	LOWERLEFTLAT = #{lowerleftlat}
+	     	 	</if>
+				<if test="lowerrightlong  != null" >
+	        	AND 	LOWERRIGHTLONG = #{lowerrightlong}
+	     	 	</if>
+				<if test="lowerrightlat  != null" >
+	        	AND 	LOWERRIGHTLAT = #{lowerrightlat}
+	     	 	</if>
+				<if test="productlevel  != null" >
+	        	AND 	PRODUCTLEVEL = #{productlevel}
+	     	 	</if>
+				<if test="polarizealogrithm  != null" >
+	        	AND 	POLARIZEALOGRITHM = #{polarizealogrithm}
+	     	 	</if>
+				<if test="cloudcover  != null" >
+	        	AND 	CLOUDCOVER = #{cloudcover}
+	     	 	</if>
+				<if test="price  != null" >
+	        	AND 	PRICE = #{price}
+	     	 	</if>
+				<if test="remark  != null" >
+	        	AND 	REMARK = #{remark}
+	     	 	</if>
+				<if test="finishdownloadif  != null" >
+	        	AND 	FINISHDOWNLOADIF = #{finishdownloadif}
+	     	 	</if>
+				<if test="finishdownloadtime  != null" >
+	        	AND 	FINISHDOWNLOADTIME = #{finishdownloadtime}
+	     	 	</if>
+				<if test="status  != null" >
+	        	AND 	STATUS = #{status}
+	     	 	</if>
+				<if test="stationid  != null" >
+	        	AND 	STATIONID = #{stationid}
+	     	 	</if>
+				<if test="reason  != null" >
+	        	AND 	REASON = #{reason}
+	     	 	</if>
+				<if test="subdate  != null" >
+	        	AND 	SUBDATE = #{subdate}
+	     	 	</if>
+				<if test="areacenterlat  != null" >
+	        	AND 	AREACENTERLAT = #{areacenterlat}
+	     	 	</if>
+				<if test="areacenterlong  != null" >
+	        	AND 	AREACENTERLONG = #{areacenterlong}
+	     	 	</if>
+				<if test="averagecloud  != null" >
+	        	AND 	AVERAGECLOUD = #{averagecloud}
+	     	 	</if>
+				<if test="sideangle  != null" >
+	        	AND 	SIDEANGLE = #{sideangle}
+	     	 	</if>
+				<if test="usertype  != null" >
+	        	AND 	USERTYPE = #{usertype}
+	     	 	</if>
+				<if test="urgencylevel  != null" >
+	        	AND 	URGENCYLEVEL = #{urgencylevel}
+	     	 	</if>
+				<if test="issend  != null" >
+	        	AND 	ISSEND = #{issend}
+	     	 	</if>
+				<if test="iscancel  != null" >
+	        	AND 	ISCANCEL = #{iscancel}
+	     	 	</if>
+				<if test="createtime  != null" >
+	        	AND 	CREATETIME = #{createtime}
+	     	 	</if>
+				<if test="collectidstr  != null" >
+	        	AND 	COLLECTIDSTR = #{collectidstr}
+	     	 	</if>
+				<if test="earthsurfacename  != null" >
+	        	AND 	EARTHSURFACENAME = #{earthsurfacename}
+	     	 	</if>
+				<if test="surfacereflectivity  != null" >
+	        	AND 	SURFACEREFLECTIVITY = #{surfacereflectivity}
+	     	 	</if>
+				<if test="observationinterval  != null" >
+	        	AND 	OBSERVATIONINTERVAL = #{observationinterval}
+	     	 	</if>
+				<if test="gatherareaname  != null" >
+	        	AND 	GATHERAREANAME = #{gatherareaname}
+	     	 	</if>
+				<if test="gatherareadescription  != null" >
+	        	AND 	GATHERAREADESCRIPTION = #{gatherareadescription}
+	     	 	</if>
+				<if test="instrumentmode  != null" >
+	        	AND 	INSTRUMENTMODE = #{instrumentmode}
+	     	 	</if>
+	     	 <if test="sqlWhere  != null" >
+	        	${sqlWhere}
+	     	 	</if>
+		</trim> 
+    </select>
+    
+</mapper>
+

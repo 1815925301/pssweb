@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="PSS_TASKDao">
+	<resultMap id="BaseResultMap" type="PssTask">
+        	<result property="taskid" column="TASKID"/>
+        	<result property="tasklevel" column="TASKLEVEL"/>
+        	<result property="createtime" column="CREATETIME"/>
+        	<result property="orderid" column="ORDERID"/>
+        	<result property="ordertype" column="ORDERTYPE"/>
+        	<result property="sendsys" column="SENDSYS"/>
+        	<result property="receivesys" column="RECEIVESYS"/>
+        	<result property="status" column="STATUS"/>
+        	<result property="failnum" column="FAILNUM"/>
+        	<result property="reason" column="REASON"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		TASKID,TASKLEVEL,CREATETIME,ORDERID,ORDERTYPE,SENDSYS,RECEIVESYS,STATUS,FAILNUM,REASON
+	</sql>
+
+	<!-- 插入语句-->
+	<insert id="insertPssTask" parameterType="PssTask">
+        INSERT INTO PSS_TASK 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        		         TASKID,
+		        	     <if test="tasklevel != null" >
+	        		         TASKLEVEL,
+	     		        </if> 
+	        	
+		        	     <if test="createtime != null" >
+	        		         CREATETIME,
+	     		        </if> 
+	        	
+		        	     <if test="orderid != null" >
+	        		         ORDERID,
+	     		        </if> 
+	        	
+		        	     <if test="ordertype != null" >
+	        		         ORDERTYPE,
+	     		        </if> 
+	        	
+		        	     <if test="sendsys != null" >
+	        		         SENDSYS,
+	     		        </if> 
+	        	
+		        	     <if test="receivesys != null" >
+	        		         RECEIVESYS,
+	     		        </if> 
+	        	
+		        	     <if test="status != null" >
+	        		         STATUS,
+	     		        </if> 
+	        	
+		        	     <if test="failnum != null" >
+	        		         FAILNUM,
+	     		        </if> 
+	        	
+		        	     <if test="reason != null" >
+	        		         REASON
+	     		        </if> 
+	        	
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+		        	     PSS_TASK_SEQ.nextval,
+	     		
+		        	     <if test="tasklevel != null" >
+		        	      #{tasklevel},
+		        	     </if> 
+	     		
+		        	     <if test="createtime != null" >
+		        	      	to_date(#{createtime},'yyyy-MM-dd HH24:mi:ss') ,
+		        	     </if> 
+	     		
+		        	     <if test="orderid != null" >
+		        	      #{orderid},
+		        	     </if> 
+	     		
+		        	     <if test="ordertype != null" >
+		        	      #{ordertype},
+		        	     </if> 
+	     		
+		        	     <if test="sendsys != null" >
+		        	      #{sendsys},
+		        	     </if> 
+	     		
+		        	     <if test="receivesys != null" >
+		        	      #{receivesys},
+		        	     </if> 
+	     		
+		        	     <if test="status != null" >
+		        	      #{status},
+		        	     </if> 
+	     		
+		        	     <if test="failnum != null" >
+		        	      #{failnum},
+		        	     </if> 
+	     		
+		        	     <if test="reason != null" >
+		        	      #{reason}
+		        	     </if> 
+	     		
+   	 </trim>
+	</insert>
+    
+  
+</mapper>
+

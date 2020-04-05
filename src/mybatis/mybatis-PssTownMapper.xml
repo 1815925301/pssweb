@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="PssTownDao">
+	<resultMap id="BaseResultMap" type="PssTown">
+        	<result property="gid" column="GID"/>
+        	<result property="cntCntyC" column="CNT_CNTY_C"/>
+        	<result property="name" column="NAME"/>
+        	<result property="inCity" column="INCITY"/>
+        	<result property="inProvince" column="INPROVINCE"/>
+        	<result property="code" column="CODE"/>
+        	<result property="cityCode" column="CITYCODE"/>
+        	<result property="provinceCode" column="PROVINCECODE"/>
+        	<result property="area" column="AREA"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		GID,CNT_CNTY_C,NAME,INCITY,INPROVINCE,CODE,CITYCODE,PROVINCECODE,AREA
+	</sql>
+
+	
+    
+   
+	
+    <!--通过城市查询县-->
+    <select id="getPssTownByCity" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM S_TOWN 
+	    WHERE 
+				CITYCODE = #{cityCode} 
+	</select>
+	
+		
+	
+	
+	
+    
+</mapper>
+

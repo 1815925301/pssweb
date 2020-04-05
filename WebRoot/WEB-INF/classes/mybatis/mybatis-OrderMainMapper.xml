@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="OrderMainDao">
+	<resultMap id="BaseResultMap" type="OrderMain">
+        	<result property="orderMainId" column="ORDER_MAIN_ID"/>
+        	<result property="orderTime" column="ORDERTIME"/>
+        	<result property="orderer" column="ORDERER"/>
+        	<result property="orderName" column="ORDERNAME"/>
+        	<result property="remark" column="REMARK"/>
+        	<result property="finishTime" column="FINISHTIME"/>
+        	<result property="orderState" column="ORDERSTATE"/>
+        	<result property="ispay" column="ISPAY"/>
+        	<result property="price" column="PRICE"/>
+        	<result property="isrefund" column="ISREFUND"/>
+        	<result property="uuit" column="UUIT"/>
+	</resultMap>
+	
+	<!--获取主订单当前序列值-->
+	<select id="getSequencesVal" resultType="Long">  
+  		select PSS_ORDER_INFO_MAIN_SEQ.nextval from dual  
+	</select>  
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		DISTINCT POIM.ORDER_MAIN_ID, 
+		POIM.ORDERTIME, 
+		POIM.ORDERER, 
+		POIM.ORDERNAME, 
+		POIM.REMARK, 
+		POIM.FINISHTIME, 
+		POIM.ORDERSTATE,
+		POIM.PRICE,
+		POIM.UUIT,
+		POIM.ISREFUND,
+		POIM.ISPAY
+	</sql>
+	
+	<!-- 插入语句-->
+	<insert id="insertOrderMain" parameterType="OrderMain" useGeneratedKeys="false">
+		INSERT INTO PSS_ORDER_INFO_MAIN (
+		<trim suffix="" suffixOverrides=",">
+			ORDER_MAIN_ID,
+			<if test="orderer != null">
+				ORDERER,
+			</if>
+			<if test="orderName != null">
+				ORDERNAME,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="finishTime != null">
+				FINISHTIME,
+			</if>
+			<if test="orderState != null">
+				ORDERSTATE,
+			</if>
+			<if test="price != null">
+				PRICE,
+			</if>
+			<if test="uuit != null">
+				UUIT,
+			</if>
+			<if test="orderTime != null">
+				ORDERTIME
+			</if>
+		</trim>
+		) values(
+		<trim suffix="" suffixOverrides=",">
+			<if test="orderMainId == null"><!-- 当主键orderMainId为null时调用序列 -->
+				PSS_ORDER_INFO_MAIN_SEQ.nextval, 
+			</if>
+			<if test="orderMainId != null"><!-- 当主键orderMainId不为null使用传入的值 -->
+				#{orderMainId},
+			</if>
+		   	<if test="orderer != null">
+				#{orderer},
+			</if>
+			<if test="orderName != null">
+				#{orderName},
+			</if>
+			<if test="remark != null">
+				#{remark},
+			</if>
+			<if test="finishTime != null">
+				#{finishTime},
+			</if>
+			<if test="orderState != null">
+				#{orderState},
+			</if>
+			<if test="price != null">
+				#{price},
+			</if>
+			<if test="uuit != null">
+				#{uuit},
+			</if>
+			<if test="orderTime != null">
+				#{orderTime}
+			</if>
+		</trim>
+		)
+	</insert>
+	
+	<!--更新语句-->
+	<update id="updateOrderMain" parameterType="OrderMain">
+        UPDATE PSS_ORDER_INFO_MAIN 
+        <set >
+			<if test="orderTime  != null" >
+				ORDERTIME = #{orderTime} ,
+			</if>
+			<if test="orderer  != null" >
+				ORDERER = #{orderer} ,
+			</if>
+			<if test="orderName  != null" >
+				ORDERNAME = #{orderName} ,
+			</if>
+			<if test="remark  != null" >
+				REMARK = #{remark} ,
+			</if>
+			<if test="finishTime  != null" >
+				FINISHTIME = #{finishTime} ,
+			</if>
+			<if test="orderState  != null" >
+				ORDERSTATE = #{orderState},
+			</if>
+			<if test="price != null">
+				PRICE = #{price},
+			</if>
+			<if test="uuit != null">
+				UUIT = #{uuit}
+			</if>
+			<if test="ispay  != null" >
+				ISPAY = #{ispay} 
+			</if>
+		</set>
+        WHERE 
+			ORDER_MAIN_ID = #{orderMainId} 
+	</update>
+   
+	<!--根据id查询语句-->
+	<select id="getOrderMainById" resultMap="BaseResultMap">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM PSS_ORDER_INFO_MAIN POIM 
+		WHERE 
+			ORDER_MAIN_ID = #{orderMainId} 
+	</select>
+	
+	<!--根据id查询语句(返回List<Map<String, Object>>)-->
+	<select id="findOrderBySonOrderId" resultType="Map" parameterType="String">
+		SELECT
+			<include refid="Base_Column_List" />
+		FROM 
+			PSS_ORDER_INFO_MAIN POIM LEFT JOIN 
+  			PSS_ORDER_INFO POI 
+  			ON POIM.ORDER_MAIN_ID = POI.ORDERMAINID 
+		WHERE 
+			POI.ORDERID = ANY (${_parameter}) 
+		ORDER BY ORDERTIME DESC 
+	</select>
+	
+	<!--查询数量-->
+	<select id="getCountByQuery" resultType="Integer" parameterType="PssOrderInfoQuery">
+	    SELECT 
+	    	count(DISTINCT POIM.ORDER_MAIN_ID) 
+    	FROM 
+    		PSS_ORDER_INFO_MAIN POIM LEFT JOIN 
+  			PSS_ORDER_INFO POI 
+  		ON POIM.ORDER_MAIN_ID = POI.ORDERMAINID 
+	    <trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="orderer != null and orderer.trim() != ''">
+				AND<![CDATA[ POIM.ORDERER = #{orderer} ]]>
+			</if>
+			<if test="satelliteid != null and satelliteid.trim() != ''">
+				AND<![CDATA[ POI.SATELLITEID = #{satelliteid} ]]>
+			</if>
+			<if test="sensorid != null and sensorid.trim() != ''">
+				AND<![CDATA[ POI.SENSORID = #{sensorid} ]]>
+			</if>
+			<if test="tasktype != null">
+				AND<![CDATA[ POI.TASKTYPE = #{tasktype} ]]>
+			</if>
+			<if test="productlevel != null and productlevel.trim() != ''">
+				AND<![CDATA[ POI.PRODUCTLEVEL = #{productlevel} ]]>
+			</if>
+			<if test="checkstate != null">
+				AND<![CDATA[ POI.CHECKSTATE = #{checkstate} ]]>
+			</if>
+			<if test="orderstate != null">
+				AND<![CDATA[ POI.ORDERSTATE = #{orderstate} ]]>
+			</if>
+			<if test="orderid != null">
+				AND<![CDATA[ POI.ORDERID = #{orderid} ]]>
+			</if>
+			<if test="sceneid != null">
+				AND<![CDATA[ POI.SCENEID = #{sceneid} ]]>
+			</if>
+			<if test="isfault != null">
+				AND POI.ISFAULT = #{isfault}
+			</if>
+			
+			<if test="orderStartTime != null and orderStartTime.trim() != ''">
+				AND<![CDATA[ POIM.ORDERTIME >= TO_DATE(#{orderStartTime}, 'yyyy-mm-dd HH24:mi:ss') ]]>
+			</if>
+			<if test="orderEndTime != null and orderEndTime.trim() != ''">
+				AND<![CDATA[ POIM.ORDERTIME <= TO_DATE(#{orderEndTime}, 'yyyy-mm-dd HH24:mi:ss') ]]>
+			</if>
+			<if test="checkStartTime != null and checkStartTime.trim() != ''">
+				AND<![CDATA[ POI.CHECKTIME >= TO_DATE(#{checkStartTime}, 'yyyy-mm-dd HH24:mi:ss') ]]>
+			</if>
+			<if test="checkEndTime != null and checkEndTime.trim() != ''">
+				AND<![CDATA[ POI.CHECKTIME <= TO_DATE(#{checkEndTime}, 'yyyy-mm-dd HH24:mi:ss') ]]>
+			</if>
+	    </trim>
+	</select>
+	
+	<!--列表查询-->
+	<select id="getOrderMainListByQuery"  resultMap="BaseResultMap" resultType="OrderMain" parameterType="PssOrderInfoQuery">
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			<![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+	
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM 
+    		PSS_ORDER_INFO_MAIN POIM LEFT JOIN 
+  			PSS_ORDER_INFO POI 
+ 		ON POIM.ORDER_MAIN_ID = POI.ORDERMAINID 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="orderer != null and orderer.trim() != ''">
+				AND<![CDATA[ POIM.ORDERER = #{orderer} ]]>
+			</if>
+			<if test="satelliteid != null and satelliteid.trim() != ''">
+				AND<![CDATA[ POI.SATELLITEID = #{satelliteid} ]]>
+			</if>
+			<if test="sensorid != null and sensorid.trim() != ''">
+				AND<![CDATA[ POI.SENSORID = #{sensorid} ]]>
+			</if>
+			<if test="tasktype != null">
+				AND<![CDATA[ POI.TASKTYPE = #{tasktype} ]]>
+			</if>
+			<if test="productlevel != null and productlevel.trim() != ''">
+				AND<![CDATA[ POI.PRODUCTLEVEL = #{productlevel} ]]>
+			</if>
+			<if test="checkstate != null">
+				AND<![CDATA[ POI.CHECKSTATE = #{checkstate} ]]>
+			</if>
+			<if test="orderstate != null">
+				AND<![CDATA[ POI.ORDERSTATE = #{orderstate} ]]>
+			</if>
+			<if test="orderid != null">
+				AND<![CDATA[ POI.ORDERID = #{orderid} ]]>
+			</if>
+			<if test="sceneid != null">
+				AND<![CDATA[ POI.SCENEID = #{sceneid} ]]>
+			</if>
+			<if test="isfault != null">
+				AND POI.ISFAULT = #{isfault}
+			</if>
+			<if test="orderStartTime != null and orderStartTime.trim() != ''">
+				AND<![CDATA[ POIM.ORDERTIME >= TO_DATE(#{orderStartTime}, 'yyyy-mm-dd HH24:mi:ss') ]]>
+			</if>
+			<if test="orderEndTime != null and orderEndTime.trim() != ''">
+				AND<![CDATA[ POIM.ORDERTIME <= TO_DATE(#{orderEndTime}, 'yyyy-mm-dd HH24:mi:ss') ]]>
+			</if>
+			<if test="checkStartTime != null and checkStartTime.trim() != ''">
+				AND<![CDATA[ POI.CHECKTIME >= TO_DATE(#{checkStartTime}, 'yyyy-mm-dd HH24:mi:ss') ]]>
+			</if>
+			<if test="checkEndTime != null and checkEndTime.trim() != ''">
+				AND<![CDATA[ POI.CHECKTIME <= TO_DATE(#{checkEndTime}, 'yyyy-mm-dd HH24:mi:ss') ]]>
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType != 1">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY finishTime DESC
+			</otherwise>
+		</choose>
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+			<![CDATA[ rownum_ >#{startNum} ]]>
+		</if>
+	</select>
+    
+</mapper>
+

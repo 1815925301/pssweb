@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="SysLogDao">
+	<resultMap id="SysLogInfoResult" type="sysLog">
+		<id property="logid" column="logid"/>
+		<result property="logtype" column="logtype"/>
+		<result property="description" column="description"/>
+		<result property="createtime" column="createtime"/>
+		<result property="loglevel" column="loglevel"/>
+	</resultMap>
+	
+	<sql id="allColumn">
+		logid,logtype,description,to_char(CREATETIME,'yyyy-MM-dd HH24:mi:ss') as CREATETIME,loglevel
+    </sql>
+  <!--  -->
+  	<!-- 根据日志id获取日志信息 -->
+	<!--<select id="selectMonitorReceiverLogById" resultMap="monitorReceiverLogInfoResult" resultType="monitorReceiverLog" parameterType="long">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			SYS_MONITOR_RECEIVER_LOG
+		WHERE id = #{id} 
+		ORDER BY id ASC
+	</select>
+   -->
+   <!--
+	<insert id="insertMonitorReceiverLog" parameterType="monitorReceiverLog" useGeneratedKeys="false" keyProperty="id">
+		insert into sys_monitor_receiver_log (
+		<trim suffix="" suffixOverrides=",">
+		    id,
+		    <if test="innerSerialId != null">
+				inner_serial_id,
+			</if>
+			<if test="serviceName != null">
+				service_name,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="orgId != null">
+				org_id,
+			</if>
+			<if test="roleIds != null">
+				role_ids,
+			</if>
+			<if test="resultCode != null">
+				result_code,
+			</if>
+			<if test="resultMsg != null">
+				result_msg,
+			</if>
+			<if test="timeCost != null">
+				time_cost,
+			</if>
+			<if test="fullUrl != null">
+				full_url,
+			</if>
+			<if test="remoteIp != null">
+				remote_ip,
+			</if>
+			<if test="serverIp != null">
+				server_ip,
+			</if>
+			<if test="invokeTime != null">
+				invoke_time,
+			</if>
+			<if test="responseTime != null">
+				response_time, 
+			</if>
+		</trim>
+		) values(
+		<trim suffix="" suffixOverrides=",">
+			 SYS_MONITOR_RECEIVER_LOG_SEQ.nextval,
+			<if test="innerSerialId != null">
+				#{innerSerialId},
+			</if>
+			<if test="serviceName != null">
+				#{serviceName},
+			</if>
+			<if test="userId != null">
+				#{userId},
+			</if>
+			<if test="userName != null">
+				#{userName},
+			</if>
+			<if test="orgId != null">
+				#{orgId},
+			</if>
+			<if test="roleIds != null">
+				#{roleIds},
+			</if>
+			<if test="resultCode != null">
+				#{resultCode},
+			</if>
+			<if test="resultMsg != null">
+				#{resultMsg},
+			</if>
+			<if test="timeCost != null">
+				#{timeCost},
+			</if>
+			<if test="fullUrl != null">
+				#{fullUrl},
+			</if>
+			<if test="remoteIp != null">
+				#{remoteIp},
+			</if>
+			<if test="serverIp != null">
+				#{serverIp},
+			</if>
+			<if test="invokeTime != null">
+				#{invokeTime},
+			</if>
+			<if test="responseTime != null">
+				#{responseTime},
+			</if>
+		</trim>
+		)
+	</insert>
+	-->
+	 <!-- 查询配置类型 -->
+    <select id="getLogType" resultMap="SysLogInfoResult">
+	SELECT LOGTYPE FROM PSS_LOG_MESSAGE GROUP BY LOGTYPE
+	</select>
+	
+	
+	<!-- 根据检索条件获取监控日志的数量 -->
+	
+	<select id="selectlogdatacount" resultType="Integer" parameterType="SyslogQuery">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			PSS_LOG_MESSAGE 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="logtype != null">
+				AND <![CDATA[ logtype = #{logtype} ]]>
+			</if>
+
+			<if test="description !=null">
+				AND <![CDATA[ description = #{description} ]]>
+			</if>
+			<if test="createtime !=null">
+				AND <![CDATA[ createtime = #{createtime} ]]>
+			</if>
+			<if test="loglevel !=null">
+				AND <![CDATA[ loglevel = #{loglevel} ]]>
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 根据检索条件获取日志的信息 -->
+	<select id="selectlogdata" resultType="sysLog" 
+				resultMap="SysLogInfoResult" parameterType="SyslogQuery">
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[  select * from    ( select row_.*, rownum rownum_ from (]]>
+		</if>
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			PSS_LOG_MESSAGE 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="logid != null">
+				AND <![CDATA[ logid = #{logid} ]]>
+			</if>
+			<if test="logtype != null">
+				AND <![CDATA[ logtype = #{logtype} ]]>
+			</if>
+
+			<if test="description !=null">
+				AND <![CDATA[ description = #{description} ]]>
+			</if>
+			<if test="createtime !=null">
+				AND <![CDATA[ createtime = #{createtime} ]]>
+			</if>
+			<if test="stratime != null and endtime !=null and stratime !='' and endtime !=''" >
+		      AND  CREATETIME &gt;=to_date(#{stratime},'yyyy-mm-dd HH24:mi:ss')
+		    </if> 
+		     <if test="endtime != null and stratime !=null  and stratime !='' and endtime !=''" >
+		       AND CREATETIME &lt;=to_date(#{endtime},'yyyy-mm-dd HH24:mi:ss')
+		     </if>
+	     	 	
+			
+			<if test="loglevel !=null">
+				AND <![CDATA[ loglevel = #{loglevel} ]]>
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY logid DESC
+			</otherwise>
+		</choose>
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum} ]]>
+		</if>
+	</select>
+	<!-- 插入日志记录 -->
+	<insert id="insertSystemLog" parameterType="syslog" useGeneratedKeys="false">
+		insert into PSS_LOG_MESSAGE (
+		<trim suffix="" suffixOverrides=",">
+		    logid,
+			<if test="logtype != null">
+				logtype,
+			</if>
+			<if test="description != null">
+				description,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="loglevel != null">
+				loglevel,
+			</if>
+		</trim>
+		) values(
+		<trim suffix="" suffixOverrides=",">
+		   SYS_LOG_MESSAGE_SEQUENCE.nextval,
+			<if test="logtype != null">
+				#{logtype},
+			</if>
+			<if test="description != null">
+				#{description},
+			</if>
+			<if test="createtime != null">
+				to_date(#{createtime},'yyyy-mm-dd HH24:mi:ss'),
+			</if>
+			<if test="loglevel != null">
+				#{loglevel},
+			</if>
+		</trim>
+		)
+	</insert>
+</mapper>

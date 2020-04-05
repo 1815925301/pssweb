@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="STUDENTDao">
+	<resultMap id="BaseResultMap" type="STUDENT">
+        	<result property="id" column="ID"/>
+        	<result property="name" column="NAME"/>
+        	<result property="age" column="AGE"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ID,NAME,AGE
+	</sql>
+
+	<!-- 插入语句-->
+	<insert id="insertStudent" parameterType="STUDENT">
+        INSERT INTO STUDENT 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        	        ID,
+	        	
+		        	     <if test="name != null" >
+	        		         NAME,
+	     		        </if> 
+	        	
+		        	     <if test="age != null" >
+	        		         AGE
+	     		        </if> 
+	        	
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+	        	        STUDENT_SEQ.nextval,
+	     		
+		        	     <if test="name != null" >
+		        	      #{name},
+		        	     </if> 
+	     		
+		        	     <if test="age != null" >
+		        	      #{age}
+		        	     </if> 
+	     		
+   	 </trim>
+	</insert>
+    
+   <!--更新语句-->
+	<update id="updateStudent" parameterType="STUDENT">
+        UPDATE STUDENT 
+        <set >
+	        	<if test="name  != null" >
+	        		NAME = #{name} ,
+	     	 	</if>
+	        	<if test="age  != null" >
+	        		AGE = #{age} 
+	     	 	</if>
+	    </set>
+        WHERE 
+    			ID = #{id} 
+	</update>
+
+	<!--删除语句-->
+		    <delete id="deleteStudent" parameterType="Double">
+		        DELETE FROM STUDENT WHERE
+		    			ID = #{id} 
+		    </delete>
+    
+    <!--查询语句-->
+    <select id="getStudentById" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM STUDENT 
+	    WHERE 
+				ID = #{id} 
+	</select>
+	
+		<!--列表查询-->
+		<select id="getStudentListByQuery" resultType="STUDENT" resultMap="BaseResultMap" parameterType="STUDENTQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM STUDENT 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="name  != null" >
+	        	AND 	NAME = #{name} 
+	     	 	</if>
+				<if test="age  != null" >
+	        	AND 	AGE = #{age} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--分页查询-->
+	<select id="getStudentInfoByQuery" resultType="STUDENT" resultMap="BaseResultMap" parameterType="STUDENTQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM STUDENT 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="name  != null" >
+	        	AND 	NAME = #{name} 
+	     	 	</if>
+				<if test="age  != null" >
+	        	AND 	AGE = #{age} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="STUDENTQuery">
+        SELECT count(*) FROM STUDENT 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="name  != null" >
+	        	AND 	NAME = #{name}
+	     	 	</if>
+				<if test="age  != null" >
+	        	AND 	AGE = #{age}
+	     	 	</if>
+	     	 <if test="sqlWhere  != null" >
+	        	${sqlWhere}
+	     	 	</if>
+		</trim> 
+    </select>
+    
+</mapper>
+

@@ -1,0 +1,703 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="usersDao">
+	<resultMap id="userInfoResult" type="users">
+		<id property="id" column="id"/>
+		<result property="userName" column="user_name"/>
+		<result property="password" column="password"/>
+		<result property="userEmail" column="user_email"/>
+		<result property="trueName" column="true_name"/>
+		<result property="orgId" column="org_id"/>
+	    <result property="deptId" column="dept_id"/>
+		<result property="userTitle" column="user_title"/>
+		<result property="userMobile" column="user_mobile"/>
+		<result property="userPhone" column="user_phone"/>
+		<result property="isLock" column="is_lock"/>
+		<result property="editable" column="editable"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createUserId" column="create_userid"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateUserId" column="update_userid"/>
+		<result property="note" column="note"/>
+		<result property="roleId" column="role_id"/>
+		<result property="status" column="status"/>
+		<result property="remark" column="remark"/>
+		<result property="activatetime" column="ACTIVATETIME"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="passprompt" column="PASSPROMPT"/>
+		<result property="passanswer" column="PASSANSWER"/>
+		
+		<result property="identityCard" column="IDENTITYCARD"/>
+		<result property="postcode" column="POSTCODE"/>
+		<result property="fax" column="FAX"/>
+		<result property="ipAddress" column="IPADDRESS"/>
+		<result property="company" column="COMPANY"/>
+		<result property="companyAddress" column="COMPANYADDRESS"/>
+		<result property="lawyerName" column="LAWYERNAME"/>
+		<result property="lawyerPhone" column="LAWYERPHONE"/>
+		<result property="lawyerMail" column="LAWYERMAIL"/>
+		<result property="companyCode" column="COMPANYCODE"/>
+		<result property="companyFax" column="COMPANYFAX"/>
+		<result property="companyIp" column="COMPANYIP"/>
+		
+		<result property="userSex" column="USERSEX"/>
+		<result property="country" column="COUNTRY"/>
+		<result property="province" column="PROVINCE"/>
+		<result property="city" column="CITY"/>
+		<result property="county" column="COUNTY"/>
+		<result property="downloads" column="DOWNLOADS"/>
+	</resultMap>
+	
+	<sql id="allColumn">
+		id, user_name, password, user_email, true_name, org_id,dept_id, user_title, user_mobile, user_phone, 
+		is_lock, editable, create_time, create_userid, update_time, update_userid, note,role_id, status,remark,
+		ACTIVATETIME,POSTCODE,FAX,IPADDRESS,COMPANY,COMPANYADDRESS,LAWYERNAME,LAWYERPHONE,LAWYERMAIL,COMPANYCODE,
+		COMPANYFAX,COMPANYIP,IDENTITYCARD,ADDRESS,PASSPROMPT,PASSANSWER,COUNTRY,PROVINCE,CITY,COUNTY,USERSEX,DOWNLOADS
+    </sql>
+  <!-- 根据用户登录名获取更新时间和注册时间 -->
+	<select id="getuserTimeByname" resultType="users" resultMap="userInfoResult" parameterType="string">
+		SELECT 
+			to_char(update_time,'yyyy-MM-dd HH24:mi:ss') as update_time,to_char(REGISTERTIME,'yyyy-MM-dd HH24:mi:ss') as REGISTERTIME
+		FROM 
+			sys_users
+		WHERE user_name = #{userName}
+    </select>
+		<!-- 插入语句-->
+<insert id="insertNewUser" parameterType="users" useGeneratedKeys="false">
+		insert into sys_users (
+		<trim suffix="" suffixOverrides=",">
+		    id,
+		    <if test="userName != null">
+				user_name,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="userEmail != null">
+				user_email,
+			</if>
+			<if test="trueName != null">
+				true_name,
+			</if>
+			<if test="orgId != null">
+				org_id,
+			</if>
+			<if test="deptId != null">
+				dept_id,
+			</if>
+			<if test="userTitle != null">
+				user_title,
+			</if>
+			<if test="userMobile != null">
+				user_mobile,
+			</if>
+			<if test="userPhone != null">
+				user_phone,
+			</if>
+			<if test="isLock != null">
+				is_lock,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createUserId != null">
+				create_userid,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+			<if test="updateUserId != null">
+				update_userid,
+			</if>
+			<if test="note != null">
+				note,
+			</if>
+			<if test="roleId != null">
+				role_id,
+			</if>
+			<if test="country != null">
+				COUNTRY,
+			</if>
+			<if test="province != null">
+				PROVINCE,
+			</if>
+			<if test="city != null">
+				CITY,
+			</if>
+			<if test="county != null">
+				COUNTY,
+			</if>
+			<if test="address != null">
+				ADDRESS,
+			</if>
+			<if test="passprompt != null">
+				PASSPROMPT,
+			</if>
+			<if test="passanswer != null">
+				PASSANSWER,
+			</if>
+			<if test="identityCard != null">
+				IDENTITYCARD,
+			</if>
+			<if test="postcode != null">
+				POSTCODE,
+			</if>
+			<if test="fax != null">
+				FAX,
+			</if>
+			<if test="ipAddress != null">
+				IPADDRESS,
+			</if>
+			<if test="company != null">
+				COMPANY,
+			</if>
+			<if test="companyAddress != null">
+				COMPANYADDRESS,
+			</if>
+			<if test="lawyerName != null">
+				LAWYERNAME,
+			</if>
+			<if test="lawyerPhone != null">
+				LAWYERPHONE,
+			</if>
+			<if test="lawyerMail != null">
+				LAWYERMAIL,
+			</if>
+			<if test="companyCode != null">
+				COMPANYCODE,
+			</if>
+			<if test="companyFax != null">
+				COMPANYFAX,
+			</if>
+			<if test="companyIp != null">
+				COMPANYIP,
+			</if>
+			<if test="downloads != null">
+				DOWNLOADS,
+			</if>
+			    editable
+		</trim>
+		) values(
+		<trim suffix="" suffixOverrides=",">
+		   SYS_USERS_SEQ.nextval,
+		   <if test="userName != null">
+				#{userName},
+			</if>
+			<if test="password != null">
+				#{password},
+			</if>
+			<if test="userEmail != null">
+				#{userEmail},
+			</if>
+			<if test="trueName != null">
+				#{trueName},
+			</if>
+			<if test="orgId != null">
+				#{orgId},
+			</if>
+			<if test="deptId != null">
+				#{deptId},
+			</if>
+			<if test="userTitle != null">
+				#{userTitle},
+			</if>
+			<if test="userMobile != null">
+				#{userMobile},
+			</if>
+			<if test="userPhone != null">
+				#{userPhone},
+			</if>
+			<if test="isLock != null">
+				#{isLock},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId},
+			</if>
+			<if test="status != null">
+				#{status},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId},
+			</if>
+			<if test="note != null">
+				#{note},
+			</if>
+			<if test="roleId != null">
+				#{roleId},
+			</if>
+			<if test="country != null">
+				#{country},
+			</if>
+			<if test="province != null">
+				#{province},
+			</if>
+			<if test="city != null">
+				#{city},
+			</if>
+			<if test="county != null">
+				#{county},
+			</if>
+			<if test="address != null">
+				#{address},
+			</if>
+			<if test="passprompt != null">
+				#{passprompt},
+			</if>
+			<if test="passanswer != null">
+				#{passanswer},
+			</if>
+			<if test="identityCard != null">
+				#{identityCard},
+			</if>
+			<if test="postcode != null">
+				#{postcode},
+			</if>
+			<if test="fax != null">
+				#{fax},
+			</if>
+			<if test="ipAddress != null">
+				#{ipAddress},
+			</if>
+			<if test="company != null">
+				#{company},
+			</if>
+			<if test="companyAddress != null">
+				#{companyAddress},
+			</if>
+			<if test="lawyerName != null">
+				#{lawyerName},
+			</if>
+			<if test="lawyerPhone != null">
+				#{lawyerPhone},
+			</if>
+			<if test="lawyerMail != null">
+				#{lawyerMail},
+			</if>
+			<if test="companyCode != null">
+				#{companyCode},
+			</if>
+			<if test="companyFax != null">
+				#{companyFax},
+			</if>
+			<if test="companyIp != null">
+				#{companyIp},
+			</if>
+			<if test="downloads != null">
+				#{downloads},
+			</if>
+			1
+			
+		</trim>
+		)
+		<!--<selectKey keyProperty="id" resultType="long" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey> -->
+	</insert>
+	
+	<!-- 根据检索条件精确查找获取系统用户的数量 -->
+	<select id="selectUserCountByQueryForCheck" resultType="Integer" parameterType="usersQuery">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			sys_users 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id <> #{id} ]]>
+			</if>
+			
+			<if test="userEmail !=null">
+				AND user_email = #{userEmail}
+			</if>
+		</trim>
+	</select>
+
+	
+	<!-- 根据检索条件获取系统用户的数量 -->
+	<select id="selectUsersCountByQuery" resultType="Integer" parameterType="usersQuery">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			sys_users 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="orgId != null">
+				AND <![CDATA[ org_id = #{orgId} ]]>
+			</if>
+			<if test="isLock != null">
+				AND <![CDATA[ is_lock = #{isLock} ]]>
+			</if>
+			<if test="userName !=null">
+				AND user_name like CONCAT('%${userName}','%' )
+			</if>
+			<if test="userEmail !=null">
+				AND user_email like CONCAT('%${userEmail}','%' )
+			</if>
+			<if test="trueName !=null">
+				AND true_name like CONCAT('%${trueName}','%' )
+			</if>
+			<if test="userMobile !=null">
+				AND user_mobile like CONCAT('%${userMobile}','%' )
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 根据ID获取系统用户的信息 -->
+	<select id="selectUserInfoById" resultType="users" resultMap="userInfoResult" parameterType="long">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_users
+		WHERE id = #{id} 
+	</select>
+	
+	<!-- 根据ID集合获取系统用户的信息 -->
+	<select id="selectUserInfoByIdList" resultType="users" resultMap="userInfoResult" parameterType="java.util.List">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_users
+		WHERE id IN
+			<foreach collection="list" item="id"
+				open="(" separator="," close=")">
+				#{id}
+			</foreach> 
+		ORDER BY id ASC
+	</select>
+	
+	<!-- 根据用户登录名获取系统用户的信息 -->
+	<select id="selectUserInfoByUserName" resultType="users" resultMap="userInfoResult" parameterType="string">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_users
+		WHERE user_name = #{userName}
+    </select>
+    
+    <!-- 根据用户电子邮箱获取系统用户的信息 -->
+    <select id="selectUserInfoByUserEmail" resultType="users" resultMap="userInfoResult" parameterType="string">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_users
+		WHERE user_email = #{userEmail}
+    </select>
+    
+    <!-- 根据用户所属的机构id查询用户的数量 -->
+    <select id="selectUsersCountByOrgId" resultType="Integer" parameterType="long">
+		SELECT 
+			count(1) 
+		FROM 
+			sys_users
+		WHERE org_id = #{orgId}
+    </select>
+    
+    <!-- 根据检索条件获取系统用户的信息 -->
+	<select id="selectUsersInfoByQuery" resultType="users" resultMap="userInfoResult" parameterType="usersQuery">
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_users
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="orgId != null">
+				AND <![CDATA[ org_id = #{orgId} ]]>
+			</if>
+			<if test="isLock != null">
+				AND <![CDATA[ is_lock = #{isLock} ]]>
+			</if>
+			<if test="userName !=null">
+				AND user_name like CONCAT('%${userName}','%' )
+			</if>
+			<if test="userEmail !=null">
+				AND user_email like CONCAT('%${userEmail}','%' )
+			</if>
+			<if test="trueName !=null">
+				AND true_name like CONCAT('%${trueName}','%' )
+			</if>
+			<if test="userMobile !=null">
+				AND user_mobile like CONCAT('%${userMobile}','%' )
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType != 1">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id DESC
+			</otherwise>
+		</choose>
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum} ]]>
+		</if>
+    </select>
+    
+    <!-- 根据用户ID更新用户信息 -->
+    <update id="updateUserInfoById" parameterType="users">
+    	update sys_users 
+    	<set >
+			<trim suffix="" suffixOverrides=",">
+				<if test="userName != null and userName != ''">
+					user_name = #{userName},
+				</if>
+				 <if test="password != null">
+					password = #{password},
+				</if> 
+				<if test="userEmail != null and userEmail != ''">
+					user_email = #{userEmail},
+				</if>
+				<if test="trueName != null">
+					true_name = #{trueName},
+				</if>
+				<if test="orgId != null">
+					org_id = #{orgId},
+				</if>
+				<if test="deptId != null">
+					dept_id = #{deptId},
+				</if>
+				<if test="userTitle != null">
+					user_title = #{userTitle},
+				</if>
+				<if test="userMobile != null">
+					user_mobile = #{userMobile},
+				</if>
+				<if test="userPhone != null">
+					user_phone = #{userPhone},
+				</if>
+				<if test="isLock != null">
+					is_lock = #{isLock},
+				</if>
+				<if test="status != null">
+				   status=#{status},
+				</if>
+				<if test="editable != null">
+					editable = #{editable},
+				</if>
+				update_time = sysdate,
+				<if test="updateUserId != null">
+					update_userid = #{updateUserId},
+				</if>
+				<if test="note != null">
+					note = #{note},
+				</if>
+				<if test="remark != null">
+					remark = #{remark},
+				</if>
+				<if test="activatetime != null">
+					ACTIVATETIME = to_date(#{activatetime},'yyyy-mm-dd HH24:mi:ss'),
+					
+				</if>
+				<if test="address != null">
+					ADDRESS = #{address},
+				</if>
+				<if test="passprompt != null">
+					PASSPROMPT = #{passprompt},
+				</if>
+				<if test="passanswer != null">
+					PASSANSWER = #{passanswer},
+				</if>
+				
+				<if test="identityCard != null">
+					IDENTITYCARD = #{identityCard},
+				</if>
+				<if test="postcode != null">
+					POSTCODE = #{postcode},
+				</if>
+				<if test="fax != null">
+					FAX = #{fax},	
+				</if>
+				<if test="ipAddress != null">
+					IPADDRESS = #{ipAddress},
+				</if>
+				<if test="company != null">
+					COMPANY = #{company},
+				</if>
+				<if test="companyAddress != null">
+					COMPANYADDRESS = #{companyAddress},	
+				</if>
+				<if test="lawyerName != null">
+					LAWYERNAME = #{lawyerName},
+				</if>
+				<if test="lawyerPhone != null">
+					LAWYERPHONE = #{lawyerPhone},	
+				</if>
+				
+				<if test="lawyerMail != null">
+					LAWYERMAIL = #{lawyerMail},
+				</if>
+				<if test="companyCode != null">
+					COMPANYCODE = #{companyCode},	
+				</if>
+				
+				<if test="companyFax != null">
+					COMPANYFAX = #{companyFax},
+				</if>
+				<if test="companyIp != null">
+					COMPANYIP = #{companyIp},	
+				</if>
+				
+				<if test="country != null">
+					COUNTRY = #{country},
+				</if>
+				<if test="province != null">
+					PROVINCE = #{province},	
+				</if>
+				
+				<if test="city != null">
+					CITY = #{city},
+				</if>
+				<if test="county != null">
+					COUNTY = #{county},
+				</if>
+				
+				<if test="userSex != null">
+					USERSEX = #{userSex}
+				</if> 
+				
+				
+			</trim>
+			</set>
+			where
+			<if test="id != null">
+					 id = #{id} AND editable = 1
+			</if>
+			<if test="id == null">
+					 user_name = #{userName}
+			</if>
+			
+    </update>
+    
+    
+    <!-- 根据用户ID更新用户密码信息 -->
+    <update id="updateUserPasswordById" parameterType="users">
+    	update sys_users set password = #{password} where id = #{id}
+    </update>
+    
+     <!-- 根据用户名字获取用户详细信息 -->
+    <select id="getAllInfoByQuery" resultType="usersQuery" resultMap="userInfoResult" parameterType="usersQuery" >
+    	SELECT * FROM sys_users where user_name = #{userName}
+    </select>
+    
+    <!-- 根据用户ID删除用户信息 物理删除 -->
+    <delete id="deleteUserById" parameterType="long">
+    	DELETE FROM sys_users WHERE id = #{id} AND editable = 1
+    </delete>
+    
+   <!-- 根据ID集合获取系统用户的信息 -->
+	<select id="selectlastuserid" resultType="users" resultMap="userInfoResult" parameterType="users">
+		SELECT 
+			id
+		FROM 
+			sys_users ORDER BY id DESC LIMIT 1
+	</select>
+<!--用户分类统计开始 -->
+    	<!-- 时间条件 天开始 -->
+    	<sql id="whereClause_day">
+   		<where>
+  			<if test="starttime != null and starttime != ''">
+  		 	REGISTERTIME &gt;= to_date(#{starttime},'yyyy-mm-dd') 
+  			</if>
+  			<if test="endtime != null and endtime != ''">
+  			and REGISTERTIME &lt;= to_date(#{endtime},'yyyy-mm-dd')
+  			</if>
+  		 </where>
+ 	  </sql>
+ 	  <!-- 时间条件 按月开始 -->
+    	<sql id="whereClause_month">
+   		<where>
+  			<if test="starttime != null and starttime != ''">
+  		 	to_char(REGISTERTIME,'yyyy-mm') &gt;= #{starttime} 
+  			</if>
+  			<if test="endtime != null and endtime != ''">
+  			and to_char(REGISTERTIME,'yyyy-mm') &lt;= #{endtime}
+  			</if>
+  		 </where>
+ 	  </sql>
+ 	  <!-- 时间条件 按年开始 -->
+    	<sql id="whereClause_year">
+   		<where>
+  			<if test="starttime != null and starttime != ''">
+  		 	to_char(REGISTERTIME,'yyyy') &gt;= #{starttime}
+  			</if>
+  			<if test="endtime != null and endtime != ''">
+  			and to_char(REGISTERTIME,'yyyy') &lt;= #{endtime}
+  			</if>
+  		 </where>
+ 	  </sql>
+    	<!--  根据当天时间查询用户注册数量-->
+	<select id="selectUsersCountByTime" resultType="Integer" parameterType="users">
+		SELECT 
+			COUNT(ID) 
+		FROM 
+			sys_users 
+			WHERE REGISTERTIME = to_date(#{RegisterTime},'yyyy-mm-dd')
+	</select>
+	<!-- 按天开始 -->
+	<select id="selectUserCountByDay" resultType="Integer" parameterType="usersQuery">
+		SELECT 
+			COUNT(ID) 
+		FROM 
+			sys_users 
+			<include refid="whereClause_day" />
+			order by REGISTERTIME desc
+	</select>
+	<select id="selecByDayGroup" resultType="usersQuery" parameterType="usersQuery">
+		select to_char(REGISTERTIME,'yyyy-mm-dd') as RegisterTime, count(1) as amount
+  			from SYS_USERS t 
+			<include refid="whereClause_day" />
+			 group by to_char(REGISTERTIME,'yyyy-mm-dd') order by RegisterTime desc
+	</select>
+	<!-- 按月开始 -->
+	<select id="selectUserCountByMonth" resultType="Integer" parameterType="usersQuery">
+		SELECT 
+			COUNT(ID) 
+		FROM 
+			sys_users 
+			<include refid="whereClause_month" />
+			order by REGISTERTIME desc
+	</select>
+	<select id="selecByMonthGroup" resultType="usersQuery" parameterType="usersQuery">
+		select to_char(REGISTERTIME,'yyyy-mm') as RegisterTime, count(1) as amount
+		 from 
+		 SYS_USERS 
+			<include refid="whereClause_month" />
+			 group by to_char(REGISTERTIME,'yyyy-mm') order by RegisterTime desc
+	</select>
+	<!-- 按年开始 -->
+	<select id="selectUserCountByYear" resultType="Integer" parameterType="usersQuery">
+		SELECT 
+			COUNT(ID) 
+		FROM 
+			sys_users 
+			<include refid="whereClause_year" />
+			order by REGISTERTIME desc
+	</select>
+	<select id="selecByYearGroup" resultType="usersQuery" parameterType="usersQuery">
+		select to_char(REGISTERTIME,'yyyy') as RegisterTime, count(1) as amount
+		from 
+		SYS_USERS 
+			<include refid="whereClause_year" />
+			 group by to_char(REGISTERTIME,'yyyy') order by RegisterTime desc
+	</select>
+	
+	<!--用户分类统计结束-->
+</mapper>

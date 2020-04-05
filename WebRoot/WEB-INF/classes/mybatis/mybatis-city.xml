@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="cityDao">
+	<resultMap id="cityInfoResult" type="city">
+		<id property="id" column="id"/>
+		<result property="city" column="city"/>
+		<result property="provinceId" column="province_id"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createUserId" column="create_userid"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateUserId" column="update_userid"/>
+		<result property="note" column="note"/>
+	</resultMap>
+	
+	<sql id="allColumn">
+		id, city, province_id, create_time, create_userid, update_time, update_userid, note
+    </sql>
+  
+  	<!-- 新增城市信息 -->
+	<insert id="insertNewCity" parameterType="city" useGeneratedKeys="false">
+		insert into city (
+		<trim suffix="" suffixOverrides=",">
+		    <if test="city != null">
+				city,
+			</if>
+			<if test="provinceId != null">
+				province_id,
+			</if>
+			create_time,
+			<if test="createUserId != null">
+				create_userid,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateUserId != null">
+				update_userid,
+			</if>
+			<if test="note != null">
+				note,
+			</if>
+		</trim>
+		) values(
+		<trim suffix="" suffixOverrides=",">
+		   <if test="city != null">
+				#{city},
+			</if>
+			<if test="provinceId != null">
+				#{provinceId},
+			</if>
+			NOW(),
+			<if test="createUserId != null">
+				#{createUserId},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId},
+			</if>
+			<if test="note != null">
+				#{note},
+			</if>
+		</trim>
+		)
+		<selectKey keyProperty="id" resultType="long" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<!-- 根据省份id获取所有城市信息 -->
+	<select id="selectAllCityByProvinceId" resultMap="cityInfoResult" resultType="city" parameterType="long">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			city
+		WHERE province_id = #{provinceId} 
+		ORDER BY id ASC
+	</select>
+	
+	<!-- 根据城市id获取城市信息 -->
+	<select id="selectCityById" resultMap="cityInfoResult" resultType="city" parameterType="long">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			city
+		WHERE id = #{id}
+	</select>
+	
+	<!-- 根据城市名称获取城市信息 -->
+	<select id="selectCityByName" resultMap="cityInfoResult" resultType="city" parameterType="string">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			city
+		WHERE city = #{city}
+	</select>
+	
+	<!-- 根据城市名称、省份id获取城市数量 -->
+	<select id="selectCityCountByName" resultType="Integer" parameterType="cityQuery">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			city
+		WHERE city = #{city}
+			<if test="provinceId != null">
+				AND <![CDATA[ province_id = #{provinceId} ]]>
+			</if>
+			<if test="id != null">
+				AND <![CDATA[ id <> #{id} ]]>
+			</if>
+	</select>
+	
+	<!-- 根据检索条件获取城市的数量 -->
+	<select id="selectCityCountByQuery" resultType="Integer" parameterType="cityQuery">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			city 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="city !=null">
+				AND city like CONCAT('%','${city}','%' )
+			</if>
+			<if test="provinceId !=null">
+				AND <![CDATA[ province_id = #{provinceId} ]]>
+			</if>
+			<if test="provinceIdList !=null">
+				AND province_id IN
+				<foreach collection="provinceIdList" item="provinceId"
+					open="(" separator="," close=")">
+					#{provinceId}
+				</foreach> 
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 根据检索条件获取城市的信息 -->
+	<select id="selectCityInfoByQuery" resultType="city" resultMap="cityInfoResult" parameterType="cityQuery">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			city 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="city !=null">
+				AND city like CONCAT('%','${city}','%' )
+			</if>
+			<if test="provinceId !=null">
+				AND <![CDATA[ province_id = #{provinceId} ]]>
+			</if>
+			<if test="provinceIdList !=null">
+				AND province_id IN
+				<foreach collection="provinceIdList" item="provinceId"
+					open="(" separator="," close=")">
+					#{provinceId}
+				</foreach> 
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			limit #{startNum}, #{pageSize}
+		</if>
+	</select>
+	
+	<!-- 根据城市ID更新城市信息 -->
+    <update id="updateCityById" parameterType="city">
+    	UPDATE city SET
+			<trim suffix="" suffixOverrides=",">
+				<if test="city != null and city != ''">
+					city = #{city},
+				</if>
+				<if test="provinceId != null and provinceId != ''">
+					province_id = #{provinceId},
+				</if>
+				update_time = NOW(),
+				<if test="updateUserId != null">
+					update_userid = #{updateUserId},
+				</if>
+				<if test="note != null">
+					note = #{note},
+				</if>
+			</trim>
+			WHERE id = #{id}
+    </update>
+    
+    <!-- 根据城市ID删除城市信息 物理删除 -->
+    <delete id="deleteCityById" parameterType="long">
+    	DELETE FROM city WHERE id = #{id}
+    </delete>
+	
+</mapper>

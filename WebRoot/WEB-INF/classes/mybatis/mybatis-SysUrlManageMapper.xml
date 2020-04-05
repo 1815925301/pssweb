@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="SysUrlManageDao">
+	<resultMap id="SysUrlManageMap" type="SysUrlManage">
+        	<result property="id" column="ID"/>
+        	<result property="fid" column="F_ID"/>
+        	<result property="nameCn" column="NAME_CN"/>
+        	<result property="nameEn" column="NAME_EN"/>
+        	<result property="url" column="URL"/>
+        	<result property="remark" column="REMARK"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ID,F_ID,NAME_CN,NAME_EN,URL,REMARK
+	</sql>
+
+	<!-- 插入语句-->
+	<insert id="insertSysUrlManage" parameterType="SysUrlManage">
+        INSERT INTO SYS_URL_MANAGE 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        	        ID,
+	        	
+		        	     <if test="fid != null" >
+	        		         F_ID,
+	     		        </if> 
+	        	
+		        	     <if test="nameCn != null" >
+	        		         NAME_CN,
+	     		        </if> 
+	        	
+		        	     <if test="nameEn != null" >
+	        		         NAME_EN,
+	     		        </if> 
+	        	
+		        	     <if test="url != null" >
+	        		         URL,
+	     		        </if> 
+	        	
+		        	     <if test="remark != null" >
+	        		         REMARK
+	     		        </if> 
+	        	
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+	        	        SYS_URL_MANAGE_SEQ.nextval,
+	     		
+		        	     <if test="fid != null" >
+		        	      #{fid},
+		        	     </if> 
+	     		
+		        	     <if test="nameCn != null" >
+		        	      #{nameCn},
+		        	     </if> 
+	     		
+		        	     <if test="nameEn != null" >
+		        	      #{nameEn},
+		        	     </if> 
+	     		
+		        	     <if test="url != null" >
+		        	      #{url},
+		        	     </if> 
+	     		
+		        	     <if test="remark != null" >
+		        	      #{remark}
+		        	     </if> 
+	     		
+   	 </trim>
+	</insert>
+    
+   <!--更新语句-->
+	<update id="updateSysUrlManage" parameterType="SysUrlManage">
+        UPDATE SYS_URL_MANAGE 
+        <set >
+	        	<if test="fid  != null" >
+	        		F_ID = #{fid} ,
+	     	 	</if>
+	        	<if test="nameCn  != null" >
+	        		NAME_CN = #{nameCn} ,
+	     	 	</if>
+	        	<if test="nameEn  != null" >
+	        		NAME_EN = #{nameEn} ,
+	     	 	</if>
+	        	<if test="url  != null" >
+	        		URL = #{url} ,
+	     	 	</if>
+	        	<if test="remark  != null" >
+	        		REMARK = #{remark} 
+	     	 	</if>
+	    </set>
+        WHERE 
+    			ID = #{id} 
+	</update>
+
+	<!--删除语句-->
+		    <delete id="deleteSysUrlManage" parameterType="Long">
+		        DELETE FROM SYS_URL_MANAGE WHERE
+		    			ID = #{id} 
+		    </delete>
+    
+    <!--查询语句-->
+    <select id="getSysUrlManageById" resultMap="SysUrlManageMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM SYS_URL_MANAGE 
+	    WHERE 
+				ID = #{id} 
+	</select>
+	
+		<!--列表查询-->
+		<select id="getSysUrlManageListByQuery" resultType="SysUrlManage" resultMap="SysUrlManageMap" parameterType="SysUrlManageQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM SYS_URL_MANAGE 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="fid  != null" >
+	        	AND 	F_ID = #{fid} 
+	     	 	</if>
+				<if test="nameCn  != null" >
+	        	AND 	NAME_CN = #{nameCn} 
+	     	 	</if>
+				<if test="nameEn  != null" >
+	        	AND 	NAME_EN = #{nameEn} 
+	     	 	</if>
+				<if test="url  != null" >
+	        	AND 	URL = #{url} 
+	     	 	</if>
+				<if test="remark  != null" >
+	        	AND 	REMARK = #{remark} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--分页查询-->
+	<select id="getSysUrlManageInfoByQuery" resultType="SysUrlManage" resultMap="SysUrlManageMap" parameterType="SysUrlManageQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM SYS_URL_MANAGE 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="fid  != null" >
+	        	AND 	F_ID = #{fid} 
+	     	 	</if>
+				<if test="nameCn  != null" >
+	        	AND 	NAME_CN = #{nameCn} 
+	     	 	</if>
+				<if test="nameEn  != null" >
+	        	AND 	NAME_EN = #{nameEn} 
+	     	 	</if>
+				<if test="url  != null" >
+	        	AND 	URL = #{url} 
+	     	 	</if>
+				<if test="remark  != null" >
+	        	AND 	REMARK = #{remark} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="SysUrlManageQuery">
+        SELECT count(*) FROM SYS_URL_MANAGE 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="fid  != null" >
+	        	AND 	F_ID = #{fid}
+	     	 	</if>
+				<if test="nameCn  != null" >
+	        	AND 	NAME_CN = #{nameCn}
+	     	 	</if>
+				<if test="nameEn  != null" >
+	        	AND 	NAME_EN = #{nameEn}
+	     	 	</if>
+				<if test="url  != null" >
+	        	AND 	URL = #{url}
+	     	 	</if>
+				<if test="remark  != null" >
+	        	AND 	REMARK = #{remark}
+	     	 	</if>
+	     	 <if test="sqlWhere  != null" >
+	        	${sqlWhere}
+	     	 	</if>
+		</trim> 
+    </select>
+    
+</mapper>
+

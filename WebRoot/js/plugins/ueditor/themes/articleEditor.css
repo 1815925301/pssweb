@@ -1,0 +1,363 @@
+div.CodeMirror-scroll {
+	overflow-y: visible !important;
+}
+
+html,body {
+	overflow: auto !important;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	text-align: left;
+	font-size: 12px;
+	color: #666666;
+	margin: 0px;
+	background: #F6F9FD;
+}
+
+fieldset.extend {
+	margin: auto;
+	width: 646px;
+}
+
+.extend legend {
+	color: #666666;
+}
+
+.windowname {
+	color: #666;
+	padding-left: 10px;
+	padding-top: 5px;
+}
+
+.themleft {
+	background: url(images/themtitleft.gif) no-repeat left top;
+}
+
+.themright {
+	background: url(images/themtitright.gif) no-repeat right top;
+	cursor: pointer;
+}
+
+.thembg {
+	background: #FFFFFF url(images/themtitbg.gif) repeat-x left top;
+	border-bottom: #b8c9d6 1px solid;
+	border-right: #b8c9d6 1px solid;
+}
+
+textarea,form,select,input,button,option,iframe {
+	font-size: 12px;
+	background-color: transparent;
+}
+
+#otherbtn a,#otherbtn a:visited {
+	display: block;
+	width: 85px;
+	height: 22px;
+	line-height: 22px;
+	padding: 0;
+	text-align: left;
+	text-decoration: none;
+	background: url(images/btbg.gif) no-repeat center center;
+}
+
+#otherbtn img,#otherbtn img {
+	margin: 0 10px 0 5px;
+}
+
+#otherbtn a:hover {
+	background: url(images/btbgo.gif) no-repeat center center;
+}
+
+.tbSwitch {
+	height: 26px;
+	position: fixed;
+	background: url("images/paggingbar.gif");
+}
+
+#wrapper {
+	margin: 0;
+	border: 0;
+	height: 100%;
+	overflow: hidden;
+}
+
+#pageBarDiv {
+	position: fixed;
+	_position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+
+.pagetab {
+	vertical-align: top;
+	background: #F7F8FD url(../framework/images/pagetab_bg.gif) repeat-x left top;
+	padding-top: 0;
+}
+
+.pagetab a,.pagetab a.current,.pagetab li,.pagetab li.current {
+	position: relative;
+	float: left;
+	margin-left: -10px;
+	_display: inline;
+	background: url(../framework/images/pagetab_left.gif) no-repeat left top;
+	padding: 0 0 0 15px;
+	height: 20px;
+	-moz-user-select: none;
+}
+
+.pagetab a.current b,.pagetab b,.pagetab li.current b {
+	cursor: pointer;
+	font-weight: normal;
+	white-space: nowrap;
+	color: #888;
+	display: block;
+	float: left;
+	background: url(../framework/images/pagetab_right.gif) no-repeat right top;
+	padding: 0px 15px 0 0;
+	line-height: 17px;
+	height: 20px;
+}
+
+.pagetab a.current,.pagetab li.current {
+	background: url(../framework/images/pagetab_left_active.gif) no-repeat left top;
+	z-index: 777;
+}
+
+.pagetab a.current b,.pagetab li.current b {
+	background: url(../framework/images/pagetab_right_active.gif) no-repeat right top;
+	font-weight: bold;
+	color: #123;
+	line-height: 16px;
+}
+
+.pagetab .add a {
+	background: none;
+	margin: 0;
+	padding: 0;
+}
+
+.pagetab .add img {
+	margin: 2px 8px 0 8px;
+	border: #EDEDF3 1px solid;
+}
+
+.pagetab .add a:hover img {
+	border-bottom: #999 1px solid;
+	border-left: #fff 1px solid;
+	border-right: #999 1px solid;
+	border-top: #fff 1px solid;
+}
+
+.pagetab a:hover {
+	text-decoration: none;
+}
+
+.pagetab a:hover b,.pagetab li.pagetabOver b {
+	color: #000000;
+}
+
+.redCount {
+	color: #FF0000
+}
+
+#titleLength {
+	font-family: Constantia, Corbel;
+	font-size: 26px;
+	line-height: 12px;
+	margin-right: 5px;
+}
+
+#summaryLength {
+	font-family: Constantia, Corbel;
+	font-size: 26px;
+	line-height: 12px;
+	margin-right: 5px;
+}
+
+#DivContent {
+	padding: 0 20px 10px 0px;
+}
+
+.zving-toolbarTab {
+	position: relative;
+	height: 23px;
+	background-color: #F9FAFC;
+}
+
+.zving-toolbarTab-item {
+	position: absolute;
+	padding: 0 18px;
+	height: 23px;
+	line-height: 25px;
+	color: #4C6C99;
+	font-size: 12px;
+	border-color: transparent;
+	border-style: none solid;
+	border-width: 0 1px;
+	cursor: pointer;
+}
+
+.zving-toolbarTab-item.item1 {
+	left: 20px;
+}
+
+.zving-toolbarTab-item.item2 {
+	left: 82px;
+}
+
+.zving-toolbarTab-item.item3 {
+	left: 144px;
+}
+
+.zving-toolbarTab-item.item4 {
+	left: 206px;
+}
+
+.zving-toolbarTab-item.current {
+	line-height: 23px;
+	border-color: #D0D4DB;
+	color: #333;
+	background-color: #F9FAFC;
+	border-top: 2px solid #386BB5;
+	top: -1px;
+}
+
+.zving-toolbarCon {
+	border-top: 1px solid #DADEE6;
+}
+
+.zving-toolbarCon-item {
+	display: none;
+}
+
+.zving-toolbarCon-item.show {
+	display: block;
+}
+
+.zving-toolbarCon-item-separate {
+	border-right: 1px solid #fff;
+	padding-top: 2px;
+	float: left;
+}
+
+.zving-toolbarCon-item-separate-label {
+	background: #EBEDF2;
+	color: #B0B5BF;
+	font-size: 12px;
+	text-align: center;
+	height: 16px;
+}
+
+#UEditorContainer .edui-default .edui-editor {
+	border-radius: 0;
+	margin-top: -1px;
+}
+
+img {
+	display: inline-block;
+}
+
+#Title {
+	background: url(images/rule.gif) repeat-x left bottom;
+	${
+	TitleStyle
+}
+
+}
+#editorToolbarContainer {
+	
+}
+
+#editorToolbarWrap .zving-toolbarTab-item {
+	position: static;
+}
+
+#editorToolbarWrap .zving-toolbarTab {
+	float: left;
+	width: 70px;
+	overflow: hidden;
+	height: auto;
+	background: transparent;
+}
+
+#editorToolbarWrap .zving-toolbarCon {
+	float: left;
+	border-top: 0 none;
+	border-left: 1px solid #DADEE6;
+	margin-left: -1px;
+}
+
+#editorToolbarWrap .zving-toolbarCon-item {
+	/**width: 672px; **/
+}
+
+#editorToolbarWrap .zving-toolbarTab-item.current {
+	background-color: #FCFCFC;
+	border: #D0D4DB solid 1px;
+	border-left-color: #386BB5;
+	border-width: 1px 0 1px 2px;
+}
+
+#editorToolbarWrap .edui-editor-toolbarboxinner {
+	/**width: 747px;**/
+	margin: 0 auto;
+	padding: 0;
+}
+
+#editorToolbarWrap .edui-default .edui-editor-toolbarboxouter {
+	border: 0 none;
+	overflow: hidden;
+}
+
+#tips {
+	position: absolute;
+	bottom: 10px;
+	right: 12px;
+}
+
+/*--------����Ϊ���ٱ༭˳��Ҫ����ʽ------*/
+.z-overflowPanel {
+ height: 98%;
+ border-width: 0;
+ overflow-x: hidden;
+}
+
+.divPageTitle {
+ background: #F0F0F0;
+ border-bottom: 1px solid #D3D3D3;
+ border-top: 1px solid #D3D3D3;
+ padding: 5px 5px 5px 25px;
+}
+
+#divPageTitle_1 {
+ margin-top: -1px;
+}
+
+cke_comment {
+ background: url(../editor_new/themes/default/images/icon_comment.gif) no-repeat 0 center #ff0;
+ border: 1px dotted #fc3;
+ padding-left: 18px;
+ color: #cb9;
+ font-weight: normal;
+}
+
+#editorToolbarWrap {
+ text-align: left;
+}
+
+.edui-default .edui-editor {
+ border: 0;
+ border-radius: 0;
+}
+
+.edui-default .edui-editor-toolbarboxouter {
+ border-radius: 0;
+ border-bottom: 1px solid #D3D3D3;
+}
+.edui-default{
+	
+}

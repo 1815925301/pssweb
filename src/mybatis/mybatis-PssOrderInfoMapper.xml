@@ -1,0 +1,1804 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="PssOrderInfoDao">
+	<resultMap id="BaseResultMap" type="PssOrderInfo">
+		<result property="taskSteptime" column="TASKSTEPTIME" />
+		<result property="orderTracking" column="ORDERTRACKING" />
+		<result property="orderid" column="ORDERID" />
+		<result property="orderMainId" column="ORDERMAINID" />
+		<result property="tasktype" column="TASKTYPE" />
+		<result property="tasktime" column="TASKTIME" jdbcType="TIMESTAMP" />
+		<result property="operatorname" column="OPERATORNAME" />
+		<result property="priority" column="PRIORITY" />
+		<result property="username" column="USERNAME" />
+		<result property="productid" column="PRODUCTID" />
+		<result property="sceneid" column="SCENEID" />
+		<result property="productdate" column="PRODUCTDATE" />
+		<result property="productlevel" column="PRODUCTLEVEL" />
+		<result property="productuploaddir" column="PRODUCTUPLOADDIR" />
+		<result property="orderstate" column="ORDERSTATE" />
+		<result property="delflag" column="DELFLAG" />
+		<result property="areadystate" column="AREADYSTATE" />
+		<result property="productsize" column="PRODUCTSIZE" />
+		<result property="checkusername" column="CHECKUSERNAME" />
+		<result property="checktime" column="CHECKTIME" jdbcType="TIMESTAMP" />
+		<result property="checkstate" column="CHECKSTATE" />
+		<result property="note" column="NOTE" />
+		<result property="price" column="PRICE" />
+		<result property="clearform" column="CLEARFORM" />
+		<result property="dataformatdes" column="DATAFORMATDES" />
+		<result property="overallquality" column="OVERALLQUALITY" />
+		<result property="producttype" column="PRODUCTTYPE" />
+		<result property="scenecount" column="SCENECOUNT" />
+		<result property="sceneshift" column="SCENESHIFT" />
+		<result property="gain" column="GAIN" />
+		<result property="intergrallevel" column="INTERGRALLEVEL" />
+		<result property="sunelevation" column="SUNELEVATION" />
+		<result property="sunazimuth" column="SUNAZIMUTH" />
+		<result property="scenedate" column="SCENEDATE" />
+		<result property="imageingstarttime" column="IMAGEINGSTARTTIME" />
+		<result property="imageimgstoptime" column="IMAGEIMGSTOPTIME" />
+		<result property="satpath" column="SATPATH" />
+		<result property="satrow" column="SATROW" />
+		<result property="scenepath" column="SCENEPATH" />
+		<result property="scenerow" column="SCENEROW" />
+		<result property="scenecenterlat" column="SCENECENTERLAT" />
+		<result property="scenecenterlong" column="SCENECENTERLONG" />
+		<result property="dataupperleftlat" column="DATAUPPERLEFTLAT" />
+		<result property="dataupperleftlong" column="DATAUPPERLEFTLONG" />
+		<result property="dataupperrightlat" column="DATAUPPERRIGHTLAT" />
+		<result property="dataupperrightupperlong" column="DATAUPPERRIGHTUPPERLONG" />
+		<result property="datalowerleftlat" column="DATALOWERLEFTLAT" />
+		<result property="datalowerleftlong" column="DATALOWERLEFTLONG" />
+		<result property="datalowerrightlat" column="DATALOWERRIGHTLAT" />
+		<result property="datalowerrightlong" column="DATALOWERRIGHTLONG" />
+		<result property="bands" column="BANDS" />
+		<result property="radiometricmethod" column="RADIOMETRICMETHOD" />
+		<result property="abccalibtype" column="ABCCALIBTYPE" />
+		<result property="mtfcpromode" column="MTFCPROMODE" />
+		<result property="satelliteid" column="SATELLITEID" />
+		<result property="pixelspacing" column="PIXELSPACING" />
+		<result property="ephemerisdata" column="EPHEMERISDATA" />
+		<result property="attitudedata" column="ATTITUDEDATA" />
+		<result property="productorientation" column="PRODUCTORIENTATION" />
+		<result property="earthmodel" column="EARTHMODEL" />
+		<result property="mapprojection" column="MAPPROJECTION" />
+		<result property="resampletechnique" column="RESAMPLETECHNIQUE" />
+		<result property="productupperleftlat" column="PRODUCTUPPERLEFTLAT" />
+		<result property="productupperleftlong" column="PRODUCTUPPERLEFTLONG" />
+		<result property="productupperrightlat" column="PRODUCTUPPERRIGHTLAT" />
+		<result property="productupperrightlong" column="PRODUCTUPPERRIGHTLONG" />
+		<result property="productlowerleftlat" column="PRODUCTLOWERLEFTLAT" />
+		<result property="productlowerleftlong" column="PRODUCTLOWERLEFTLONG" />
+		<result property="productlowerrightlat" column="PRODUCTLOWERRIGHTLAT" />
+		<result property="productlowerrightlong" column="PRODUCTLOWERRIGHTLONG" />
+		<result property="dataupperleftx" column="DATAUPPERLEFTX" />
+		<result property="dataupperlefty" column="DATAUPPERLEFTY" />
+		<result property="dataupperrightx" column="DATAUPPERRIGHTX" />
+		<result property="dataupperrighty" column="DATAUPPERRIGHTY" />
+		<result property="datalowerleftx" column="DATALOWERLEFTX" />
+		<result property="datalowerlefty" column="DATALOWERLEFTY" />
+		<result property="datalowerrightx" column="DATALOWERRIGHTX" />
+		<result property="datalowerrighty" column="DATALOWERRIGHTY" />
+		<result property="productupperleftx" column="PRODUCTUPPERLEFTX" />
+		<result property="productupperlefty" column="PRODUCTUPPERLEFTY" />
+		<result property="productupperrightx" column="PRODUCTUPPERRIGHTX" />
+		<result property="productupperrighty" column="PRODUCTUPPERRIGHTY" />
+		<result property="productlowerleftx" column="PRODUCTLOWERLEFTX" />
+		<result property="productlowerlefty" column="PRODUCTLOWERLEFTY" />
+		<result property="productlowerrightx" column="PRODUCTLOWERRIGHTX" />
+		<result property="productlowerrighty" column="PRODUCTLOWERRIGHTY" />
+		<result property="geodeticmethod" column="GEODETICMETHOD" />
+		<result property="demtype" column="DEMTYPE" />
+		<result property="failreason" column="FAILREASON" />
+		<result property="delstatus" column="DELSTATUS" />
+		<result property="sensorid" column="SENSORID" />
+		<result property="finishdownloadif" column="FINISHDOWNLOADIF" />
+		<result property="finishdownloadtime" column="FINISHDOWNLOADTIME" />
+		<result property="urgerncylevel" column="URGERNCYLEVEL" />
+		<result property="stationid" column="STATIONID" />
+		<result property="ordermediumid" column="ORDERMEDIUMID" />
+		<result property="issend" column="ISSEND" />
+		<result property="orderidstringrel" column="ORDERIDSTRINGREL" />
+		<result property="cloudcover" column="CLOUDCOVER" />
+		<result property="finishtime" column="FINISHTIME" />
+		<result property="orderidstring" column="ORDERIDSTRING" />
+		<result property="ftpurl" column="FTPURL" />
+		<result property="describe" column="DESCRIBE" />
+		<result property="auditnote" column="AUDITNOTE" />
+		<result property="scenerowbias" column="SCENEROWBIAS" />
+		<result property="scenepathbias" column="SCENEPATHBIAS" />
+		<result property="paytheline" column="PAYTHELINE" />
+		<result property="ispay" column="ISPAY" />
+		<result property="isfault" column="ISFAULT"/>
+		<result property="friendlyprompt" column="FRIENDLYPROMPT"/>
+		<result property="productcate" column="PRODUCTCATE" />
+		<result property="L0dataid" column="L0DATAID"/>
+		<result property="orbitid" column="ORBITID"/>
+		<result property="spatialmax" column="SPATIALMAX"/>
+		<result property="spatialmin" column="SPATIALMIN"/>
+		<result property="uuit" column="UUIT"/>
+	</resultMap>
+	<resultMap id="SelectCountsByOrderState" type="SelectCountsByOrderState">
+		<result property="orderstate" column="ORDERSTATE" />
+		<result property="Counts" column="COUNTS" />
+		
+	</resultMap>
+
+	<resultMap id="SelectCountss" type="SelectOrderCount">
+		<result property="username" column="USERNAME" />
+		<result property="completeorder" column="COMPLETEORDER" />
+		<result property="faielorder" column="FAIELORDER" />
+		<result property="cancleorder" column="CANCLEORDER" />
+		<result property="waitorder" column="WAITORDER" />
+		<result property="dealorder" column="DEALORDER" />
+	</resultMap>
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ORDERID,TASKTYPE,TASKTIME,OPERATORNAME,PRIORITY,USERNAME,SCENEID,PRODUCTDATE,PRODUCTLEVEL,PRODUCTUPLOADDIR,ORDERSTATE,DELFLAG,AREADYSTATE,PRODUCTSIZE,CHECKUSERNAME,CHECKTIME,NOTE,PRICE,CLEARFORM,DATAFORMATDES,OVERALLQUALITY,PRODUCTTYPE,SCENECOUNT,SCENESHIFT,GAIN,INTERGRALLEVEL,SUNELEVATION,SUNAZIMUTH,SCENEDATE,IMAGEINGSTARTTIME,IMAGEIMGSTOPTIME,SATPATH,SATROW,SCENEPATH,SCENEROW,SCENECENTERLAT,SCENECENTERLONG,DATAUPPERLEFTLAT,DATAUPPERLEFTLONG,DATAUPPERRIGHTLAT,DATAUPPERRIGHTUPPERLONG,DATALOWERLEFTLAT,DATALOWERLEFTLONG,DATALOWERRIGHTLAT,DATALOWERRIGHTLONG,BANDS,RADIOMETRICMETHOD,ABCCALIBTYPE,MTFCPROMODE,SATELLITEID,PIXELSPACING,EPHEMERISDATA,ATTITUDEDATA,PRODUCTORIENTATION,EARTHMODEL,MAPPROJECTION,RESAMPLETECHNIQUE,PRODUCTUPPERLEFTLAT,PRODUCTUPPERLEFTLONG,PRODUCTUPPERRIGHTLAT,PRODUCTUPPERRIGHTLONG,PRODUCTLOWERLEFTLAT,PRODUCTLOWERLEFTLONG,PRODUCTLOWERRIGHTLAT,PRODUCTLOWERRIGHTLONG,DATAUPPERLEFTX,DATAUPPERLEFTY,DATAUPPERRIGHTX,DATAUPPERRIGHTY,DATALOWERLEFTX,DATALOWERLEFTY,DATALOWERRIGHTX,DATALOWERRIGHTY,PRODUCTUPPERLEFTX,PRODUCTUPPERLEFTY,PRODUCTUPPERRIGHTX,PRODUCTUPPERRIGHTY,PRODUCTLOWERLEFTX,PRODUCTLOWERLEFTY,PRODUCTLOWERRIGHTX,PRODUCTLOWERRIGHTY,GEODETICMETHOD,DEMTYPE,FAILREASON,DELSTATUS,SENSORID,FINISHDOWNLOADIF,FINISHDOWNLOADTIME,URGERNCYLEVEL,STATIONID,ORDERMEDIUMID,ISSEND,ORDERIDSTRINGREL,CLOUDCOVER,FINISHTIME,ORDERIDSTRING,FTPURL,DESCRIBE,AUDITNOTE,SCENEROWBIAS,SCENEPATHBIAS,CHECKSTATE,ISDOWNLOAD,PAYTHELINE,ISPAY,ORDERMAINID,TASKSTEPTIME,CHECKISPAYNAME,ORDERTRACKING,ISFAULT,FRIENDLYPROMPT,PRODUCTCATE,ORBITID,L0DATAID,GCP,PRODUCTID,SPATIALMAX,SPATIALMIN,UUIT
+	</sql>
+	<sql id="Base_Column_List_ByCount">
+		orderstate as ORDERSTATE,count(*) as COUNTS
+	</sql>
+	<!-- 自动审核 -->
+	<update id="updateCheckstate" parameterType="Long">
+		UPDATE PSS_ORDER_INFO SET OPERATORNAME='AUTOMATION',ISPAY=2,PRICE=0  WHERE orderid=#{orderid}
+	</update>
+	<select id="getorderinfoByid" parameterType="Long" resultType="PssOrderInfo">
+		select
+		<include refid="Base_Column_List"/>
+		from PSS_ORDER_INFO where orderid=#{orderid}
+	</select>
+	<!-- 追加"订单跟踪"信息 -->
+	<update id="updateOrderTrackingById" parameterType="Map">
+		UPDATE
+		PSS_ORDER_INFO 
+			SET ORDERTRACKING = #{orderTracking} 
+		WHERE 
+			ORDERID = #{orderid}
+	</update>
+
+	<!--更新语句 -->
+	<update id="updatePssOrderInfo" parameterType="PssOrderInfo">
+		UPDATE
+		PSS_ORDER_INFO 
+		<set>
+		<if test="checkstate != null">
+		CHECKSTATE = #{checkstate},
+		</if>
+		<if test="orderstate != null">
+		ORDERSTATE = #{orderstate}
+		</if>
+			
+		</set>
+		 WHERE ORDERID =#{orderid}
+	</update>
+
+	<!-- 插入语句 -->
+	<insert id="insertPssOrderInfo" parameterType="PssOrderInfo"
+		useGeneratedKeys="false">
+		INSERT INTO PSS_ORDER_INFO(
+		<trim suffix="" suffixOverrides=",">
+			ORDERID,
+			<if test="tasktype != null">
+				TASKTYPE,
+			</if>
+			<if test="tasktime != null">
+				TASKTIME,
+			</if>
+			<if test="orderMainId != null and orderMainId != '' ">
+				ORDERMAINID,
+			</if>
+			<if test="imageingstarttime != null">
+				IMAGEINGSTARTTIME,
+			</if>
+			<if test="imageimgstoptime != null">
+				IMAGEIMGSTOPTIME,
+			</if>
+			<if test="spatialmax != null">
+				SPATIALMAX,
+			</if>
+			<if test="spatialmin != null">
+				SPATIALMIN,
+			</if>
+			<if test="operatorname != null">
+				OPERATORNAME,
+			</if>
+
+			<if test="priority != null">
+				PRIORITY,
+			</if>
+
+			<if test="username != null">
+				USERNAME,
+			</if>
+
+			<if test="productid != null">
+				PRODUCTID,
+			</if>
+
+			<if test="sceneid != null">
+				SCENEID,
+			</if>
+
+			<if test="productdate != null">
+				PRODUCTDATE,
+			</if>
+
+			<if test="productlevel != null">
+				PRODUCTLEVEL,
+			</if>
+
+			<if test="productuploaddir != null">
+				PRODUCTUPLOADDIR,
+			</if>
+
+			<if test="orderstate != null">
+				ORDERSTATE,
+			</if>
+
+			<if test="delflag != null">
+				DELFLAG,
+			</if>
+
+			<if test="areadystate != null">
+				AREADYSTATE,
+			</if>
+
+			<if test="productsize != null">
+				PRODUCTSIZE,
+			</if>
+
+			<if test="checkusername != null">
+				CHECKUSERNAME,
+			</if>
+
+
+			<if test="note != null">
+				NOTE,
+			</if>
+
+			<if test="price != null">
+				PRICE,
+			</if>
+
+			<if test="clearform != null">
+				CLEARFORM,
+			</if>
+
+			<if test="dataformatdes != null">
+				DATAFORMATDES,
+			</if>
+
+			<if test="overallquality != null">
+				OVERALLQUALITY,
+			</if>
+
+			<if test="producttype != null">
+				PRODUCTTYPE,
+			</if>
+
+			<if test="scenecount != null">
+				SCENECOUNT,
+			</if>
+
+			<if test="sceneshift != null">
+				SCENESHIFT,
+			</if>
+
+			<if test="gain != null">
+				GAIN,
+			</if>
+
+			<if test="intergrallevel != null">
+				INTERGRALLEVEL,
+			</if>
+
+			<if test="sunelevation != null">
+				SUNELEVATION,
+			</if>
+
+			<if test="sunazimuth != null">
+				SUNAZIMUTH,
+			</if>
+
+			<if test="scenedate != null">
+				SCENEDATE,
+			</if>
+
+
+			<if test="satpath != null">
+				SATPATH,
+			</if>
+
+			<if test="satrow != null">
+				SATROW,
+			</if>
+
+			<if test="scenepath != null">
+				SCENEPATH,
+			</if>
+
+			<if test="scenerow != null">
+				SCENEROW,
+			</if>
+
+			<if test="scenecenterlat != null">
+				SCENECENTERLAT,
+			</if>
+
+			<if test="scenecenterlong != null">
+				SCENECENTERLONG,
+			</if>
+
+			<if test="dataupperleftlat != null">
+				DATAUPPERLEFTLAT,
+			</if>
+
+			<if test="dataupperleftlong != null">
+				DATAUPPERLEFTLONG,
+			</if>
+
+			<if test="dataupperrightlat != null">
+				DATAUPPERRIGHTLAT,
+			</if>
+
+			<if test="dataupperrightupperlong != null">
+				DATAUPPERRIGHTUPPERLONG,
+			</if>
+
+			<if test="datalowerleftlat != null">
+				DATALOWERLEFTLAT,
+			</if>
+
+			<if test="datalowerleftlong != null">
+				DATALOWERLEFTLONG,
+			</if>
+
+			<if test="datalowerrightlat != null">
+				DATALOWERRIGHTLAT,
+			</if>
+
+			<if test="datalowerrightlong != null">
+				DATALOWERRIGHTLONG,
+			</if>
+
+			<if test="bands != null">
+				BANDS,
+			</if>
+
+			<if test="radiometricmethod != null">
+				RADIOMETRICMETHOD,
+			</if>
+
+			<if test="abccalibtype != null">
+				ABCCALIBTYPE,
+			</if>
+
+			<if test="mtfcpromode != null">
+				MTFCPROMODE,
+			</if>
+
+			<if test="satelliteid != null">
+				SATELLITEID,
+			</if>
+
+			<if test="pixelspacing != null">
+				PIXELSPACING,
+			</if>
+
+			<if test="ephemerisdata != null">
+				EPHEMERISDATA,
+			</if>
+
+			<if test="attitudedata != null">
+				ATTITUDEDATA,
+			</if>
+
+			<if test="productorientation != null">
+				PRODUCTORIENTATION,
+			</if>
+
+			<if test="earthmodel != null">
+				EARTHMODEL,
+			</if>
+
+			<if test="mapprojection != null">
+				MAPPROJECTION,
+			</if>
+
+			<if test="resampletechnique != null">
+				RESAMPLETECHNIQUE,
+			</if>
+
+			<if test="productupperleftlat != null">
+				PRODUCTUPPERLEFTLAT,
+			</if>
+
+			<if test="productupperleftlong != null">
+				PRODUCTUPPERLEFTLONG,
+			</if>
+
+			<if test="productupperrightlat != null">
+				PRODUCTUPPERRIGHTLAT,
+			</if>
+
+			<if test="productupperrightlong != null">
+				PRODUCTUPPERRIGHTLONG,
+			</if>
+
+			<if test="productlowerleftlat != null">
+				PRODUCTLOWERLEFTLAT,
+			</if>
+
+			<if test="productlowerleftlong != null">
+				PRODUCTLOWERLEFTLONG,
+			</if>
+
+			<if test="productlowerrightlat != null">
+				PRODUCTLOWERRIGHTLAT,
+			</if>
+
+			<if test="productlowerrightlong != null">
+				PRODUCTLOWERRIGHTLONG,
+			</if>
+
+			<if test="dataupperleftx != null">
+				DATAUPPERLEFTX,
+			</if>
+
+			<if test="dataupperlefty != null">
+				DATAUPPERLEFTY,
+			</if>
+
+			<if test="dataupperrightx != null">
+				DATAUPPERRIGHTX,
+			</if>
+
+			<if test="dataupperrighty != null">
+				DATAUPPERRIGHTY,
+			</if>
+
+			<if test="datalowerleftx != null">
+				DATALOWERLEFTX,
+			</if>
+
+			<if test="datalowerlefty != null">
+				DATALOWERLEFTY,
+			</if>
+
+			<if test="datalowerrightx != null">
+				DATALOWERRIGHTX,
+			</if>
+
+			<if test="datalowerrighty != null">
+				DATALOWERRIGHTY,
+			</if>
+
+			<if test="productupperleftx != null">
+				PRODUCTUPPERLEFTX,
+			</if>
+
+			<if test="productupperlefty != null">
+				PRODUCTUPPERLEFTY,
+			</if>
+
+			<if test="productupperrightx != null">
+				PRODUCTUPPERRIGHTX,
+			</if>
+
+			<if test="productupperrighty != null">
+				PRODUCTUPPERRIGHTY,
+			</if>
+
+			<if test="productlowerleftx != null">
+				PRODUCTLOWERLEFTX,
+			</if>
+
+			<if test="productlowerlefty != null">
+				PRODUCTLOWERLEFTY,
+			</if>
+
+			<if test="productlowerrightx != null">
+				PRODUCTLOWERRIGHTX,
+			</if>
+
+			<if test="productlowerrighty != null">
+				PRODUCTLOWERRIGHTY,
+			</if>
+
+			<if test="geodeticmethod != null">
+				GEODETICMETHOD,
+			</if>
+
+			<if test="demtype != null">
+				DEMTYPE,
+			</if>
+
+			<if test="failreason != null">
+				FAILREASON,
+			</if>
+
+			<if test="delstatus != null">
+				DELSTATUS,
+			</if>
+
+			<if test="sensorid != null">
+				SENSORID,
+			</if>
+
+			<if test="finishdownloadif != null">
+				FINISHDOWNLOADIF,
+			</if>
+
+
+
+			<if test="urgerncylevel != null">
+				URGERNCYLEVEL,
+			</if>
+
+			<if test="stationid != null">
+				STATIONID,
+			</if>
+
+			<if test="ordermediumid != null">
+				ORDERMEDIUMID,
+			</if>
+
+			<if test="issend != null">
+				ISSEND,
+			</if>
+
+			<if test="orderidstringrel != null">
+				ORDERIDSTRINGREL,
+			</if>
+
+			<if test="cloudcover != null">
+				CLOUDCOVER,
+			</if>
+
+
+
+			<if test="orderidstring != null">
+				ORDERIDSTRING,
+			</if>
+
+			<if test="ftpurl != null">
+				FTPURL,
+			</if>
+
+			<if test="describe != null">
+				DESCRIBE,
+			</if>
+
+			<if test="auditnote != null">
+				AUDITNOTE,
+			</if>
+
+			<if test="scenerowbias != null">
+				SCENEROWBIAS,
+			</if>
+
+			<if test="scenepathbias != null">
+				SCENEPATHBIAS,
+			</if>
+
+			<if test="checkstate != null">
+				CHECKSTATE,
+			</if>
+
+			<if test="isdownload != null">
+				ISDOWNLOAD,
+			</if>
+
+			<if test="paytheline != null">
+				PAYTHELINE,
+			</if>
+			<if test="isfault != null">
+				ISFAULT,
+			</if>
+			<if test="friendlyprompt != null">
+				FRIENDLYPROMPT,
+			</if>
+
+			<if test="ispay != null">
+				ISPAY,
+			</if>
+			<if test="L0dataid != null">
+				L0DATAID,
+			</if>
+			<if test="orbitid != null">
+				ORBITID,
+			</if>
+			<if test="uuit != null">
+				UUIT,
+			</if>
+			<if test="productcate != null">
+				PRODUCTCATE
+			</if>
+
+		</trim>
+		) VALUES(
+		<trim suffix="" suffixOverrides=",">
+			#{orderid},
+			<if test="tasktype != null">
+				#{tasktype},
+			</if>
+			<if test="tasktime != null">
+
+				to_date(#{tasktime},'yyyy-mm-dd HH24:mi:ss'),
+			</if>
+
+			<if test="orderMainId != null and orderMainId != ''">
+				#{orderMainId},
+			</if>
+			<if test="operatorname != null">
+				#{operatorname},
+			</if>
+
+			<if test="imageingstarttime != null">
+			to_date(#{imageingstarttime},'yyyy-mm-dd HH24:mi:ss'),
+			</if>
+			<if test="imageimgstoptime != null">
+			to_date(#{imageimgstoptime},'yyyy-mm-dd HH24:mi:ss'),
+			</if>
+			<if test="spatialmax != null">
+				#{spatialmax},
+			</if>
+
+			<if test="spatialmin != null">
+				#{spatialmin},
+			</if>
+			<if test="priority != null">
+				#{priority},
+			</if>
+
+			<if test="username != null">
+				#{username},
+			</if>
+
+			<if test="productid != null">
+				#{productid},
+			</if>
+
+			<if test="sceneid != null">
+				#{sceneid},
+			</if>
+
+			<if test="productdate != null">
+				#{productdate},
+			</if>
+
+			<if test="productlevel != null">
+				#{productlevel},
+			</if>
+
+			<if test="productuploaddir != null">
+				#{productuploaddir},
+			</if>
+
+			<if test="orderstate != null">
+				#{orderstate},
+			</if>
+
+			<if test="delflag != null">
+				#{delflag},
+			</if>
+
+			<if test="areadystate != null">
+				#{areadystate},
+			</if>
+
+			<if test="productsize != null">
+				#{productsize},
+			</if>
+
+			<if test="checkusername != null">
+				#{checkusername},
+			</if>
+
+
+
+			<if test="note != null">
+				#{note},
+			</if>
+
+			<if test="price != null">
+				#{price},
+			</if>
+
+			<if test="clearform != null">
+				#{clearform},
+			</if>
+
+			<if test="dataformatdes != null">
+				#{dataformatdes},
+			</if>
+
+			<if test="overallquality != null">
+				#{overallquality},
+			</if>
+
+			<if test="producttype != null">
+				#{producttype},
+			</if>
+
+			<if test="scenecount != null">
+				#{scenecount},
+			</if>
+
+			<if test="sceneshift != null">
+				#{sceneshift},
+			</if>
+
+			<if test="gain != null">
+				#{gain},
+			</if>
+
+			<if test="intergrallevel != null">
+				#{intergrallevel},
+			</if>
+
+			<if test="sunelevation != null">
+				#{sunelevation},
+			</if>
+
+			<if test="sunazimuth != null">
+				#{sunazimuth},
+			</if>
+
+			<if test="scenedate != null">
+				#{scenedate},
+			</if>
+
+
+
+
+
+			<if test="satpath != null">
+				#{satpath},
+			</if>
+
+			<if test="satrow != null">
+				#{satrow},
+			</if>
+
+			<if test="scenepath != null">
+				#{scenepath},
+			</if>
+
+			<if test="scenerow != null">
+				#{scenerow},
+			</if>
+
+			<if test="scenecenterlat != null">
+				#{scenecenterlat},
+			</if>
+
+			<if test="scenecenterlong != null">
+				#{scenecenterlong},
+			</if>
+
+			<if test="dataupperleftlat != null">
+				#{dataupperleftlat},
+			</if>
+
+			<if test="dataupperleftlong != null">
+				#{dataupperleftlong},
+			</if>
+
+			<if test="dataupperrightlat != null">
+				#{dataupperrightlat},
+			</if>
+
+			<if test="dataupperrightupperlong != null">
+				#{dataupperrightupperlong},
+			</if>
+
+			<if test="datalowerleftlat != null">
+				#{datalowerleftlat},
+			</if>
+
+			<if test="datalowerleftlong != null">
+				#{datalowerleftlong},
+			</if>
+
+			<if test="datalowerrightlat != null">
+				#{datalowerrightlat},
+			</if>
+
+			<if test="datalowerrightlong != null">
+				#{datalowerrightlong},
+			</if>
+
+			<if test="bands != null">
+				#{bands},
+			</if>
+
+			<if test="radiometricmethod != null">
+				#{radiometricmethod},
+			</if>
+
+			<if test="abccalibtype != null">
+				#{abccalibtype},
+			</if>
+
+			<if test="mtfcpromode != null">
+				#{mtfcpromode},
+			</if>
+
+			<if test="satelliteid != null">
+				#{satelliteid},
+			</if>
+
+			<if test="pixelspacing != null">
+				#{pixelspacing},
+			</if>
+
+			<if test="ephemerisdata != null">
+				#{ephemerisdata},
+			</if>
+
+			<if test="attitudedata != null">
+				#{attitudedata},
+			</if>
+
+			<if test="productorientation != null">
+				#{productorientation},
+			</if>
+
+			<if test="earthmodel != null">
+				#{earthmodel},
+			</if>
+
+			<if test="mapprojection != null">
+				#{mapprojection},
+			</if>
+
+			<if test="resampletechnique != null">
+				#{resampletechnique},
+			</if>
+
+			<if test="productupperleftlat != null">
+				#{productupperleftlat},
+			</if>
+
+			<if test="productupperleftlong != null">
+				#{productupperleftlong},
+			</if>
+
+			<if test="productupperrightlat != null">
+				#{productupperrightlat},
+			</if>
+
+			<if test="productupperrightlong != null">
+				#{productupperrightlong},
+			</if>
+
+			<if test="productlowerleftlat != null">
+				#{productlowerleftlat},
+			</if>
+
+			<if test="productlowerleftlong != null">
+				#{productlowerleftlong},
+			</if>
+
+			<if test="productlowerrightlat != null">
+				#{productlowerrightlat},
+			</if>
+
+			<if test="productlowerrightlong != null">
+				#{productlowerrightlong},
+			</if>
+
+			<if test="dataupperleftx != null">
+				#{dataupperleftx},
+			</if>
+
+			<if test="dataupperlefty != null">
+				#{dataupperlefty},
+			</if>
+
+			<if test="dataupperrightx != null">
+				#{dataupperrightx},
+			</if>
+
+			<if test="dataupperrighty != null">
+				#{dataupperrighty},
+			</if>
+
+			<if test="datalowerleftx != null">
+				#{datalowerleftx},
+			</if>
+
+			<if test="datalowerlefty != null">
+				#{datalowerlefty},
+			</if>
+
+			<if test="datalowerrightx != null">
+				#{datalowerrightx},
+			</if>
+
+			<if test="datalowerrighty != null">
+				#{datalowerrighty},
+			</if>
+
+			<if test="productupperleftx != null">
+				#{productupperleftx},
+			</if>
+
+			<if test="productupperlefty != null">
+				#{productupperlefty},
+			</if>
+
+			<if test="productupperrightx != null">
+				#{productupperrightx},
+			</if>
+
+			<if test="productupperrighty != null">
+				#{productupperrighty},
+			</if>
+
+			<if test="productlowerleftx != null">
+				#{productlowerleftx},
+			</if>
+
+			<if test="productlowerlefty != null">
+				#{productlowerlefty},
+			</if>
+
+			<if test="productlowerrightx != null">
+				#{productlowerrightx},
+			</if>
+
+			<if test="productlowerrighty != null">
+				#{productlowerrighty},
+			</if>
+
+			<if test="geodeticmethod != null">
+				#{geodeticmethod},
+			</if>
+
+			<if test="demtype != null">
+				#{demtype},
+			</if>
+
+			<if test="failreason != null">
+				#{failreason},
+			</if>
+
+			<if test="delstatus != null">
+				#{delstatus},
+			</if>
+
+			<if test="sensorid != null">
+				#{sensorid},
+			</if>
+
+			<if test="finishdownloadif != null">
+				#{finishdownloadif},
+			</if>
+
+
+
+			<if test="urgerncylevel != null">
+				#{urgerncylevel},
+			</if>
+
+			<if test="stationid != null">
+				#{stationid},
+			</if>
+
+			<if test="ordermediumid != null">
+				#{ordermediumid},
+			</if>
+
+			<if test="issend != null">
+				#{issend},
+			</if>
+
+			<if test="orderidstringrel != null">
+				#{orderidstringrel},
+			</if>
+
+			<if test="cloudcover != null">
+				#{cloudcover},
+			</if>
+
+
+			<if test="orderidstring != null">
+				#{orderidstring},
+			</if>
+
+			<if test="ftpurl != null">
+				#{ftpurl},
+			</if>
+
+			<if test="describe != null">
+				#{describe},
+			</if>
+
+			<if test="auditnote != null">
+				#{auditnote},
+			</if>
+
+			<if test="scenerowbias != null">
+				#{scenerowbias},
+			</if>
+
+			<if test="scenepathbias != null">
+				#{scenepathbias},
+			</if>
+
+			<if test="checkstate != null">
+				#{checkstate},
+			</if>
+
+			<if test="isdownload != null">
+				#{isdownload},
+			</if>
+
+			<if test="paytheline != null">
+				#{paytheline},
+			</if>
+				<if test="isfault != null">
+				#{isfault},
+			</if>
+			<if test="friendlyprompt != null">
+				#{friendlyprompt},
+			</if>
+			
+			<if test="ispay != null">
+				#{ispay},
+			</if>
+			<if test="L0dataid != null">
+				#{L0dataid},
+			</if>
+			<if test="orbitid != null">
+				#{orbitid},
+			</if>
+			<if test="uuit != null">
+				#{uuit},
+			</if>
+			<if test="productcate != null">
+				#{productcate}
+			</if>
+		</trim>
+		)
+	</insert>
+
+
+
+
+	<!--更新语句 -->
+
+
+	<!--删除语句 -->
+	<delete id="deletePssOrderInfo" parameterType="Long">
+		DELETE FROM
+		PSS_ORDER_INFO WHERE
+		ORDERID = #{orderid}
+	</delete>
+
+	<!--查询语句 -->
+	<select id="getPssOrderInfoById" resultMap="BaseResultMap">
+		SELECT *
+		FROM
+		PSS_ORDER_INFO
+		WHERE
+		ORDERID = #{orderid}
+	</select>
+
+	<!--根据主订单和子订单id查询子订单信息(返回List<Map<String, Object>>) Dylan写 -->
+	<select id="findSonOrderByCond" resultType="Map" parameterType="Map">
+		SELECT
+		*
+		FROM PSS_ORDER_INFO
+		WHERE 1=1
+		<if test="orderMainId != null and orderMainId.trim() != ''">
+			AND ORDERMAINID = #{orderMainId}
+		</if>
+		<if test="sonOrderIds != null and sonOrderIds.trim() != ''">
+			AND ORDERID = ANY (${sonOrderIds})
+		</if>
+	</select>
+
+	<!--列表查询 -->
+	<select id="getPssOrderInfoListByQuery" resultMap="BaseResultMap"
+		resultType="PssOrderInfo" parameterType="PssOrderInfoQuery">
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM PSS_ORDER_INFO
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="orderMainId != null">
+				AND<![CDATA[ ORDERMAINID = #{orderMainId} ]]>
+			</if>
+			<if test="ispay != null">
+				AND<![CDATA[ ISPAY = #{ispay} ]]>
+			</if>
+			<if test="sensorid != null">
+				AND<![CDATA[ sensorid = #{sensorid} ]]>
+			</if>
+			<if test="sceneid != null">
+				AND SCENEID like CONCAT('%${sceneid}','%' )
+			</if>
+			<if test="productlevel != null">
+				AND<![CDATA[ productlevel = #{productlevel} ]]>
+			</if>
+			<if test="orderid != null">
+				AND ORDERID like CONCAT('%${orderid}','%' )
+			</if>
+			<if test="username != null">
+				AND USERNAME like CONCAT('%${username}','%' )
+			</if>
+			<if test="tasktype != null">
+				AND<![CDATA[ TASKTYPE = #{tasktype} ]]>
+
+			</if>
+			<if test="checkstate != null">
+				AND<![CDATA[ CHECKSTATE = #{checkstate} ]]>
+
+			</if>
+			<if test="isfault != null">
+				AND<![CDATA[ ISFAULT = #{isfault} ]]>
+
+			</if>
+			<if test="orderstate != null">
+				AND<![CDATA[ ORDERSTATE = #{orderstate} ]]>
+
+			</if>
+				
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType != 1">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY orderid DESC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_ where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>
+			) where 
+				
+				<![CDATA[ rownum_ >#{startNum} ]]>
+		</if>
+	</select>
+
+	<!--列表查询 -->
+	<select id="getPssOrderInfoList" resultMap="BaseResultMap"
+		resultType="PssOrderInfo" parameterType="PssOrderInfoQuery">
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM PSS_ORDER_INFO
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="ispay != null">
+				AND<![CDATA[ ISPAY = #{ispay} ]]>
+			</if>
+			<if test="sensorid != null">
+				AND<![CDATA[ sensorid = #{sensorid} ]]>
+			</if>
+			<if test="sceneid != null">
+				AND SCENEID like CONCAT('%${sceneid}','%' )
+			</if>
+			<if test="productlevel != null">
+				AND<![CDATA[ productlevel = #{productlevel} ]]>
+			</if>
+			<if test="orderidstring != null">
+				AND ORDERID like CONCAT('%${orderid}','%' )
+			</if>
+			<if test="username != null">
+				AND USERNAME like CONCAT('%${username}','%' )
+			</if>
+			<if test="tasktype != null">
+				AND<![CDATA[ TASKTYPE = #{tasktype} ]]>
+
+			</if>
+			<if test="checkstate != null">
+				AND<![CDATA[ CHECKSTATE = #{checkstate} ]]>
+
+			</if>
+			<if
+				test="starttime != null and endtime!=null and starttime !='' and endtime !=''">
+				TASKTIME &gt;=to_date(#{starttime},'yyyy-mm-dd HH24:mi:ss')
+			</if>
+			<if
+				test="starttime != null and endtime!=null  and starttime !='' and endtime !=''">
+				AND TASKTIME &lt;=to_date(#{endtime},'yyyy-mm-dd HH24:mi:ss')
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType != 1">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY orderid DESC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_ where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>
+			) where 
+				
+				<![CDATA[ rownum_ >#{startNum} ]]>
+		</if>
+	</select>
+	<!-- 查询卫星 -->
+	<select id="getorderPriceBymainid" resultMap="BaseResultMap">
+		SELECT PRICE,UUIT FROM
+		PSS_ORDER_INFO WHERE ORDERMAINID=#{orderMainId}
+	</select>
+	<select id="getSatelliteList" resultMap="BaseResultMap">
+		SELECT SATELLITEID FROM
+		PSS_ORDER_INFO GROUP BY SATELLITEID
+	</select>
+	<!-- 查询传感器 -->
+	<select id="getSensoridList" resultMap="BaseResultMap">
+		SELECT SENSORID FROM
+		PSS_ORDER_INFO GROUP BY SENSORID
+	</select>
+	<!-- 查询产品级别 -->
+	<select id="getProductlevelList" resultMap="BaseResultMap">
+		SELECT PRODUCTLEVEL
+		FROM PSS_ORDER_INFO GROUP BY PRODUCTLEVEL
+	</select>
+	<!-- 查询订单类型 -->
+	<select id="getTasktypeList" resultMap="BaseResultMap">
+		SELECT TASKTYPE FROM
+		PSS_ORDER_INFO GROUP BY TASKTYPE
+	</select>
+
+
+
+	<!--查询数量 -->
+	<select id="getCountByQuery" resultType="Integer" parameterType="PssOrderInfoQuery">
+		SELECT count(1) FROM PSS_ORDER_INFO
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="username != null">
+				 USERNAME=#{username}
+			</if>
+			<if test="tasktime != null">
+				AND <![CDATA[ TASKTIME >= to_date(#{tasktime},'yyyy-mm-dd') ]]>
+
+			</if>
+			<if test="ispay != null">
+				AND<![CDATA[ ISPAY = #{ispay} ]]>
+			</if>
+			<if test="sensorid != null">
+				AND<![CDATA[ sensorid = #{sensorid} ]]>
+			</if>
+			
+			<if test="sceneid != null">
+				AND SCENEID like CONCAT('%${sceneid}','%' )
+			</if>
+			<if test="productlevel != null">
+				AND<![CDATA[ productlevel = #{productlevel} ]]>
+			</if>
+			<if test="orderid != null">
+				AND ORDERID like CONCAT('%${orderid}','%' )
+			</if>
+			
+			<if test="tasktype != null">
+				AND<![CDATA[ TASKTYPE = #{tasktype} ]]>
+			</if>
+			<if test="checkstate != null">
+				AND<![CDATA[ CHECKSTATE = #{checkstate} ]]>
+
+			</if>
+		</trim>
+
+	</select>
+
+
+	<!--查询已完成订单数量 -->
+	<select id="getCompletedOrdersCounts" resultType="Integer">
+		SELECT
+		count(*)
+		FROM PSS_ORDER_INFO
+		WHERE
+		orderstate = 1
+	</select>
+	<!--查询订单数量 -->
+	<select id="getOrdersCounts" resultMap="SelectCountss"
+		parameterType="PssOrderInfoQuery">
+		SELECT
+	
+		SUM (
+		CASE
+		WHEN P .ORDERSTATE = '1' THEN
+		1
+		ELSE
+		0
+		END
+		) AS
+		completeorder,
+		SUM (
+		CASE
+		WHEN P .ORDERSTATE = '2' THEN
+		1
+		ELSE
+		0
+		END
+		) AS
+		faielorder,
+		SUM (
+		CASE
+		WHEN P .ORDERSTATE = '3' THEN
+		1
+		ELSE
+		0
+		END
+		) AS
+		cancleorder,
+		SUM (
+		CASE
+		WHEN P .ORDERSTATE = '4' THEN
+		1
+		ELSE
+		0
+		END
+		) AS
+		waitorder,
+		SUM (
+		CASE
+		WHEN P .ORDERSTATE = '5' THEN
+		1
+		ELSE
+		0
+		END
+		) AS
+		dealorder
+		FROM
+		PSS_ORDER_INFO P
+
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="username  != null">
+				AND USERNAME = #{username}
+			</if>
+		</trim>
+		
+	</select>
+
+	<!--查询个人采集单订单 -->
+	<select id="getSingleCollectionOrders" resultMap="BaseResultMap"
+		resultType="PssOrderInfo" parameterType="PssOrderInfoQuery">
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM PSS_ORDER_INFO
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="ispay != null">
+				AND<![CDATA[ ISPAY = #{ispay} ]]>
+			</if>
+			<if test="sensorid != null">
+				AND<![CDATA[ sensorid = #{sensorid} ]]>
+			</if>
+			<if test="sceneid != null">
+				AND SCENEID like CONCAT('%${sceneid}','%' )
+			</if>
+			<if test="productlevel != null">
+				AND<![CDATA[ productlevel = #{productlevel} ]]>
+			</if>
+			<if test="orderid != null">
+				AND ORDERID like CONCAT('%${orderid}','%' )
+			</if>
+			<if test="username != null">
+				AND USERNAME like CONCAT('%${username}','%' )
+			</if>
+			<if test="tasktype != null">
+				AND<![CDATA[ TASKTYPE = #{tasktype} ]]>
+
+			</if>
+			<if test="checkstate != null">
+				AND<![CDATA[ CHECKSTATE = #{checkstate} ]]>
+
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType != 1">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY orderid DESC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_ where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>
+			) where 
+				
+				<![CDATA[ rownum_ >#{startNum} ]]>
+		</if>
+	</select>
+	<!--查询个人定制单订单 -->
+	<select id="getCustomSingleOrder" resultMap="BaseResultMap"
+		resultType="PssOrderInfo" parameterType="PssOrderInfoQuery">
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM PSS_ORDER_INFO
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="ispay != null">
+				AND<![CDATA[ ISPAY = #{ispay} ]]>
+			</if>
+			<if test="sensorid != null">
+				AND<![CDATA[ sensorid = #{sensorid} ]]>
+			</if>
+			<if test="sceneid != null">
+				AND SCENEID like CONCAT('%${sceneid}','%' )
+			</if>
+			<if test="productlevel != null">
+				AND<![CDATA[ productlevel = #{productlevel} ]]>
+			</if>
+			<if test="orderid != null">
+				AND ORDERID like CONCAT('%${orderid}','%' )
+			</if>
+			<if test="username != null">
+				AND USERNAME like CONCAT('%${username}','%' )
+			</if>
+			<if test="tasktype != null">
+				AND<![CDATA[ TASKTYPE = #{tasktype} ]]>
+
+			</if>
+			<if test="checkstate != null">
+				AND<![CDATA[ CHECKSTATE = #{checkstate} ]]>
+
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType != 1">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY orderid DESC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_ where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>
+			) where 
+				
+				<![CDATA[ rownum_ >#{startNum} ]]>
+		</if>
+	</select>
+	<!--查询个人定购单订单 -->
+	<select id="getBuyOrders" resultMap="BaseResultMap" resultType="PssOrderInfo"
+		parameterType="PssOrderInfoQuery">
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM PSS_ORDER_INFO
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="ispay != null">
+				AND<![CDATA[ ISPAY = #{ispay} ]]>
+			</if>
+			<if test="sensorid != null">
+				AND<![CDATA[ sensorid = #{sensorid} ]]>
+			</if>
+			<if test="sceneid != null">
+				AND SCENEID like CONCAT('%${sceneid}','%' )
+			</if>
+			<if test="productlevel != null">
+				AND<![CDATA[ productlevel = #{productlevel} ]]>
+			</if>
+			<if test="orderid != null">
+				AND ORDERID like CONCAT('%${orderid}','%' )
+			</if>
+			<if test="username != null">
+				AND USERNAME like CONCAT('%${username}','%' )
+			</if>
+			<if test="tasktype != null">
+				AND<![CDATA[ TASKTYPE = #{tasktype} ]]>
+
+			</if>
+			<if test="checkstate != null">
+				AND<![CDATA[ CHECKSTATE = #{checkstate} ]]>
+
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType != 1">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY orderid DESC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_ where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>
+			) where 
+				
+				<![CDATA[ rownum_ >#{startNum} ]]>
+		</if>
+	</select>
+
+	<!--订单统计图开始 -->
+	<!-- 时间条件 天开始 -->
+	<sql id="whereClause_day">
+		<if test="statisticType=='download'">
+			<where>
+				<if test="starttime != null and starttime != ''">
+					TASKTIME &gt;= to_date(#{starttime},'yyyy-mm-dd')
+				</if>
+				<if test="endtime != null and endtime != ''">
+					and TASKTIME &lt;= to_date(#{endtime},'yyyy-mm-dd')
+				</if>
+				and isdownload=1
+			</where>
+		</if>
+		<if test="statisticType=='orderInfo'">
+			<where>
+				<if test="starttime != null and starttime != ''">
+					TASKTIME &gt;= to_date(#{starttime},'yyyy-mm-dd')
+				</if>
+				<if test="endtime != null and endtime != ''">
+					and TASKTIME &lt;= to_date(#{endtime},'yyyy-mm-dd')
+				</if>
+			</where>
+		</if>
+		<if test="statisticType=='payOrder'">
+			<where>
+				<if test="starttime != null and starttime != ''">
+					TASKTIME &gt;= to_date(#{starttime},'yyyy-mm-dd')
+				</if>
+				<if test="endtime != null and endtime != ''">
+					and TASKTIME &lt;= to_date(#{endtime},'yyyy-mm-dd')
+				</if>
+				and ISPAY=1
+			</where>
+		</if>
+
+	</sql>
+	<!-- 时间条件 按月开始 -->
+	<sql id="whereClause_month">
+		<if test="statisticType=='download'">
+			<where>
+				<if test="starttime != null and starttime != ''">
+					TASKTIME &gt;= to_date(#{starttime},'yyyy-mm')
+				</if>
+				<if test="endtime != null and endtime != ''">
+					and TASKTIME &lt;= to_date(#{endtime},'yyyy-mm')
+				</if>
+				and isdownload=1
+			</where>
+		</if>
+		<if test="statisticType=='orderInfo'">
+			<where>
+				<if test="starttime != null and starttime != ''">
+					TASKTIME &gt;= to_date(#{starttime},'yyyy-mm')
+				</if>
+				<if test="endtime != null and endtime != ''">
+					and TASKTIME &lt;= to_date(#{endtime},'yyyy-mm')
+				</if>
+			</where>
+		</if>
+		<if test="statisticType=='payOrder'">
+			<where>
+				<if test="starttime != null and starttime != ''">
+					TASKTIME &gt;= to_date(#{starttime},'yyyy-mm')
+				</if>
+				<if test="endtime != null and endtime != ''">
+					and TASKTIME &lt;= to_date(#{endtime},'yyyy-mm')
+				</if>
+				and ISPAY=1
+			</where>
+		</if>
+	</sql>
+	<!-- 时间条件 按年开始 -->
+	<sql id="whereClause_year">
+		<if test="statisticType=='download'">
+			<where>
+				<if test="starttime != null and starttime != ''">
+					TASKTIME &gt;= to_date(#{starttime},'yyyy')
+				</if>
+				<if test="endtime != null and endtime != ''">
+					and TASKTIME &lt;= to_date(#{endtime},'yyyy')
+				</if>
+				and isdownload=1
+			</where>
+		</if>
+		<if test="statisticType=='orderInfo'">
+			<where>
+				<if test="starttime != null and starttime != ''">
+					TASKTIME &gt;= to_date(#{starttime},'yyyy')
+				</if>
+				<if test="endtime != null and endtime != ''">
+					and TASKTIME &lt;= to_date(#{endtime},'yyyy')
+				</if>
+			</where>
+		</if>
+		<if test="statisticType=='payOrder'">
+			<where>
+				<if test="starttime != null and starttime != ''">
+					TASKTIME &gt;= to_date(#{starttime},'yyyy-mm')
+				</if>
+				<if test="endtime != null and endtime != ''">
+					and TASKTIME &lt;= to_date(#{endtime},'yyyy-mm')
+				</if>
+				and ISPAY=1
+			</where>
+		</if>
+	</sql>
+
+	<sql id="whereClause_time">
+		<if test="timeType!=null and timeType != ''">
+			<if test="timeType=='day'">
+				<include refid="whereClause_day" />
+			</if>
+			<if test="timeType=='month'">
+				<include refid="whereClause_month" />
+			</if>
+			<if test="timeType=='year'">
+				<include refid="whereClause_year" />
+			</if>
+		</if>
+	</sql>
+	<!-- 查询总记录数 -->
+	<select id="getOrderCount" resultType="Integer" parameterType="PssOrderInfoQuery">
+		SELECT
+		COUNT(ORDERID)
+		FROM
+		PSS_ORDER_INFO
+		<include refid="whereClause_time" /><!-- 通用的时间参数 -->
+	</select>
+	<!-- 按产品级别查询 -->
+	<select id="getOrderByLevel" resultType="PssOrderInfoQuery"
+		parameterType="PssOrderInfoQuery">
+		select productlevel, count(1) as amount
+		from PSS_ORDER_INFO t
+		<include refid="whereClause_time" />
+		group by productlevel
+	</select>
+	<!-- 按卫星 -->
+	<select id="getOrderByState" resultType="PssOrderInfoQuery"
+		parameterType="PssOrderInfoQuery">
+		select satelliteid, count(1) as amount
+		from PSS_ORDER_INFO t
+		<include refid="whereClause_time" />
+		group by satelliteid
+	</select>
+	<!-- 按传感器 -->
+	<select id="getOrderBySensorid" resultType="PssOrderInfoQuery"
+		parameterType="PssOrderInfoQuery">
+		select sensorid, count(1) as amount
+		from PSS_ORDER_INFO t
+		<include refid="whereClause_time" />
+		group by sensorid
+	</select>
+	<!--按用户级别 -->
+	<select id="getOrderByUserLevel" resultType="PssOrderInfoQuery"
+		parameterType="PssOrderInfoQuery">
+		select PRIORITY, count(1) as amount
+		from PSS_ORDER_INFO t
+		<include refid="whereClause_time" />
+		group by PRIORITY
+	</select>
+	<!--按用户 -->
+	<select id="getOrderByUser" resultType="PssOrderInfoQuery"
+		parameterType="PssOrderInfoQuery">
+		select username, count(1) as amount
+		from PSS_ORDER_INFO t
+		<include refid="whereClause_time" />
+		group by username
+	</select>
+	<!--按应用领域 -->
+	<select id="getOrderByArea" resultType="PssOrderInfoQuery"
+		parameterType="PssOrderInfoQuery">
+		select sensorid, count(1) as amount
+		from PSS_ORDER_INFO t
+		<include refid="whereClause_time" />
+		group by sensorid
+	</select>
+	<!--按单位 -->
+	<select id="getOrderByUnit" resultType="PssOrderInfoQuery"
+		parameterType="PssOrderInfoQuery">
+		select unit, count(1) as amount
+		from PSS_ORDER_INFO t
+		<include refid="whereClause_time" />
+		group by unit
+	</select>
+	<!--按接收站 -->
+	<select id="getOrderByReceive" resultType="PssOrderInfoQuery"
+		parameterType="PssOrderInfoQuery">
+		select receive, count(1) as amount
+		from PSS_ORDER_INFO t
+		<include refid="whereClause_time" />
+		group by receive
+	</select>
+	<!--按订单状态 -->
+	<select id="getOrderByOrderState" resultType="PssOrderInfoQuery"
+		parameterType="PssOrderInfoQuery">
+		select orderstate, count(1) as amount
+		from PSS_ORDER_INFO t
+		<include refid="whereClause_time" />
+		group by orderstate
+	</select>
+	<!--按支付行 -->
+	<select id="getOrderByPayTheline" resultType="PssOrderInfoQuery"
+		parameterType="PssOrderInfoQuery">
+		select paytheline, count(1) as amount
+		from PSS_ORDER_INFO t
+		<include refid="whereClause_time" />
+		group by paytheline
+	</select>
+	<!--订单统计图结束 -->
+	<!-- 查询已下载完成的数量 -->
+	<select id="getIsdownCount" resultType="Integer" parameterType="PssOrderInfoQuery">
+		select count(1) from PSS_ORDER_INFO where username=#{username} and ISDOWNLOAD=1
+	</select>
+	
+	<!-- 根据卫星传感器唯一标识查询已完成的订单下载路径 -->
+	<select id="selectOldInfo" resultType="map" parameterType="String">
+		SELECT
+			PRODUCTUPLOADDIR,
+			FTPURL
+		FROM
+			PSS_COMPLETED_ORDER
+		WHERE
+			SATELLITEID_SENSORID_PRODUCTLE = #{satelliteidSensoridProductle}
+		AND PRODUCTUPLOADDIR IS NOT NULL
+		AND FTPURL IS NOT NULL
+	</select>
+	
+	<update id="updateOrderInfoFtp" parameterType="map">
+	UPDATE PSS_ORDER_INFO
+	SET PRODUCTUPLOADDIR = #{productuploaddir},
+	 FTPURL = #{ftpurl},
+	 ORDERSTATE = '1'
+	WHERE
+		ORDERID = #{orderId}
+	</update>
+</mapper>
+
+	

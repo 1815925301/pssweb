@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="PssProductDao">
+	<resultMap id="pssProductResultMap" type="PSSPRODUCT">
+        	<result property="productid" column="PRODUCTID"/>
+        	<result property="sceneid" column="SCENEID"/>
+        	<result property="satelliteid" column="SATELLITEID"/>
+        	<result property="sensorid" column="SENSORID"/>
+        	<result property="productdate" column="PRODUCTDATE"/>
+        	<result property="productlevel" column="PRODUCTLEVEL"/>
+        	<result property="bands" column="BANDS"/>
+        	<result property="dataformatdes" column="DATAFORMATDES"/>
+        	<result property="cloudcoverage" column="CLOUDCOVERAGE"/>
+        	<result property="scenecount" column="SCENECOUNT"/>
+        	<result property="sceneshift" column="SCENESHIFT"/>
+        	<result property="gain" column="GAIN"/>
+        	<result property="intergrallevel" column="INTERGRALLEVEL"/>
+        	<result property="sunelevation" column="SUNELEVATION"/>
+        	<result property="sunazimuth" column="SUNAZIMUTH"/>
+        	<result property="scenedate" column="SCENEDATE"/>
+        	<result property="imageingstarttime" column="IMAGEINGSTARTTIME"/>
+        	<result property="imageingstoptime" column="IMAGEINGSTOPTIME"/>
+        	<result property="satpath" column="SATPATH"/>
+        	<result property="satrow" column="SATROW"/>
+        	<result property="scenepath" column="SCENEPATH"/>
+        	<result property="scenerow" column="SCENEROW"/>
+        	<result property="centerlat" column="CENTERLAT"/>
+        	<result property="centerlong" column="CENTERLONG"/>
+        	<result property="dataupperleftlat" column="DATAUPPERLEFTLAT"/>
+        	<result property="dataupperleftlong" column="DATAUPPERLEFTLON"/>
+        	<result property="dataupperrightlat" column="DATAUPPERRIGHTLAT"/>
+        	<result property="datalowerghtlong" column="DATAUPPERRIGHTLON"/>
+        	<result property="datalowerrightlat" column="DATALOWERRIGHTLAT"/>
+        	<result property="datalowerrightlong" column="DATALOWERRIGHTLON"/>
+        	<result property="datalowerleftlat" column="DATALOWERLEFTLAT"/>
+        	<result property="datalowerleftlong" column="DATALOWERLEFTLON"/>
+        	<result property="mtfcpromode" column="MTFCPROMODE"/>
+        	<result property="imagename" column="IMAGENAME"/>
+        	<result property="browsename" column="BROWSENAME"/>
+        	<result property="thumbname" column="THUMBNAME"/>
+        	<result property="metadataid" column="METADATAID"/>
+        	<result property="isspatial" column="ISSPATIAL"/>
+        	<result property="orbitid" column="ORBITID"/>
+        	<result property="quality" column="QUALITY"/>
+        	<result property="recstationid" column="RECSTATIONID"/>
+        	<result property="scenerowbias" column="SCENEROWBIAS"/>
+        	<result property="scenepathbias" column="SCENEPATHBIAS"/>
+        	<result property="metadataid" column="METADATAID"/>
+        	
+        	<!-- <result property="createStarttime" column="createStarttime"/>
+        	<result property="createEndtime" column="createEndtime"/>
+        	<result property="gds0" column="gds0"/>
+        	<result property="gds1" column="gds1"/> -->
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		PRODUCTID,SCENEID,SATELLITEID,SENSORID,to_char(PRODUCTDATE,'yyyy-MM-dd HH24:mi:ss') as PRODUCTDATE,PRODUCTLEVEL,BANDS,DATAFORMATDES,CLOUDCOVERAGE,PRODUCTTYPE,SCENECOUNT,SCENESHIFT,GAIN,INTERGRALLEVEL,SUNELEVATION,SUNAZIMUTH,to_char(SCENEDATE,'yyyy-MM-dd HH24:mi:ss') as SCENEDATE,METADATAID,
+		DATAUPPERLEFTLAT,DATAUPPERLEFTLON,DATAUPPERRIGHTLAT,DATAUPPERRIGHTLON,DATALOWERLEFTLAT,DATALOWERLEFTLON,DATALOWERRIGHTLAT,DATALOWERRIGHTLON
+	</sql>
+    
+    <!--查询语句-->
+    <select id="selectProductById" resultMap="pssProductResultMap" parameterType="PssProductQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM ${tablename} 
+	    WHERE 1=1
+	    <if test="productid != null and productid != ''"> 
+				and PRODUCTID = #{productid} 
+		</if>
+		 <if test="metadataid != null and metadataid != ''"> 
+				and METADATAID = #{metadataid} 
+		</if>
+
+	</select>
+	
+	   <!--查询语句-->
+    <select id="selectSceneById" resultMap="pssProductResultMap" parameterType="PssProductQuery">
+		SELECT
+		  SATELLITEID,SENSORID,PRODUCTID,SCENEID,DATAUPPERLEFTLAT,DATAUPPERLEFTLON,DATAUPPERRIGHTLAT,DATAUPPERRIGHTLON,DATALOWERLEFTLAT,DATALOWERLEFTLON,DATALOWERRIGHTLAT,DATALOWERRIGHTLON
+		FROM PSS_METADATA_0_SCENE
+	    WHERE 1=1
+	    <if test="productid != null and productid != ''"> 
+				and PRODUCTID = #{productid} 
+		</if>
+		 <if test="metadataid != null and metadataid != ''"> 
+				and METADATAID = #{metadataid} 
+		</if>
+
+	</select>
+	
+		
+	
+	<!-- 查询卫星 
+	<select id="getSatelliteList" resultMap="pssCollectInfoResultMap">
+	SELECT SATELLITEID FROM PSS_COLLECT_INFO GROUP BY SATELLITEID
+	</select>
+	 传感器 
+	<select id="getSensoridList" resultMap="pssCollectInfoResultMap">
+	SELECT SENSORID FROM PSS_COLLECT_INFO GROUP BY SENSORID
+	</select>
+	 采集单状态 
+	<select id="getStatusList" resultMap="pssCollectInfoResultMap">
+	SELECT STATUS FROM PSS_COLLECT_INFO GROUP BY STATUS
+	</select>-->
+		<sql id="whereClause_common">
+			<if test="productid_array != null and productid_array != ''"> 
+			 and PRODUCTID in 
+			 <foreach item="item" index="index" collection="productid_array" open="(" separator="," close=")">  
+			 	#{item}  
+			</foreach> 
+			</if>
+			<if test="sceneid_array != null and sceneid_array != ''"> 
+			 and SCENEID in 
+			 <foreach item="item" index="index" collection="sceneid_array" open="(" separator="," close=")">  
+			 	#{item}  
+			</foreach> 
+			</if>
+			<if test="orbitid_array != null and orbitid_array != ''"> 
+			 and ORBITID in 
+			 <foreach item="item" index="index" collection="orbitid_array" open="(" separator="," close=")">  
+			 	#{item}  
+			</foreach> 
+ 		    </if>
+	     	<if test="productid != null and productid != ''">
+				AND PRODUCTID = #{productid})
+			</if>
+			<if test="sceneid != null and sceneid != ''">
+				AND SCENEID = #{sceneid}
+			</if>
+			<if test="orbitid != null and orbitid != ''">
+				AND ORBITID = #{orbitid}
+			</if>
+	     	<if test="mingsd != 0">
+				AND PIXELSPACING &gt;=  #{mingsd}
+			</if>
+	     	<if test="maxgsd != 0">
+				AND PIXELSPACING &lt;= #{maxgsd}
+			</if>
+			<if test="sceneStarttime != null and sceneStarttime != ''">
+  		 	and SCENEDATE &gt;= #{sceneStarttime}
+  			</if>
+  			<if test="sceneEndtime != null and sceneEndtime != ''">
+  			and SCENEDATE &lt;= #{sceneEndtime}
+  			</if>
+			<if test="productStarttime != null and productStarttime != ''">
+  		 	and PRODUCTDATE &gt;= #{productStarttime}
+  			</if>
+  			<if test="productEndtime != null and productEndtime != ''">
+  			and PRODUCTDATE &lt;= #{productEndtime}
+  			</if>
+  			<if test="mincloudCoverage != 0">
+				AND CLOUDCOVERAGE &gt;= #{mincloudCoverage}
+			</if>
+  			<if test="maxcloudCoverage != 0">
+				AND CLOUDCOVERAGE &lt;= #{maxcloudCoverage}
+			</if>
+  			<if test="minPath != 0">
+				AND SCENEPATH &gt;= #{minPath}
+			</if>
+  			<if test="maxPath != 0">
+				AND SCENEPATH &lt;= #{maxPath}
+			</if>
+  			<if test="minRow != 0">
+				AND SCENEROW &gt;= #{minRow}
+			</if>
+  			<if test="maxRow != 0">
+				AND SCENEROW &lt;= #{maxRow}
+			</if>
+  			<if test="quality != 0">
+				AND QUALITY = #{quality}
+			</if>
+  			<if test="scenepath != null and scenepath != ''">
+				AND SCENEPATHBIAS = #{scenepath}
+			</if>
+  			<if test="scenerow != null and scenerow != ''">
+				AND SCENEROWBIAS = #{scenerow}
+			</if>
+			
+  			<if test="sensorid_array != null and sensorid_array != ''">
+  			AND
+				<foreach item="item" index="index" collection="sensorid_array"  separator="or"  open="("  close=")">  
+			 	METADATAID like '%${item}%'  
+				</foreach> 
+		    </if>
+		</sql>
+		<sql id="whereClause_basic">
+			<where>
+				<include refid="whereClause_common" />
+				<if test="shape != null and shape != ''" >
+	        	AND sde.st_intersects (sde.st_geometry(#{shape,jdbcType=VARCHAR},4326),shape) = 1 
+	     	   </if>
+			</where>
+		</sql>
+		<sql id="whereClause_shape">
+			<where>
+			   <include refid="whereClause_common" />
+				<if test="shapename != null and shapename != ''"> 
+  				and  r.NAME like '%${shapename}%'
+	 		    </if>
+	 		    and sde.st_intersects (t.shape, r.shape) = 1
+			</where>
+		</sql>
+		<sql id="whereClause_world">
+			<where>
+			<include refid="whereClause_common" />
+			<if test="country != null and country != ''"> 
+  				and  m.CNTRY_NAME like '%${country}%'
+	 		</if>
+			<if test="states != null and states != ''"> 
+  				and  m.CNTRY_NAME like '%${states}%'
+	 		</if>
+				and sde.st_intersects (t.shape, m.shape) = 1
+			</where>
+		</sql>
+	<!--分页查询-->
+	<select id="getPssProductByQuery" resultType="PssProductQuery"  parameterType="PssProductQuery">
+	   
+		<if test="difference_table=='basic'">
+			SELECT * FROM ${tablename}
+		<include refid="whereClause_basic"/>
+		</if>
+		<if test="difference_table=='shapename'">
+			SELECT t.productid,t.topleftlongitude,t.topleftlatitude,t.toprightlongitude,t.toprightlatitude,t.bottomrightlongitude,
+			t.bottomrightlatitude,t.bottomleftlongitude,t.bottomleftlatitude,t.metadataid,t.thumbname,t.satelliteid,t.sensorid,t.productlevel,
+			t.centerlong,t.centerlat FROM ${tablename} t,regions r
+		<include refid="whereClause_shape"/>
+		</if>
+		<if test="difference_table=='world'">
+			SELECT  t.productid,t.topleftlongitude,t.topleftlatitude,t.toprightlongitude,t.toprightlatitude,t.bottomrightlongitude,
+			t.bottomrightlatitude,t.bottomleftlongitude,t.bottomleftlatitude,t.metadataid,t.thumbname,t.satelliteid,t.sensorid,t.productlevel,
+			t.centerlong,t.centerlat  FROM ${tablename} t,WORLD m
+		<include refid="whereClause_world" />
+		</if>
+		<!-- 没分页暂时查询前五十条数据 -->
+			AND ROWNUM <![CDATA[ <= ]]> 50
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY PRODUCTID ASC
+			</otherwise>
+		</choose>
+		
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="PssProductQuery">
+        SELECT count(*) FROM PSS_METADATA_1 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="sceneid  != null" >
+	        	AND 	SCENEID = #{sceneid}
+	     	 	</if>
+				<if test="satelliteid  != null" >
+	        	AND 	SATELLITEID = #{satelliteid}
+	     	 	</if>
+				<if test="sensorid  != null" >
+	        	AND 	SENSORID IN(#{sensorid})
+	     	 	</if>
+				<if test="productdate  != null" >
+	        	AND 	PRODUCTDATE = #{productdate}
+	     	 	</if>
+				<if test="productlevel  != null" >
+	        	AND 	PRODUCTLEVEL = #{productlevel}
+	     	 	</if>
+				<if test="bands  != null" >
+	        	AND 	BANDS = #{bands}
+	     	 	</if>
+				<if test="dataformatdes  != null" >
+	        	AND 	DATAFORMATDES = #{dataformatdes}
+	     	 	</if>
+				<if test="cloudcoverage  != null" >
+	        	AND 	CLOUDCOVERAGE = #{cloudcoverage}
+	     	 	</if>
+				<if test="producttype  != null" >
+	        	AND 	PRODUCTTYPE = #{producttype}
+	     	 	</if>
+				<if test="scenecount  != null" >
+	        	AND 	SCENECOUNT = #{scenecount}
+	     	 	</if>
+				<if test="sceneshift  != null" >
+	        	AND 	SCENESHIFT = #{sceneshift}
+	     	 	</if>
+				<if test="gain  != null" >
+	        	AND 	GAIN = #{gain}
+	     	 	</if>
+				<if test="intergrallevel  != null" >
+	        	AND 	INTERGRALLEVEL = #{intergrallevel}
+	     	 	</if>
+				<if test="sunelevation  != null" >
+	        	AND 	SUNELEVATION = #{sunelevation}
+	     	 	</if>
+				<if test="sunazimuth  != null" >
+	        	AND 	SUNAZIMUTH = #{sunazimuth}
+	     	 	</if>
+				<if test="scenedate  != null" >
+	        	AND 	SCENEDATE = #{scenedate}
+	     	 	</if>
+				<if test="imageingstarttime  != null" >
+	        	AND 	IMAGEINGSTARTTIME = #{imageingstarttime}
+	     	 	</if>
+				<if test="imageingstoptime  != null" >
+	        	AND 	IMAGEINGSTOPTIME = #{imageingstoptime}
+	     	 	</if>
+				<if test="satpath  != null" >
+	        	AND 	SATPATH = #{satpath}
+	     	 	</if>
+				<if test="satrow  != null" >
+	        	AND 	SATROW = #{satrow}
+	     	 	</if>
+				<if test="scenepath  != null" >
+	        	AND 	SCENEPATH = #{scenepath}
+	     	 	</if>
+				<if test="scenerow  != null" >
+	        	AND 	SCENEROW = #{scenerow}
+	     	 	</if>
+				<if test="centerlat  != null" >
+	        	AND 	CENTERLAT = #{centerlat}
+	     	 	</if>
+				<if test="centerlong  != null" >
+	        	AND 	CENTERLONG = #{centerlong}
+	     	 	</if>
+				<if test="dataupperleftlat  != null" >
+	        	AND 	DATAUPPERLEFTLAT = #{dataupperleftlat}
+	     	 	</if>
+				<if test="dataupperleftlong  != null" >
+	        	AND 	DATAUPPERLEFTLONG = #{dataupperleftlong}
+	     	 	</if>
+				<if test="dataupperrightlat  != null" >
+	        	AND 	DATAUPPERRIGHTLAT = #{dataupperrightlat}
+	     	 	</if>
+				<if test="datalowerghtlong  != null" >
+	        	AND 	DATALOWERGHTLONG = #{datalowerghtlong}
+	     	 	</if>
+				<if test="datalowerrightlat  != null" >
+	        	AND 	DATALOWERRIGHTLAT = #{datalowerrightlat}
+	     	 	</if>
+				<if test="datalowerrightlong  != null" >
+	        	AND 	DATALOWERRIGHTLONG = #{datalowerrightlong}
+	     	 	</if>
+				<if test="datalowerleftlat  != null" >
+	        	AND 	DATALOWERLEFTLAT = #{datalowerleftlat}
+	     	 	</if>
+				<if test="datalowerleftlong  != null" >
+	        	AND 	DATALOWERLEFTLONG = #{datalowerleftlong}
+	     	 	</if>
+				<if test="mtfcpromode  != null" >
+	        	AND 	MTFCPROMODE = #{mtfcpromode}
+	     	 	</if>
+				<if test="imagename  != null" >
+	        	AND 	IMAGENAME = #{imagename}
+	     	 	</if>
+				<if test="browsename  != null" >
+	        	AND 	BROWSENAME = #{browsename}
+	     	 	</if>
+				<if test="thumbname  != null" >
+	        	AND 	THUMBNAME = #{thumbname}
+	     	 	</if>
+				<if test="metadataid  != null" >
+	        	AND 	METADATAID = #{metadataid}
+	     	 	</if>
+				<if test="isspatial  != null" >
+	        	AND 	ISSPATIAL = #{isspatial}
+	     	 	</if>
+				<if test="orbitid  != null" >
+	        	AND 	ORBITID = #{orbitid}
+	     	 	</if>
+				<if test="quality  != null" >
+	        	AND 	QUALITY = #{quality}
+	     	 	</if>
+				<if test="recstationid  != null" >
+	        	AND 	RECSTATIONID = #{recstationid}
+	     	 	</if>
+				<if test="scenerowbias  != null" >
+	        	AND 	SCENEROWBIAS = #{scenerowbias}
+	     	 	</if>
+				<if test="scenepathbias  != null" >
+	        	AND 	SCENEPATHBIAS = #{scenepathbias}
+	     	 	</if>
+	     	 
+		</trim> 
+    </select>
+    
+</mapper>
+

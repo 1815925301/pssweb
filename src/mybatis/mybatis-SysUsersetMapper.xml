@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="SYS_USERSETDao">
+	<resultMap id="BaseResultMap" type="SysUserset">
+        	<result property="id" column="ID"/>
+        	<result property="updatename" column="UPDATENAME"/>
+        	<result property="frequency" column="FREQUENCY"/>
+        	<result property="whetheropen" column="WHETHEROPEN"/>
+        	<result property="username" column="USERNAME"/>
+        	<result property="settime" column="SETTIME"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ID,UPDATENAME,FREQUENCY,WHETHEROPEN,USERNAME,SETTIME
+	</sql>
+	<!--查询语句-->
+    <select id="getuserset" resultMap="BaseResultMap" resultType="SysUserset">
+		SELECT
+		  FREQUENCY
+		FROM SYS_USERSET GROUP BY
+	   	FREQUENCY
+	</select>
+	<!-- 插入语句-->
+	<insert id="insertSysUserset" parameterType="SysUserset">
+        INSERT INTO SYS_USERSET 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        	        ID,
+	        	
+		        	     <if test="updatename != null" >
+	        		         UPDATENAME,
+	     		        </if> 
+	        	
+		        	     <if test="frequency != null" >
+	        		         FREQUENCY,
+	     		        </if> 
+	        	
+		        	     <if test="whetheropen != null" >
+	        		         WHETHEROPEN,
+	     		        </if> 
+	        	
+		        	     <if test="username != null" >
+	        		         USERNAME,
+	     		        </if> 
+	        	
+		        	     <if test="settime != null" >
+	        		         SETTIME
+	     		        </if> 
+	        	
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+	        	        SYS_USERSET_SEQ.nextval,
+	     		
+		        	     <if test="updatename != null" >
+		        	      #{updatename},
+		        	     </if> 
+	     		
+		        	     <if test="frequency != null" >
+		        	      #{frequency},
+		        	     </if> 
+	     		
+		        	     <if test="whetheropen != null" >
+		        	      #{whetheropen},
+		        	     </if> 
+	     		
+		        	     <if test="username != null" >
+		        	      #{username},
+		        	     </if> 
+	     		
+		        	     <if test="settime != null" >
+		        	      to_date(#{settime},'yyyy-mm-dd HH24:mi:ss')
+		        	     </if> 
+	     		
+   	 </trim>
+	</insert>
+    
+   <!--更新语句-->
+	<update id="updateSysUserset" parameterType="SysUserset">
+        UPDATE SYS_USERSET 
+        <set >
+	        	<if test="updatename  != null" >
+	        		UPDATENAME = #{updatename} ,
+	     	 	</if>
+	        	<if test="frequency  != null" >
+	        		FREQUENCY = #{frequency} ,
+	     	 	</if>
+	        	<if test="whetheropen  != null" >
+	        		WHETHEROPEN = #{whetheropen} ,
+	     	 	</if>
+	        	<if test="username  != null" >
+	        		USERNAME = #{username} ,
+	     	 	</if>
+	        	<if test="settime  != null" >
+	        		SETTIME = to_date(#{settime},'yyyy-mm-dd HH24:mi:ss')
+	     	 	</if>
+	    </set>
+        WHERE 
+    			ID = #{id} 
+	</update>
+
+	<!--删除语句-->
+		    <delete id="deleteSysUserset" parameterType="Long">
+		        DELETE FROM SYS_USERSET WHERE
+		    			ID = #{id} 
+		    </delete>
+    
+    <!--查询语句-->
+    <select id="getSysUsersetById" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM SYS_USERSET 
+	    WHERE 
+				ID = #{id} 
+	</select>
+	
+		<!--列表查询-->
+		<select id="selectAllname" resultType="SysUserset" resultMap="BaseResultMap">
+		SELECT
+		  UPDATENAME,ID
+		FROM SYS_USERSET 
+		
+		</select>
+	
+	<!--分页查询-->
+	<select id="getSysUsersetInfoByQuery" resultType="SysUserset" resultMap="BaseResultMap" parameterType="SysUsersetQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM SYS_USERSET 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="updatename  != null" >
+	        	AND 	UPDATENAME = #{updatename} 
+	     	 	</if>
+				<if test="frequency  != null" >
+	        	AND 	FREQUENCY = #{frequency} 
+	     	 	</if>
+				<if test="whetheropen  != null" >
+	        	AND 	WHETHEROPEN = #{whetheropen} 
+	     	 	</if>
+				<if test="username  != null" >
+	        	AND 	USERNAME = #{username} 
+	     	 	</if>
+				<if test="settime  != null" >
+	        	AND 	SETTIME = #{settime} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="SysUsersetQuery">
+        SELECT count(*) FROM SYS_USERSET 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="updatename  != null" >
+	        	AND 	UPDATENAME = #{updatename}
+	     	 	</if>
+				<if test="frequency  != null" >
+	        	AND 	FREQUENCY = #{frequency}
+	     	 	</if>
+				<if test="whetheropen  != null" >
+	        	AND 	WHETHEROPEN = #{whetheropen}
+	     	 	</if>
+				<if test="username  != null" >
+	        	AND 	USERNAME = #{username}
+	     	 	</if>
+				<if test="settime  != null" >
+	        	AND 	SETTIME = #{settime}
+	     	 	</if>
+	     	 <if test="sqlWhere  != null" >
+	        	${sqlWhere}
+	     	 	</if>
+		</trim> 
+    </select>
+    
+</mapper>
+

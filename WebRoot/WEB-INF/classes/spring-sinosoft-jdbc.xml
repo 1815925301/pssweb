@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    					http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+					    http://www.springframework.org/schema/jee 
+						http://www.springframework.org/schema/jee/spring-jee-3.1.xsd
+						http://www.springframework.org/schema/mvc
+					    http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+					    http://www.springframework.org/schema/util 
+					    http://www.springframework.org/schema/util/spring-util-3.1.xsd
+					    http://www.springframework.org/schema/context 
+					    http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	<!-- 载入属性文件 -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:sinosoft.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- sinosoftWriteDataSource -->
+	<bean id="sinosoftWriteDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${write_jdbc.driver}" />
+		<property name="url" value="${write_jdbc.url}" />
+		<property name="username" value="${write_jdbc.username}" />
+		<property name="password" value="${write_jdbc.password}" />
+		<!-- 初始化连接池时连接数量 -->
+		<property name="initialSize" value="${write_jdbc.initialSize}" />
+		<!-- 允许最大连接数量为 -->
+		<property name="maxActive" value="${write_jdbc.maxActive}" />
+		<property name="maxIdle" value="${write_jdbc.maxIdle}" />
+		<!-- 连接有效时间，连接超过多少秒未使用，则该连接丢弃 -->
+		<property name="maxWait" value="${write_jdbc.maxWait}" />
+		<property name="defaultAutoCommit" value="false" />
+	</bean>
+	<!-- sinosoftSdeDataSource -->
+	<bean id="sinosoftSdeDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${sde_jdbc.driver}" />
+		<property name="url" value="${sde_jdbc.url}" />
+		<property name="username" value="${sde_jdbc.username}" />
+		<property name="password" value="${sde_jdbc.password}" />
+		<!-- 初始化连接池时连接数量 -->
+		<property name="initialSize" value="${sde_jdbc.initialSize}" />
+		<!-- 允许最大连接数量为 -->
+		<property name="maxActive" value="${sde_jdbc.maxActive}" />
+		<property name="maxIdle" value="${sde_jdbc.maxIdle}" />
+		<!-- 连接有效时间，连接超过多少秒未使用，则该连接丢弃 -->
+		<property name="maxWait" value="${sde_jdbc.maxWait}" />
+		<property name="defaultAutoCommit" value="false" />
+	</bean>
+	
+	<bean id="sinosoftWriteSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<property name="dataSource" ref="sinosoftWriteDataSource" />
+	</bean>
+
+	<bean id="sinosoftWriteSqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sinosoftWriteSqlSessionFactory" />
+	</bean>
+
+	<bean id="sinosoftWriteTxManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="sinosoftWriteDataSource" />
+	</bean>
+
+	<!-- 支持通过注解添加事务 -->
+	<tx:annotation-driven proxy-target-class="true" transaction-manager="sinosoftWriteTxManager" />
+	
+	<!-- sinosoftReadDataSource -->
+	<bean id="sinosoftReadDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${read_jdbc.driver}" />
+		<property name="url" value="${read_jdbc.url}" />
+		<property name="username" value="${read_jdbc.username}" />
+		<property name="password" value="${read_jdbc.password}" />
+		<!-- 初始化连接池时连接数量 -->
+		<property name="initialSize" value="${read_jdbc.initialSize}" />
+		<!-- 允许最大连接数量为 -->
+		<property name="maxActive" value="${read_jdbc.maxActive}" />
+		<property name="maxIdle" value="${read_jdbc.maxIdle}" />
+		<!-- 连接有效时间，连接超过多少秒未使用，则该连接丢弃 -->
+		<property name="maxWait" value="${read_jdbc.maxWait}" />
+		<property name="defaultAutoCommit" value="${read_jdbc.defaultAutoCommit}" />
+	</bean>
+
+	<bean id="sinosoftReadSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<property name="dataSource" ref="sinosoftReadDataSource" />
+	</bean>
+
+	<bean id="sinosoftReadSqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sinosoftReadSqlSessionFactory" />
+	</bean>
+
+	<bean id="sinosoftReadTxManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="sinosoftReadDataSource" />
+	</bean>
+
+	<!--  Sde用户数据库-->
+	<bean id="sinosoftSdeSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<property name="dataSource" ref="sinosoftSdeDataSource" />
+	</bean>
+
+	<bean id="sinosoftSdeSqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sinosoftSdeSqlSessionFactory" />
+	</bean>
+
+	<bean id="sinosoftSdeTxManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="sinosoftSdeDataSource" />
+	</bean>
+</beans>

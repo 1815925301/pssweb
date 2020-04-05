@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="FulltextSearchDao">
+	<resultMap id="contentResultMap" type="Content">
+		<result property="contentid" column="CONTENTID"/>
+		<result property="contenttitle" column="CONTENTTITLE" />
+		<result property="content" column="CONTENT" />
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		CONTENTID,CONTENTTITLE,CONTENT
+    </sql>
+    <!--查询语句通过name-->
+    <select id="getDataByAnything" resultMap="contentResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_CONTENT_ZH_CN 
+	    WHERE 
+		CONTENTTITLE like CONCAT('%${fulltext}','%' )
+		 AND CONTENT LIKE  CONCAT('%${fulltext}','%' )
+	</select>
+	
+</mapper>

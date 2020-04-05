@@ -1,0 +1,1513 @@
+package com.sinosoft.business.po;
+
+import java.util.Date;
+
+
+public class PssShopCar {
+		private String uuit;
+		private String browsefilelocation;
+	//???       数据库字段: ORDERID 
+		private Long orderid;
+		
+		
+	    //????       数据库字段: ORDERTYPE 
+		private Integer ordertype;
+		
+		
+	    //?????       数据库字段: OPERATORNAME 
+		private java.lang.String operatorname;
+		
+		
+	    //???       数据库字段: PRIORITY 
+		private Double priority;
+		
+		
+	    //???       数据库字段: USERNAME 
+		private java.lang.String username;
+		
+		
+	    //?????       数据库字段: PRODUCTID 
+		private String productid;
+		
+		
+	    //????       数据库字段: SCENEID 
+		private String sceneid;
+		
+		
+	    //????       数据库字段: PRODUCTDATE 
+		private java.util.Date productdate;
+		
+		
+	    //????       数据库字段: PRODUCTLEVEL 
+		private java.lang.String productlevel;
+		
+		
+	    //??????       数据库字段: PRODUCTUPLOADDIR 
+		private java.lang.String productuploaddir;
+		
+		
+	    //????       数据库字段: ORDERSTATE 
+		private Double orderstate;
+		
+		
+	    //????       数据库字段: DELFLAG 
+		private Double delflag;
+		
+		
+	    //????       数据库字段: AREADYSTATE 
+		private Double areadystate;
+		
+		
+	    //????       数据库字段: PRODUCTSIZE 
+		private Double productsize;
+		
+		
+	    //???       数据库字段: CHECKUSERNAME 
+		private java.lang.String checkusername;
+		
+		
+	    //????       数据库字段: CHECKTIME 
+		private java.util.Date checktime;
+		
+		
+	    //??       数据库字段: NOTE 
+		private java.lang.String note;
+		
+		
+	    //??       数据库字段: PRICE 
+		private Double price;
+		
+		
+	    //????       数据库字段: CLEARFORM 
+		private java.lang.String clearform;
+		
+		
+	    //????       数据库字段: DATAFORMATDES 
+		private java.lang.String dataformatdes;
+		
+		
+	    //??????       数据库字段: OVERALLQUALITY 
+		private Double overallquality;
+		
+		
+	    //?????????????????       数据库字段: PRODUCTTYPE 
+		private java.lang.String producttype;
+		
+		
+	    //????       数据库字段: SCENECOUNT 
+		private Double scenecount;
+		
+		
+	    //???       数据库字段: SCENESHIFT 
+		private Double sceneshift;
+		
+		
+	    //??       数据库字段: GAIN 
+		private java.lang.String gain;
+		
+		
+	    //????       数据库字段: INTERGRALLEVEL 
+		private Double intergrallevel;
+		
+		
+	    //?????       数据库字段: SUNELEVATION 
+		private Double sunelevation;
+		
+		
+	    //?????       数据库字段: SUNAZIMUTH 
+		private Double sunazimuth;
+		
+		
+	    //????       数据库字段: SCENEDATE 
+		private java.util.Date scenedate;
+		
+		
+	    //??????       数据库字段: IMAGEINGSTARTTIME 
+		private java.util.Date imageingstarttime;
+		
+		
+	    //??????       数据库字段: IMAGEIMGSTOPTIME 
+		private java.util.Date imageimgstoptime;
+		
+		
+	    //???PATH       数据库字段: SATPATH 
+		private Double satpath;
+		
+		
+	    //???ROW       数据库字段: SATROW 
+		private Double satrow;
+		
+		
+	    //?PATH       数据库字段: SCENEPATH 
+		private Double scenepath;
+		
+		
+	    //?ROW       数据库字段: SCENEROW 
+		private Double scenerow;
+		
+		
+	    //?????       数据库字段: SCENECENTERLAT 
+		private Double scenecenterlat;
+		
+		
+	    //?????       数据库字段: SCENECENTERLONG 
+		private Double scenecenterlong;
+		
+		
+	    //???????       数据库字段: DATAUPPERLEFTLAT 
+		private Double dataupperleftlat;
+		
+		
+	    //???????       数据库字段: DATAUPPERLEFTLONG 
+		private Double dataupperleftlong;
+		
+		
+	    //???????       数据库字段: DATAUPPERRIGHTLAT 
+		private Double dataupperrightlat;
+		
+		
+	    //???????       数据库字段: DATAUPPERRIGHTUPPERLONG 
+		private Double dataupperrightupperlong;
+		
+		
+	    //???????       数据库字段: DATALOWERLEFTLAT 
+		private Double datalowerleftlat;
+		
+		
+	    //???????       数据库字段: DATALOWERLEFTLONG 
+		private Double datalowerleftlong;
+		
+		
+	    //???????       数据库字段: DATALOWERRIGHTLAT 
+		private Double datalowerrightlat;
+		
+		
+	    //???????       数据库字段: DATALOWERRIGHTLONG 
+		private Double datalowerrightlong;
+		
+		
+	    //????????????       数据库字段: BANDS 
+		private java.lang.String bands;
+		
+		
+	    //??????       数据库字段: RADIOMETRICMETHOD 
+		private java.lang.String radiometricmethod;
+		
+		
+	    //????????       数据库字段: ABCCALIBTYPE 
+		private java.lang.String abccalibtype;
+		
+		
+	    //MTF??       数据库字段: MTFCPROMODE 
+		private java.lang.String mtfcpromode;
+		
+		
+	    //????       数据库字段: SATELLITEID 
+		private java.lang.String satelliteid;
+		
+		
+	    //????? (????)       数据库字段: PIXELSPACING 
+		private Double pixelspacing;
+		
+		
+	    //??????       数据库字段: EPHEMERISDATA 
+		private java.lang.String ephemerisdata;
+		
+		
+	    //??????       数据库字段: ATTITUDEDATA 
+		private java.lang.String attitudedata;
+		
+		
+	    //??????       数据库字段: PRODUCTORIENTATION 
+		private java.lang.String productorientation;
+		
+		
+	    //????       数据库字段: EARTHMODEL 
+		private java.lang.String earthmodel;
+		
+		
+	    //????       数据库字段: MAPPROJECTION 
+		private java.lang.String mapprojection;
+		
+		
+	    //?????       数据库字段: RESAMPLETECHNIQUE 
+		private java.lang.String resampletechnique;
+		
+		
+	    //???????       数据库字段: PRODUCTUPPERLEFTLAT 
+		private Double productupperleftlat;
+		
+		
+	    //??????       数据库字段: PRODUCTUPPERLEFTLONG 
+		private Double productupperleftlong;
+		
+		
+	    //???????       数据库字段: PRODUCTUPPERRIGHTLAT 
+		private Double productupperrightlat;
+		
+		
+	    //???????       数据库字段: PRODUCTUPPERRIGHTLONG 
+		private Double productupperrightlong;
+		
+		
+	    //???????       数据库字段: PRODUCTLOWERLEFTLAT 
+		private Double productlowerleftlat;
+		
+		
+	    //???????       数据库字段: PRODUCTLOWERLEFTLONG 
+		private Double productlowerleftlong;
+		
+		
+	    //???????       数据库字段: PRODUCTLOWERRIGHTLAT 
+		private Double productlowerrightlat;
+		
+		
+	    //???????       数据库字段: PRODUCTLOWERRIGHTLONG 
+		private Double productlowerrightlong;
+		
+		
+	    //?????X??       数据库字段: DATAUPPERLEFTX 
+		private Double dataupperleftx;
+		
+		
+	    //?????Y??       数据库字段: DATAUPPERLEFTY 
+		private Double dataupperlefty;
+		
+		
+	    //?????X??       数据库字段: DATAUPPERRIGHTX 
+		private Double dataupperrightx;
+		
+		
+	    //?????Y??       数据库字段: DATAUPPERRIGHTY 
+		private Double dataupperrighty;
+		
+		
+	    //?????X??       数据库字段: DATALOWERLEFTX 
+		private Double datalowerleftx;
+		
+		
+	    //?????Y??       数据库字段: DATALOWERLEFTY 
+		private Double datalowerlefty;
+		
+		
+	    //?????X??       数据库字段: DATALOWERRIGHTX 
+		private Double datalowerrightx;
+		
+		
+	    //?????Y??       数据库字段: DATALOWERRIGHTY 
+		private Double datalowerrighty;
+		
+		
+	    //?????X??       数据库字段: PRODUCTUPPERLEFTX 
+		private Double productupperleftx;
+		
+		
+	    //?????Y??       数据库字段: PRODUCTUPPERLEFTY 
+		private Double productupperlefty;
+		
+		
+	    //?????X??       数据库字段: PRODUCTUPPERRIGHTX 
+		private Double productupperrightx;
+		
+		
+	    //?????Y??       数据库字段: PRODUCTUPPERRIGHTY 
+		private Double productupperrighty;
+		
+		
+	    //?????X??       数据库字段: PRODUCTLOWERLEFTX 
+		private Double productlowerleftx;
+		
+		
+	    //?????Y??       数据库字段: PRODUCTLOWERLEFTY 
+		private Double productlowerlefty;
+		
+		
+	    //?????X??       数据库字段: PRODUCTLOWERRIGHTX 
+		private Double productlowerrightx;
+		
+		
+	    //?????Y??       数据库字段: PRODUCTLOWERRIGHTY 
+		private Double productlowerrighty;
+		
+		
+	    //???????       数据库字段: GEODETICMETHOD 
+		private java.lang.String geodeticmethod;
+		
+		
+	    //????DEM??       数据库字段: DEMTYPE 
+		private java.lang.String demtype;
+		
+		
+	    //???? 1?  0?       数据库字段: DELSSTATUS 
+		private Double delsstatus;
+		
+		
+	    //????       数据库字段: SENSORID 
+		private java.lang.String sensorid;
+		
+		
+	    //????       数据库字段: CLOUDCOVER 
+		private Double cloudcover;
+		
+		
+	    //???????????????       数据库字段: STATIONID 
+		private java.lang.String stationid;
+		
+		
+	    //????       数据库字段: ORDERMEDIUMID 
+		private java.lang.String ordermediumid;
+		
+		
+	    //????  ???0  ???1       数据库字段: URGENCYLEVEL 
+		private Double urgencylevel;
+		
+		
+	    //?????       数据库字段: SIDEANGLE 
+		private Double sideangle;
+		
+		
+	    //earthsurfacename       数据库字段: EARTHSURFACENAME 
+		private java.lang.String earthsurfacename;
+		
+		
+	    //surfacereflectivity       数据库字段: SURFACEREFLECTIVITY 
+		private java.lang.String surfacereflectivity;
+		
+		
+	    //(30-580)       数据库字段: OBSERVATIONINTERVAL 
+		private java.lang.String observationinterval;
+		
+		
+	    //gatherareaname       数据库字段: GATHERAREANAME 
+		private java.lang.String gatherareaname;
+		
+		
+	    //gatherareadescription       数据库字段: GATHERAREADESCRIPTION 
+		private java.lang.String gatherareadescription;
+		
+		
+	    //scenepathbias       数据库字段: SCENEPATHBIAS 
+		private java.lang.String scenepathbias;
+		
+		
+	    //scenerowbias       数据库字段: SCENEROWBIAS 
+		private java.lang.String scenerowbias;
+		
+		//添加到购物车的时间
+		private java.util.Date orderdate;
+	    //area       数据库字段: AREA 
+		private Double area;
+		//产品分类
+		private Integer productcate;
+		//是否GCP过滤
+		private Integer gcp;
+		
+		private String telmobile;	//联系电话
+		
+		private String email;		//电子邮箱
+		
+		private String department;	//客户住址
+		
+		public String getTelmobile() {
+			return telmobile;
+		}
+		public void setTelmobile(String telmobile) {
+			this.telmobile = telmobile;
+		}
+		public String getEmail() {
+			return email;
+		}
+		public void setEmail(String email) {
+			this.email = email;
+		}
+		public String getDepartment() {
+			return department;
+		}
+		public void setDepartment(String department) {
+			this.department = department;
+		}
+		public String getThematictype() {
+			return thematictype;
+		}
+		public void setThematictype(String thematictype) {
+			this.thematictype = thematictype;
+		}
+		public String getSpatialmax() {
+			return spatialmax;
+		}
+		public void setSpatialmax(String spatialmax) {
+			this.spatialmax = spatialmax;
+		}
+		public String getImagedatebegin() {
+			return imagedatebegin;
+		}
+		public void setImagedatebegin(String imagedatebegin) {
+			this.imagedatebegin = imagedatebegin;
+		}
+		public String getImagedateend() {
+			return imagedateend;
+		}
+		public void setImagedateend(String imagedateend) {
+			this.imagedateend = imagedateend;
+		}
+		public String getSpatialmin() {
+			return spatialmin;
+		}
+		public void setSpatialmin(String spatialmin) {
+			this.spatialmin = spatialmin;
+		}
+
+
+		private String thematictype;	//专题产品类型
+		
+		private String imagedatebegin; 	//成像起始时间
+		
+		private String imagedateend; 	//成像结束时间
+		
+		private String spatialmax;	//分辨率最大值
+		
+		private String spatialmin;	//分辨率最小值
+		
+		private String remark;	//备注
+		
+		public String getRemark() {
+			return remark;
+		}
+		public void setRemark(String remark) {
+			this.remark = remark;
+		}
+		public Integer getGcp() {
+			return gcp;
+		}
+		public void setGcp(Integer gcp) {
+			this.gcp = gcp;
+		}
+
+		public Integer getProductcate() {
+			return productcate;
+		}
+
+
+		public void setProductcate(Integer productcate) {
+			this.productcate = productcate;
+		}
+
+
+		public Long getOrderid() {
+			return orderid;
+		}
+
+
+		public void setOrderid(Long orderid) {
+			this.orderid = orderid;
+		}
+
+
+		public Integer getOrdertype() {
+			return ordertype;
+		}
+
+
+		public void setOrdertype(Integer ordertype) {
+			this.ordertype = ordertype;
+		}
+
+
+		public java.lang.String getOperatorname() {
+			return operatorname;
+		}
+
+
+		public void setOperatorname(java.lang.String operatorname) {
+			this.operatorname = operatorname;
+		}
+
+
+		public Double getPriority() {
+			return priority;
+		}
+
+
+		public void setPriority(Double priority) {
+			this.priority = priority;
+		}
+
+
+		public java.lang.String getUsername() {
+			return username;
+		}
+
+
+		public void setUsername(java.lang.String username) {
+			this.username = username;
+		}
+
+
+		public String getProductid() {
+			return productid;
+		}
+
+
+		public void setProductid(String productid) {
+			this.productid = productid;
+		}
+
+
+		 
+
+
+		public String getSceneid() {
+			return sceneid;
+		}
+
+
+		public void setSceneid(String sceneid) {
+			this.sceneid = sceneid;
+		}
+
+
+		public java.util.Date getProductdate() {
+			return productdate;
+		}
+
+
+		public void setProductdate(java.util.Date productdate) {
+			this.productdate = productdate;
+		}
+
+
+		public java.lang.String getProductlevel() {
+			return productlevel;
+		}
+
+
+		public void setProductlevel(java.lang.String productlevel) {
+			this.productlevel = productlevel;
+		}
+
+
+		public java.lang.String getProductuploaddir() {
+			return productuploaddir;
+		}
+
+
+		public void setProductuploaddir(java.lang.String productuploaddir) {
+			this.productuploaddir = productuploaddir;
+		}
+
+
+		public Double getOrderstate() {
+			return orderstate;
+		}
+
+
+		public void setOrderstate(Double orderstate) {
+			this.orderstate = orderstate;
+		}
+
+
+		public Double getDelflag() {
+			return delflag;
+		}
+
+
+		public void setDelflag(Double delflag) {
+			this.delflag = delflag;
+		}
+
+
+		public Double getAreadystate() {
+			return areadystate;
+		}
+
+
+		public void setAreadystate(Double areadystate) {
+			this.areadystate = areadystate;
+		}
+
+
+		public Double getProductsize() {
+			return productsize;
+		}
+
+
+		public void setProductsize(Double productsize) {
+			this.productsize = productsize;
+		}
+
+
+		public java.lang.String getCheckusername() {
+			return checkusername;
+		}
+
+
+		public void setCheckusername(java.lang.String checkusername) {
+			this.checkusername = checkusername;
+		}
+
+
+		public java.util.Date getChecktime() {
+			return checktime;
+		}
+
+
+		public void setChecktime(java.util.Date checktime) {
+			this.checktime = checktime;
+		}
+
+
+		public java.lang.String getNote() {
+			return note;
+		}
+
+
+		public void setNote(java.lang.String note) {
+			this.note = note;
+		}
+
+
+		public Double getPrice() {
+			return price;
+		}
+
+
+		public void setPrice(Double price) {
+			this.price = price;
+		}
+
+
+		public java.lang.String getClearform() {
+			return clearform;
+		}
+
+
+		public void setClearform(java.lang.String clearform) {
+			this.clearform = clearform;
+		}
+
+
+		public java.lang.String getDataformatdes() {
+			return dataformatdes;
+		}
+
+
+		public void setDataformatdes(java.lang.String dataformatdes) {
+			this.dataformatdes = dataformatdes;
+		}
+
+
+		public Double getOverallquality() {
+			return overallquality;
+		}
+
+
+		public void setOverallquality(Double overallquality) {
+			this.overallquality = overallquality;
+		}
+
+
+		public java.lang.String getProducttype() {
+			return producttype;
+		}
+
+
+		public void setProducttype(java.lang.String producttype) {
+			this.producttype = producttype;
+		}
+
+
+		public Double getScenecount() {
+			return scenecount;
+		}
+
+
+		public void setScenecount(Double scenecount) {
+			this.scenecount = scenecount;
+		}
+
+
+		public Double getSceneshift() {
+			return sceneshift;
+		}
+
+
+		public void setSceneshift(Double sceneshift) {
+			this.sceneshift = sceneshift;
+		}
+
+
+		public java.lang.String getGain() {
+			return gain;
+		}
+
+
+		public void setGain(java.lang.String gain) {
+			this.gain = gain;
+		}
+
+
+		public Double getIntergrallevel() {
+			return intergrallevel;
+		}
+
+
+		public void setIntergrallevel(Double intergrallevel) {
+			this.intergrallevel = intergrallevel;
+		}
+
+
+		public Double getSunelevation() {
+			return sunelevation;
+		}
+
+
+		public void setSunelevation(Double sunelevation) {
+			this.sunelevation = sunelevation;
+		}
+
+
+		public Double getSunazimuth() {
+			return sunazimuth;
+		}
+
+
+		public void setSunazimuth(Double sunazimuth) {
+			this.sunazimuth = sunazimuth;
+		}
+
+
+		public java.util.Date getScenedate() {
+			return scenedate;
+		}
+
+
+		public void setScenedate(java.util.Date scenedate) {
+			this.scenedate = scenedate;
+		}
+
+
+		public java.util.Date getImageingstarttime() {
+			return imageingstarttime;
+		}
+
+
+		public void setImageingstarttime(java.util.Date imageingstarttime) {
+			this.imageingstarttime = imageingstarttime;
+		}
+
+
+		public java.util.Date getImageimgstoptime() {
+			return imageimgstoptime;
+		}
+
+
+		public void setImageimgstoptime(java.util.Date imageimgstoptime) {
+			this.imageimgstoptime = imageimgstoptime;
+		}
+
+
+		public Double getSatpath() {
+			return satpath;
+		}
+
+
+		public void setSatpath(Double satpath) {
+			this.satpath = satpath;
+		}
+
+
+		public Double getSatrow() {
+			return satrow;
+		}
+
+
+		public void setSatrow(Double satrow) {
+			this.satrow = satrow;
+		}
+
+
+		public Double getScenepath() {
+			return scenepath;
+		}
+
+
+		public void setScenepath(Double scenepath) {
+			this.scenepath = scenepath;
+		}
+
+
+		public Double getScenerow() {
+			return scenerow;
+		}
+
+
+		public void setScenerow(Double scenerow) {
+			this.scenerow = scenerow;
+		}
+
+
+		public Double getScenecenterlat() {
+			return scenecenterlat;
+		}
+
+
+		public void setScenecenterlat(Double scenecenterlat) {
+			this.scenecenterlat = scenecenterlat;
+		}
+
+
+		public Double getScenecenterlong() {
+			return scenecenterlong;
+		}
+
+
+		public void setScenecenterlong(Double scenecenterlong) {
+			this.scenecenterlong = scenecenterlong;
+		}
+
+
+		public Double getDataupperleftlat() {
+			return dataupperleftlat;
+		}
+
+
+		public void setDataupperleftlat(Double dataupperleftlat) {
+			this.dataupperleftlat = dataupperleftlat;
+		}
+
+
+		public Double getDataupperleftlong() {
+			return dataupperleftlong;
+		}
+
+
+		public void setDataupperleftlong(Double dataupperleftlong) {
+			this.dataupperleftlong = dataupperleftlong;
+		}
+
+
+		public Double getDataupperrightlat() {
+			return dataupperrightlat;
+		}
+
+
+		public void setDataupperrightlat(Double dataupperrightlat) {
+			this.dataupperrightlat = dataupperrightlat;
+		}
+
+
+		public Double getDataupperrightupperlong() {
+			return dataupperrightupperlong;
+		}
+
+
+		public void setDataupperrightupperlong(Double dataupperrightupperlong) {
+			this.dataupperrightupperlong = dataupperrightupperlong;
+		}
+
+
+		public Double getDatalowerleftlat() {
+			return datalowerleftlat;
+		}
+
+
+		public void setDatalowerleftlat(Double datalowerleftlat) {
+			this.datalowerleftlat = datalowerleftlat;
+		}
+
+
+		public Double getDatalowerleftlong() {
+			return datalowerleftlong;
+		}
+
+
+		public void setDatalowerleftlong(Double datalowerleftlong) {
+			this.datalowerleftlong = datalowerleftlong;
+		}
+
+
+		public Double getDatalowerrightlat() {
+			return datalowerrightlat;
+		}
+
+
+		public void setDatalowerrightlat(Double datalowerrightlat) {
+			this.datalowerrightlat = datalowerrightlat;
+		}
+
+
+		public Double getDatalowerrightlong() {
+			return datalowerrightlong;
+		}
+
+
+		public void setDatalowerrightlong(Double datalowerrightlong) {
+			this.datalowerrightlong = datalowerrightlong;
+		}
+
+
+		public java.lang.String getBands() {
+			return bands;
+		}
+
+
+		public void setBands(java.lang.String bands) {
+			this.bands = bands;
+		}
+
+
+		public java.lang.String getRadiometricmethod() {
+			return radiometricmethod;
+		}
+
+
+		public void setRadiometricmethod(java.lang.String radiometricmethod) {
+			this.radiometricmethod = radiometricmethod;
+		}
+
+
+		public java.lang.String getAbccalibtype() {
+			return abccalibtype;
+		}
+
+
+		public void setAbccalibtype(java.lang.String abccalibtype) {
+			this.abccalibtype = abccalibtype;
+		}
+
+
+		public java.lang.String getMtfcpromode() {
+			return mtfcpromode;
+		}
+
+
+		public void setMtfcpromode(java.lang.String mtfcpromode) {
+			this.mtfcpromode = mtfcpromode;
+		}
+
+
+		public java.lang.String getSatelliteid() {
+			return satelliteid;
+		}
+
+
+		public void setSatelliteid(java.lang.String satelliteid) {
+			this.satelliteid = satelliteid;
+		}
+
+
+		public Double getPixelspacing() {
+			return pixelspacing;
+		}
+
+
+		public void setPixelspacing(Double pixelspacing) {
+			this.pixelspacing = pixelspacing;
+		}
+
+
+		public java.lang.String getEphemerisdata() {
+			return ephemerisdata;
+		}
+
+
+		public void setEphemerisdata(java.lang.String ephemerisdata) {
+			this.ephemerisdata = ephemerisdata;
+		}
+
+
+		public java.lang.String getAttitudedata() {
+			return attitudedata;
+		}
+
+
+		public void setAttitudedata(java.lang.String attitudedata) {
+			this.attitudedata = attitudedata;
+		}
+
+
+		public java.lang.String getProductorientation() {
+			return productorientation;
+		}
+
+
+		public void setProductorientation(java.lang.String productorientation) {
+			this.productorientation = productorientation;
+		}
+
+
+		public java.lang.String getEarthmodel() {
+			return earthmodel;
+		}
+
+
+		public void setEarthmodel(java.lang.String earthmodel) {
+			this.earthmodel = earthmodel;
+		}
+
+
+		public java.lang.String getMapprojection() {
+			return mapprojection;
+		}
+
+
+		public void setMapprojection(java.lang.String mapprojection) {
+			this.mapprojection = mapprojection;
+		}
+
+
+		public java.lang.String getResampletechnique() {
+			return resampletechnique;
+		}
+
+
+		public void setResampletechnique(java.lang.String resampletechnique) {
+			this.resampletechnique = resampletechnique;
+		}
+
+
+		public Double getProductupperleftlat() {
+			return productupperleftlat;
+		}
+
+
+		public void setProductupperleftlat(Double productupperleftlat) {
+			this.productupperleftlat = productupperleftlat;
+		}
+
+
+		public Double getProductupperleftlong() {
+			return productupperleftlong;
+		}
+
+
+		public void setProductupperleftlong(Double productupperleftlong) {
+			this.productupperleftlong = productupperleftlong;
+		}
+
+
+		public Double getProductupperrightlat() {
+			return productupperrightlat;
+		}
+
+
+		public void setProductupperrightlat(Double productupperrightlat) {
+			this.productupperrightlat = productupperrightlat;
+		}
+
+
+		public Double getProductupperrightlong() {
+			return productupperrightlong;
+		}
+
+
+		public void setProductupperrightlong(Double productupperrightlong) {
+			this.productupperrightlong = productupperrightlong;
+		}
+
+
+		public Double getProductlowerleftlat() {
+			return productlowerleftlat;
+		}
+
+
+		public void setProductlowerleftlat(Double productlowerleftlat) {
+			this.productlowerleftlat = productlowerleftlat;
+		}
+
+
+		public Double getProductlowerleftlong() {
+			return productlowerleftlong;
+		}
+
+
+		public void setProductlowerleftlong(Double productlowerleftlong) {
+			this.productlowerleftlong = productlowerleftlong;
+		}
+
+
+		public Double getProductlowerrightlat() {
+			return productlowerrightlat;
+		}
+
+
+		public void setProductlowerrightlat(Double productlowerrightlat) {
+			this.productlowerrightlat = productlowerrightlat;
+		}
+
+
+		public Double getProductlowerrightlong() {
+			return productlowerrightlong;
+		}
+
+
+		public void setProductlowerrightlong(Double productlowerrightlong) {
+			this.productlowerrightlong = productlowerrightlong;
+		}
+
+
+		public Double getDataupperleftx() {
+			return dataupperleftx;
+		}
+
+
+		public void setDataupperleftx(Double dataupperleftx) {
+			this.dataupperleftx = dataupperleftx;
+		}
+
+
+		public Double getDataupperlefty() {
+			return dataupperlefty;
+		}
+
+
+		public void setDataupperlefty(Double dataupperlefty) {
+			this.dataupperlefty = dataupperlefty;
+		}
+
+
+		public Double getDataupperrightx() {
+			return dataupperrightx;
+		}
+
+
+		public void setDataupperrightx(Double dataupperrightx) {
+			this.dataupperrightx = dataupperrightx;
+		}
+
+
+		public Double getDataupperrighty() {
+			return dataupperrighty;
+		}
+
+
+		public void setDataupperrighty(Double dataupperrighty) {
+			this.dataupperrighty = dataupperrighty;
+		}
+
+
+		public Double getDatalowerleftx() {
+			return datalowerleftx;
+		}
+
+
+		public void setDatalowerleftx(Double datalowerleftx) {
+			this.datalowerleftx = datalowerleftx;
+		}
+
+
+		public Double getDatalowerlefty() {
+			return datalowerlefty;
+		}
+
+
+		public void setDatalowerlefty(Double datalowerlefty) {
+			this.datalowerlefty = datalowerlefty;
+		}
+
+
+		public Double getDatalowerrightx() {
+			return datalowerrightx;
+		}
+
+
+		public void setDatalowerrightx(Double datalowerrightx) {
+			this.datalowerrightx = datalowerrightx;
+		}
+
+
+		public Double getDatalowerrighty() {
+			return datalowerrighty;
+		}
+
+
+		public void setDatalowerrighty(Double datalowerrighty) {
+			this.datalowerrighty = datalowerrighty;
+		}
+
+
+		public Double getProductupperleftx() {
+			return productupperleftx;
+		}
+
+
+		public void setProductupperleftx(Double productupperleftx) {
+			this.productupperleftx = productupperleftx;
+		}
+
+
+		public Double getProductupperlefty() {
+			return productupperlefty;
+		}
+
+
+		public void setProductupperlefty(Double productupperlefty) {
+			this.productupperlefty = productupperlefty;
+		}
+
+
+		public Double getProductupperrightx() {
+			return productupperrightx;
+		}
+
+
+		public void setProductupperrightx(Double productupperrightx) {
+			this.productupperrightx = productupperrightx;
+		}
+
+
+		public Double getProductupperrighty() {
+			return productupperrighty;
+		}
+
+
+		public void setProductupperrighty(Double productupperrighty) {
+			this.productupperrighty = productupperrighty;
+		}
+
+
+		public Double getProductlowerleftx() {
+			return productlowerleftx;
+		}
+
+
+		public void setProductlowerleftx(Double productlowerleftx) {
+			this.productlowerleftx = productlowerleftx;
+		}
+
+
+		public Double getProductlowerlefty() {
+			return productlowerlefty;
+		}
+
+
+		public void setProductlowerlefty(Double productlowerlefty) {
+			this.productlowerlefty = productlowerlefty;
+		}
+
+
+		public Double getProductlowerrightx() {
+			return productlowerrightx;
+		}
+
+
+		public void setProductlowerrightx(Double productlowerrightx) {
+			this.productlowerrightx = productlowerrightx;
+		}
+
+
+		public Double getProductlowerrighty() {
+			return productlowerrighty;
+		}
+
+
+		public void setProductlowerrighty(Double productlowerrighty) {
+			this.productlowerrighty = productlowerrighty;
+		}
+
+
+		public java.lang.String getGeodeticmethod() {
+			return geodeticmethod;
+		}
+
+
+		public void setGeodeticmethod(java.lang.String geodeticmethod) {
+			this.geodeticmethod = geodeticmethod;
+		}
+
+
+		public java.lang.String getDemtype() {
+			return demtype;
+		}
+
+
+		public void setDemtype(java.lang.String demtype) {
+			this.demtype = demtype;
+		}
+
+
+		public Double getDelsstatus() {
+			return delsstatus;
+		}
+
+
+		public void setDelsstatus(Double delsstatus) {
+			this.delsstatus = delsstatus;
+		}
+
+
+		public java.lang.String getSensorid() {
+			return sensorid;
+		}
+
+
+		public void setSensorid(java.lang.String sensorid) {
+			this.sensorid = sensorid;
+		}
+
+
+		public Double getCloudcover() {
+			return cloudcover;
+		}
+
+
+		public void setCloudcover(Double cloudcover) {
+			this.cloudcover = cloudcover;
+		}
+
+
+		public java.lang.String getStationid() {
+			return stationid;
+		}
+
+
+		public void setStationid(java.lang.String stationid) {
+			this.stationid = stationid;
+		}
+
+
+		public java.lang.String getOrdermediumid() {
+			return ordermediumid;
+		}
+
+
+		public void setOrdermediumid(java.lang.String ordermediumid) {
+			this.ordermediumid = ordermediumid;
+		}
+
+
+		public Double getUrgencylevel() {
+			return urgencylevel;
+		}
+
+
+		public void setUrgencylevel(Double urgencylevel) {
+			this.urgencylevel = urgencylevel;
+		}
+
+
+		public Double getSideangle() {
+			return sideangle;
+		}
+
+
+		public void setSideangle(Double sideangle) {
+			this.sideangle = sideangle;
+		}
+
+
+		public java.lang.String getEarthsurfacename() {
+			return earthsurfacename;
+		}
+
+
+		public void setEarthsurfacename(java.lang.String earthsurfacename) {
+			this.earthsurfacename = earthsurfacename;
+		}
+
+
+		public java.lang.String getSurfacereflectivity() {
+			return surfacereflectivity;
+		}
+
+
+		public void setSurfacereflectivity(java.lang.String surfacereflectivity) {
+			this.surfacereflectivity = surfacereflectivity;
+		}
+
+
+		public java.lang.String getObservationinterval() {
+			return observationinterval;
+		}
+
+
+		public void setObservationinterval(java.lang.String observationinterval) {
+			this.observationinterval = observationinterval;
+		}
+
+
+		public java.lang.String getGatherareaname() {
+			return gatherareaname;
+		}
+
+
+		public void setGatherareaname(java.lang.String gatherareaname) {
+			this.gatherareaname = gatherareaname;
+		}
+
+
+		public java.lang.String getGatherareadescription() {
+			return gatherareadescription;
+		}
+
+
+		public void setGatherareadescription(java.lang.String gatherareadescription) {
+			this.gatherareadescription = gatherareadescription;
+		}
+
+
+		public java.lang.String getScenepathbias() {
+			return scenepathbias;
+		}
+
+
+		public void setScenepathbias(java.lang.String scenepathbias) {
+			this.scenepathbias = scenepathbias;
+		}
+
+
+		public java.lang.String getScenerowbias() {
+			return scenerowbias;
+		}
+
+
+		public void setScenerowbias(java.lang.String scenerowbias) {
+			this.scenerowbias = scenerowbias;
+		}
+
+
+		public Double getArea() {
+			return area;
+		}
+
+
+		public void setArea(Double area) {
+			this.area = area;
+		}
+
+
+		public java.util.Date getOrderdate() {
+			return orderdate;
+		}
+
+
+		public void setOrderdate(java.util.Date orderdate) {
+			this.orderdate = orderdate;
+		}
+
+
+		public String getBrowsefilelocation() {
+			return browsefilelocation;
+		}
+
+
+		public void setBrowsefilelocation(String browsefilelocation) {
+			this.browsefilelocation = browsefilelocation;
+		}
+
+
+		public String getUuit() {
+			return uuit;
+		}
+
+
+		public void setUuit(String uuit) {
+			this.uuit = uuit;
+		}
+
+
+		
+		
+		
+		
+}

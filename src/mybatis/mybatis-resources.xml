@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="resourcesDao">
+	<resultMap id="resourcesInfoResult" type="resources">
+		<id property="id" column="id"/>
+		<id property="pId" column="pId"/>
+		<result property="resourceName" column="resource_name"/>
+		<result property="name" column="resource_name"/>
+		<result property="resourceUrl" column="resource_url"/>
+		<result property="moduleId" column="module_id"/>
+		<result property="sortNum" column="sort_num"/>
+		<result property="isRestricted" column="is_restricted"/>
+		<result property="isMenu" column="is_menu"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createUserId" column="create_userid"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateUserId" column="update_userid"/>
+		<result property="note" column="note"/>
+		<result property="icon" column="icon"/>
+	</resultMap>
+	
+	<sql id="allColumn">
+		id, pid, resource_name, resource_url, module_id, sort_num, is_restricted, is_menu, create_time, create_userid, update_time, update_userid, note,icon
+  </sql>
+  
+	<insert id="insertNewResources" parameterType="resources" useGeneratedKeys="false" keyProperty="id">
+		insert into sys_resources (
+		<trim suffix="" suffixOverrides=",">
+		    id,
+		    <if test="resourceName != null">
+				resource_name,
+			</if>
+			<if test="pId != null">
+				pId,
+			</if>
+			<if test="resourceUrl != null">
+				resource_url,
+			</if>
+			<if test="sortNum != null">
+				sort_num,
+			</if>
+			<if test="moduleId != null">
+				module_id,
+			</if>
+			<if test="isRestricted != null">
+				is_restricted,
+			</if>
+			<if test="isMenu != null">
+				is_menu,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="createUserId != null">
+				create_userid,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateUserId != null">
+				update_userid,
+			</if>
+			<if test="note != null">
+				note,
+			</if>
+			<if test="icon != null">
+				icon,
+			</if>
+		</trim>
+		) values(
+		<trim suffix="" suffixOverrides=",">
+		    SYS_RESOURCES_SEQ.nextval,
+		    <if test="resourceName != null">
+				#{resourceName},
+			</if>
+			<if test="pId != null">
+				#{pId},
+			</if>
+			<if test="resourceUrl != null">
+				#{resourceUrl},
+			</if>
+			<if test="sortNum != null">
+				#{sortNum},
+			</if>
+			<if test="moduleId != null">
+				#{moduleId},
+			</if>
+			<if test="isRestricted != null">
+				#{isRestricted},
+			</if>
+			<if test="isMenu != null">
+				#{isMenu},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId},
+			</if>
+			<if test="note != null">
+				#{note},
+			</if>
+			<if test="icon != null">
+				#{icon},
+			</if>
+		</trim>
+		)
+	</insert>
+	
+	<!-- 获取所有符合条件的系统资源信息 -->
+	<select id="selectResourcesByQuery" resultMap="resourcesInfoResult" resultType="resources" parameterType="resourcesQuery">
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		 <![CDATA[select * from    ( select row_.*, rownum rownum_ from (]]>
+		</if>
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_resources 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="resourceName !=null">
+				AND resource_name like '%${resourceName}%' 
+			</if>
+			<if test="resourceUrl !=null">
+				AND resource_url like '%${resourceUrl}%'
+			</if>
+			<if test="moduleId !=null">
+				AND module_id = #{moduleId}
+			</if>
+			<if test="isRestricted !=null">
+				AND is_restricted = #{isRestricted}
+			</if>
+			<if test="isMenu !=null">
+				AND is_menu = #{isMenu}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType != 1">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id DESC
+			</otherwise>
+		</choose>
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum} ]]>
+		</if>
+	</select>
+	
+	<!-- 获取所有的系统资源信息 -->
+	<select id="selectAllResources" resultMap="resourcesInfoResult" resultType="resources">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_resources 
+		order by sort_num asc
+	</select>
+	
+	<!-- 获取用户登录后默认可以访问的资源，不受角色限制 -->
+	<select id="selectNonRestrictedResources" resultMap="resourcesInfoResult" resultType="resources">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_resources 
+		WHERE 
+			is_restricted = 0
+		ORDER BY id ASC
+	</select>
+	
+	<!-- 根据id获取系统资源信息 -->
+	<select id="selectResourceInfoByIdList" resultMap="resourcesInfoResult" resultType="resources" parameterType="java.util.List">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_resources  
+		WHERE id IN
+			<foreach collection="list" item="id"
+				open="(" separator="," close=")">
+				#{id}
+			</foreach> 
+			order by sort_num
+	</select>
+	
+	<!-- 根据功能id获取功能信息 -->
+	<select id="selectResourceInfoByResourceId" resultMap="resourcesInfoResult" resultType="resources" parameterType="long">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_resources
+		WHERE id = #{resourceId}
+		order by sort_num asc
+	</select>
+	
+	<!-- 获取功能树 -->
+	<select id="selectResourceInfoTree" resultMap="resourcesInfoResult" resultType="resources">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_resources
+		WHERE module_id = #{moduleId}
+	</select>
+	
+	<!-- 根据功能名称获取功能信息 -->
+	<select id="selectResourceInfoByResourceName" resultMap="resourcesInfoResult" resultType="resources" parameterType="string">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_resources
+		WHERE resource_name = #{resourceName}
+		order by sort_num asc
+	</select>
+	
+	<!-- 根据功能名称获取功能信息 -->
+	<select id="selectResourceCountByResourceName" resultType="Integer" parameterType="resourcesQuery">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			sys_resources
+		WHERE resource_name = #{resourceName}
+			<if test="id != null">
+				AND <![CDATA[ id <> #{id} ]]>
+			</if>
+			order by sort_num
+	</select>
+	
+	<!-- 根据检索条件获取功能的数量 -->
+	<select id="selectResourceCountByQuery" resultType="Integer" parameterType="resourcesQuery">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			sys_resources 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="moduleId != null">
+				AND <![CDATA[ module_id = #{moduleId} ]]>
+			</if>
+			<if test="pId != null">
+				AND <![CDATA[ pid = #{pId} ]]>
+			</if>
+			<if test="resourceName !=null">
+				AND resource_name like '%${resourceName}%'
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 根据检索条件获取功能的信息 -->
+	<select id="selectResourceInfoByQuery" resultType="resources" resultMap="resourcesInfoResult" parameterType="resourcesQuery">
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_resources 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="moduleId != null">
+				AND <![CDATA[ module_id = #{moduleId} ]]>
+			</if>
+			<if test="pId != null">
+				AND <![CDATA[ pid = #{pId} ]]>
+			</if>
+			<if test="resourceName !=null">
+				AND resource_name like '%${resourceName}%'
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum} ]]>
+		</if>
+	</select>
+	
+	<!-- 根据功能ID更新功能信息 -->
+    <update id="updateResourceInfoByResourceId" parameterType="resources">
+    	UPDATE sys_resources SET
+			<trim suffix="" suffixOverrides=",">
+				<if test="resourceName != null and resourceName != ''">
+					resource_name = #{resourceName},
+				</if>
+				<if test="resourceUrl != null and resourceUrl != ''">
+					resource_url = #{resourceUrl},
+				</if>
+				<if test="sortNum != null and sortNum != ''">
+					sort_num = #{sortNum},
+				</if>
+				<if test="icon != null">
+					icon = #{icon},
+				</if>
+				update_time = sysdate,
+				<if test="updateUserId != null">
+					update_userid = #{updateUserId},
+				</if>
+			</trim>
+			WHERE id = #{id} 
+    </update>
+    
+    <!-- 根据功能ID删除功能信息 物理删除 -->
+    <delete id="deleteResourceInfoByResourceId" parameterType="long">
+    	DELETE FROM sys_resources WHERE id = #{id}
+    </delete>
+	
+	<!-- 获取角色的菜单 -->
+	<select id="selectResourceInfoByRoleId" resultMap="resourcesInfoResult" parameterType="long">
+		SELECT a.id, a.pid, a.resource_name, a.resource_url, a.module_id, a.sort_num, a.is_restricted, a.is_menu, a.create_time, a.create_userid, a.update_time, a.update_userid, a.note,a.icon       
+		from sys_resources a , sys_role_resource b  
+		where a.id = b.resource_id and b.role_id=#{roldId}
+		ORDER BY a.module_id,a.sort_num 
+	</select>
+</mapper>

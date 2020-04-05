@@ -1,0 +1,314 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- 全局映射器启用缓存 -->
+		<setting name="cacheEnabled" value="true" />
+		<!-- 查询时，关闭关联对象即时加载以提高性能 -->
+		<setting name="lazyLoadingEnabled" value="true" />
+		<!-- 设置关联对象加载的形态，此处为按需加载字段(加载字段由SQL指 定)，不会加载关联表的所有字段，以提高性能 -->
+		<setting name="aggressiveLazyLoading" value="false" />
+		<!-- 对于未知的SQL查询，允许返回不同的结果集以达到通用的效果 -->
+		<setting name="multipleResultSetsEnabled" value="true" />
+		<!-- 允许使用列标签代替列名 -->
+		<setting name="useColumnLabel" value="true" />
+		<!-- 允许使用自定义的主键值(比如由程序生成的UUID 32位编码作为键值)，数据表的PK生成策略将被覆盖 -->
+		<setting name="useGeneratedKeys" value="true" />
+		<!-- 给予被嵌套的resultMap以字段-属性的映射支持 -->
+		<setting name="autoMappingBehavior" value="FULL" />
+		<!-- 对于批量更新操作缓存SQL以提高性能 -->
+		<setting name="defaultExecutorType" value="SIMPLE" />
+		<!-- 数据库超过25000秒仍未响应则超时 -->
+		<setting name="defaultStatementTimeout" value="20" />
+	</settings>
+	
+	<typeAliases>
+		<!-- 系统服务访问监控日志信息对象 -->
+		<typeAlias alias="monitorReceiverLog" type="com.sinosoft.dblog.po.MonitorReceiverLog" />
+		<!-- 系统SQL执行监控日志信息对象 -->
+		<typeAlias alias="monitorSqlLog" type="com.sinosoft.dblog.po.MonitorSqlLog" />
+		<!-- 系统用户信息对象 -->
+		<typeAlias alias="users" type="com.sinosoft.security.po.Users" />
+		
+		<!-- 系统资源信息对象 -->
+		<typeAlias alias="resources" type="com.sinosoft.security.po.Resources" />
+		<!-- 系统角色信息对象 -->
+		<typeAlias alias="roles" type="com.sinosoft.security.po.Roles" />
+		<!-- 系统用户与角色关联信息对象 -->
+		<typeAlias alias="userRole" type="com.sinosoft.security.po.UserRole" />
+		<!-- 系统角色与资源关联信息对象 -->
+		<typeAlias alias="roleResource" type="com.sinosoft.security.po.RoleResource" />
+		<!-- 系统子资源信息对象 -->
+		<typeAlias alias="resourcesSub" type="com.sinosoft.security.po.ResourcesSub" />
+		<!-- 机构信息对象 -->
+		<typeAlias alias="organization" type="com.sinosoft.security.po.Organization" />
+		<!-- 资源模块信息对象 -->
+		<typeAlias alias="resourceModule" type="com.sinosoft.security.po.ResourceModule" />
+		<!-- 城市信息对象 -->
+		<typeAlias alias="city" type="com.sinosoft.business.po.City" />
+		<!-- 省份信息对象 -->
+		<typeAlias alias="province" type="com.sinosoft.business.po.Province" />
+		<!-- 附件信息对象 -->
+		<typeAlias alias="attachment" type="com.sinosoft.business.po.Attachment" />
+		<!-- 常量子表 -->
+		<typeAlias alias="constanntChild" type="com.sinosoft.security.po.ConstantChild" />
+		<!-- 常量表 -->
+		<typeAlias alias="constannt" type="com.sinosoft.security.po.Constant" />
+		<!-- 常量表 -->
+		<typeAlias alias="extendConstant" type="com.sinosoft.security.po.extend.ExtendConstant" />
+		<!-- 学生表 -->
+		<typeAlias alias="STUDENT" type="com.sinosoft.business.po.Student" />
+		<!-- 系统配置表 -->
+		<typeAlias alias="SystemConfig" type="com.sinosoft.business.po.SystemConfig" />
+		<!-- 新闻内容表 -->
+		<typeAlias alias="Content" type="com.sinosoft.business.po.Content" />
+		
+		<!-- 订单表 -->
+		<typeAlias alias="PssOrderInfo" type="com.sinosoft.business.po.PssOrderInfo" />
+		<!-- 日志查询表 -->
+		<typeAlias alias="Syslog" type="com.sinosoft.dblog.po.Syslog" />
+		<!--  查询个人订单各种状态数量表 -->
+		<typeAlias alias="SelectOrderCount" type="com.sinosoft.business.po.SelectOrderCount" />
+		
+		<!-- 主订单表映射类 -->
+		<typeAlias alias="OrderMain" type="com.sinosoft.business.po.OrderMain" />
+		<!-- 主订单表查询映射类 -->
+		<typeAlias alias="OrderMainQuery" type="com.sinosoft.business.po.query.OrderMainQuery" />
+		
+		<!-- 购物车表 -->
+		<typeAlias alias="PssShopCar" type="com.sinosoft.business.po.PssShopCar" />
+
+		<!-- 采集单表 -->
+		<typeAlias alias="PssCollectInfo" type="com.sinosoft.business.po.PssCollectInfo" />
+		<!-- Product表 -->
+		<typeAlias alias="PssProduct" type="com.sinosoft.business.po.PssProduct" />
+		<!-- URLManage表 -->
+		<typeAlias alias="SysUrlManage" type="com.sinosoft.business.po.SysUrlManage" />
+		<!-- 友好提示表 -->
+		<typeAlias alias="PssPrompt" type="com.sinosoft.business.po.PssPrompt" />
+		<!-- 用户更新信息表 -->
+		<typeAlias alias="UserUpdate" type="com.sinosoft.business.po.UserUpdate" /> 
+        <!-- 城市信息对象 -->
+		<typeAlias alias="PssCity" type="com.sinosoft.business.po.PssCity" />
+		<!--省份信息对象-->
+		<typeAlias alias="PssProvince" type="com.sinosoft.business.po.PssProvince" /> 
+		<!-- 国家信息对象 -->
+		<typeAlias alias="PssCountry" type="com.sinosoft.business.po.PssCountry" />
+		
+		<!-- 县区信息对象 -->
+		<typeAlias alias="PssTown" type="com.sinosoft.business.po.PssTown" />
+		<!-- 根据订单状态查询数量 -->
+		<typeAlias alias="SelectCountsByOrderState" type="com.sinosoft.business.po.SelectCountsByOrderState" />
+		<!-- 专题产品表 -->
+	    <typeAlias alias="PssTasMetadata" type="com.sinosoft.business.po.PssTasMetadata" />
+	    <!-- 会员价格 -->
+	    <typeAlias alias="PssMemberprice" type="com.sinosoft.business.po.PssMemberprice"/>
+	    <!-- 产品价格版本表 -->
+	    <typeAlias alias="PssVersionnum" type="com.sinosoft.business.po.PssVersionnum"/>
+	     <!-- 产品价格表 -->
+	    <typeAlias alias="PssProductprice" type="com.sinosoft.business.po.PssProductprice"/>
+	    <!-- vip用户 -->
+		<typeAlias alias="FtpuserConfig" type="com.sinosoft.business.po.FtpuserConfig"/>
+		<!-- 用户监控表 -->
+		<typeAlias alias="PssUserstatic" type="com.sinosoft.business.po.PssUserstatic" />
+	    <!-- 购物车下单时间表 -->
+	    <typeAlias alias="PssShopCarOrdertime" type="com.sinosoft.business.po.PssShopCarOrdertime" />
+		<!-- 用户更新信息 -->
+		<typeAlias alias="SysUserset" type="com.sinosoft.business.po.SysUserset"/>
+		
+		<!-- 订单付费 -->
+		<typeAlias alias="PssOrderPay" type="com.sinosoft.business.po.PssOrderPay"/>
+		
+		<typeAlias alias="PssTask" type="com.sinosoft.business.po.PssTask"/>
+		
+		<!-- 退款表 -->
+		<typeAlias alias="PssRefund" type="com.sinosoft.business.po.PssRefund"/>
+		<!-- 系统服务访问监控日志查询对象 -->
+		<typeAlias alias="monitorReceiverLogQuery" type="com.sinosoft.dblog.po.query.MonitorReceiverLogQuery" />
+		<!-- 系统SQL执行监控日志查询对象 -->
+		<typeAlias alias="monitorSqlLogQuery" type="com.sinosoft.dblog.po.query.MonitorSqlLogQuery" />
+		<!-- 检索系统用户记录查询对象 -->
+		<typeAlias alias="usersQuery" type="com.sinosoft.security.po.query.UsersQuery" />
+		
+		<!-- 检索系统用户记录查询对象 -->
+		<typeAlias alias="rolesQuery" type="com.sinosoft.security.po.query.RolesQuery" />
+		<!-- 检索系统用户角色关联记录查询对象 -->
+		<typeAlias alias="userRoleQuery" type="com.sinosoft.security.po.query.UserRoleQuery" />
+		<!-- 检索系统资源记录查询对象 -->
+		<typeAlias alias="resourcesQuery" type="com.sinosoft.security.po.query.ResourcesQuery" />
+		<!-- 检索系统资源记录查询对象 -->
+		<typeAlias alias="resourceModuleQuery" type="com.sinosoft.security.po.query.ResourceModuleQuery" />
+		<!-- 检索机构信息记录查询对象 -->
+		<typeAlias alias="organizationQuery" type="com.sinosoft.po.query.BasePaginationQuery" />
+		<!-- 检索城市信息记录查询对象 -->
+		<typeAlias alias="cityQuery" type="com.sinosoft.business.po.query.CityQuery" />
+		<!-- 检索省份信息记录查询对象 -->
+		<typeAlias alias="provinceQuery" type="com.sinosoft.business.po.query.ProvinceQuery" />
+		<!-- 系统附件记录查询对象 -->
+		<typeAlias alias="attachmentQuery" type="com.sinosoft.business.po.query.AttachmentQuery" />
+		<!-- 常量子表 -->
+		<typeAlias alias="constantChildQuery" type="com.sinosoft.security.po.query.ConstantChildQuery" />
+		<!-- 常量子表 -->
+		<typeAlias alias="constanntQuery" type="com.sinosoft.security.po.query.ConstantQuery" />
+		<!-- 地区编码-->
+		<typeAlias alias="pubZoncode" type="com.sinosoft.business.po.PubZoncode" />
+		<typeAlias alias="pubZoncodeQuery" type="com.sinosoft.business.po.query.PubZoncodeQuery" />
+		<!-- 检索学生信息记录查询对象 -->
+		<typeAlias alias="STUDENTQuery" type="com.sinosoft.business.po.query.StudentQuery" />
+		<!-- 学生表查询对象 -->
+		<typeAlias alias="SystemConfigQuery" type="com.sinosoft.business.po.query.SystemConfigQuery" />
+		<!-- 新闻内容表查询对象 -->
+		<typeAlias alias="ContentQuery" type="com.sinosoft.business.po.query.ContentQuery" />
+		
+		<!-- 日志查询对象 -->
+		<typeAlias alias="SyslogQuery" type="com.sinosoft.dblog.po.query.SyslogQuery" />
+		
+		<!-- 订单表查询对象 -->
+		<typeAlias alias="PssOrderInfoQuery" type="com.sinosoft.business.po.query.PssOrderInfoQuery" />
+		
+		<!-- 购物车表查询对象 -->
+		<typeAlias alias="PssShopCarQuery" type="com.sinosoft.business.po.query.PssShopCarQuery" />
+
+		<!-- 采集单表查询对象 -->
+		<typeAlias alias="PssCollectInfoQuery" type="com.sinosoft.business.po.query.PssCollectInfoQuery" />
+		<!-- Product表查询对象 -->
+		<typeAlias alias="PssProductQuery" type="com.sinosoft.business.po.query.PssProductQuery" />
+		<!-- UrlManage表查询对象 -->
+		<typeAlias alias="SysUrlManageQuery" type="com.sinosoft.business.po.query.SysUrlManageQuery" />
+		<!-- 友好提示表查询对象 -->
+		<typeAlias alias="PssPromptQuery" type="com.sinosoft.business.po.query.PssPromptQuery" />
+		<!-- 用户更新表查询对象 -->
+		<typeAlias alias="UserUpdateQuery" type="com.sinosoft.business.po.query.UserUpdateQuery" />
+         <!-- 城市信息表查询对象 -->
+		 <typeAlias alias="PssCityQuery" type="com.sinosoft.business.po.query.PssCityQuery" />
+		<!--省份信息表查询对象-->
+		<typeAlias alias="PssProvinceQuery" type="com.sinosoft.business.po.query.PssProvinceQuery" /> 
+		<!-- 国家信息表查询对象 -->
+		<typeAlias alias="PssCountryQuery" type="com.sinosoft.business.po.query.PssCountryQuery" />
+		
+		<!-- 县区信息表查询对象 -->
+		<typeAlias alias="PssTownQuery" type="com.sinosoft.business.po.query.PssTownQuery" />
+		<!-- 专题产品对象 -->
+		<typeAlias alias="PssTasMetadataQuery" type="com.sinosoft.business.po.query.PssTasMetadataQuery" />
+		<!-- 会员价格查询对象 -->
+		<typeAlias alias="PssMemberpriceQuery" type="com.sinosoft.business.po.query.PssMemberpriceQuery"/>
+		  <!-- 产品价格版本查询对象 -->
+	    <typeAlias alias="PssVersionnumQuery" type="com.sinosoft.business.po.query.PssVersionnumQuery"/>
+	     <!-- 产品价格表查询对象 -->
+	    <typeAlias alias="PssProductpriceQuery" type="com.sinosoft.business.po.query.PssProductpriceQuery"/>
+	    <!-- vip用户查询对象 -->
+		<typeAlias alias="FtpuserConfigQuery" type="com.sinosoft.business.po.query.FtpuserConfigQuery"/>
+		<!-- 用户监控查询对象 -->
+		<typeAlias alias="PssUserstaticQuery" type="com.sinosoft.business.po.query.PssUserstaticQuery" />
+		<!-- 0级景表 -->
+		<typeAlias alias="PssMetadata0scene" type="com.sinosoft.business.po.PssMetadata0scene" />
+		<!-- 0级景查询对象 -->
+		<typeAlias alias="PssMetadata0sceneQuery" type="com.sinosoft.business.po.query.PssMetadata0sceneQuery" />
+		<!-- 用户更新信息查询对象 -->
+		<typeAlias alias="SysUsersetQuery" type="com.sinosoft.business.po.query.SysUsersetQuery"/>
+		<!-- 订单支付 -->
+		<typeAlias alias="PssOrderPayQuery" type="com.sinosoft.business.po.query.PssOrderPayQuery"/>
+		<!-- 退款 -->
+		<typeAlias alias="PssRefundQuery" type="com.sinosoft.business.po.query.PssRefundQuery"/>
+	</typeAliases>
+	
+	<plugins>
+		<plugin interceptor="com.sinosoft.common.mybatis.interceptor.StaticsSqlInterceptor" />
+	</plugins>
+	
+	<mappers>
+		
+		<!-- 系统服务访问监控日志 -->
+	    <mapper resource="mybatis/mybatis-monitorReceiverLog.xml" />
+	    <!-- 系统SQL执行监控日志 -->
+	    <mapper resource="mybatis/mybatis-monitorSqlLog.xml" />
+		<!-- 系统用户信息 -->
+		<mapper resource="mybatis/mybatis-users.xml" />
+		<!-- 系统资源信息 -->
+		<mapper resource="mybatis/mybatis-resources.xml" />
+		<!-- 系统角色信息 -->
+		<mapper resource="mybatis/mybatis-roles.xml" />
+		<!-- 系统用户与角色关联信息 -->
+		<mapper resource="mybatis/mybatis-userRole.xml" />
+		<!-- 系统角色与资源关联信息 -->
+		<mapper resource="mybatis/mybatis-roleResource.xml" />
+		<!-- 系统子资源信息 -->
+		<mapper resource="mybatis/mybatis-resourcesSub.xml" />
+		<!-- 机构信息 -->
+		<mapper resource="mybatis/mybatis-organization.xml" />
+		<!-- 资源模块信息 -->
+		<mapper resource="mybatis/mybatis-resourceModule.xml" />
+		<!-- 城市信息 -->
+		<mapper resource="mybatis/mybatis-city.xml" />
+		<!-- 城市信息 -->
+		<mapper resource="mybatis/mybatis-province.xml" />
+		<!-- 系统附件信息 -->
+		<mapper resource="mybatis/mybatis-attachment.xml" />
+		<!-- 常量表信息 -->
+        <mapper resource="mybatis/mybatis_constant.xml" /> 
+        <!-- 常量子表信息 -->
+        <mapper resource="mybatis/mybatis_constantChild.xml" /> 
+		<!-- 地区编码表-->
+		<mapper resource="mybatis/mybatis-pubZoncode.xml" />
+		<!-- 学生表 -->
+		<mapper resource="mybatis/StudentMapper.xml" />
+		<!-- 系统配置表 -->
+		<mapper resource="mybatis/mybatis-PssSysConfigMapper.xml" />
+		<!-- 新闻表 -->
+		<mapper resource="mybatis/mybatis-content.xml" />
+
+		<!-- 订单表-->
+		<mapper resource="mybatis/mybatis-PssOrderInfoMapper.xml" />
+		
+		<!-- 主订单 -->
+		<mapper resource="mybatis/mybatis-OrderMainMapper.xml" />
+		
+		<!-- 购物车表-->
+		<mapper resource="mybatis/mybatis-PssShopCarMapper.xml" />
+		
+
+		<!-- 采集单表 -->
+		<mapper resource="mybatis/mybatis-PssCollectInfoMapper.xml" />
+		<!-- 全局搜索表 -->
+		<mapper resource="mybatis/mybatis-FulltextSearch.xml" />
+		<!-- UrlManage表 -->
+		<mapper resource="mybatis/mybatis-SysUrlManageMapper.xml" />
+
+		<!-- 友好提示表 -->
+		<mapper resource="mybatis/mybatis-PssPromptMapper.xml" />
+		<!-- 日志查询表 -->
+		<mapper resource="mybatis/mybatis-syslog.xml" />
+		
+		<mapper resource="mybatis/mybatis-PssProductMapper.xml" />
+		<!-- 用户更新信息表 -->
+		<mapper resource="mybatis/mybatis-UserUpdateMapper.xml" /> 
+	    <!-- 城市信息表 -->
+		 <mapper resource="mybatis/mybatis-PssCityMapper.xml" /> 
+		<!--省份信息表 -->
+		<mapper resource="mybatis/mybatis-PssProvinceMapper.xml" />
+		<!-- 国家信息表 -->
+		<mapper resource="mybatis/mybatis-PssCountryMapper.xml" />
+		<!-- 县区信息表 -->
+		<mapper resource="mybatis/mybatis-PssTownMapper.xml" />
+		<!-- 专题产品表 -->
+		<mapper resource="mybatis/mybatis-TasMetadataMapper.xml" />
+		<!-- 会员价格表 -->
+		<mapper resource="mybatis/mybatis-PssMemberpriceMapper.xml"/>
+		<!-- 产品价格表 -->
+		<mapper resource="mybatis/mybatis-PssProductpriceMapper.xml"/>
+		<!-- 产品价格版本表 -->
+		<mapper resource="mybatis/mybatis-PssVersionnumMapper.xml"/>
+		<!-- VIP用户表 -->
+		<mapper resource="mybatis/mybatis-FtpuserConfigMapper.xml"/>
+		<!-- 系统用户监控表 -->
+		<mapper resource="mybatis/mybatis-PssUserstaticMapper.xml"/>
+		<!-- 0级景 -->
+		<mapper resource="mybatis/mybatis-PssMetadata0sceneMapper.xml"/>
+		<!-- 用户更新设置表 -->
+		<mapper resource="mybatis/mybatis-SysUsersetMapper.xml"/>
+		<!-- 订单支付 -->
+		<mapper resource="mybatis/mybatis-PssOrderPayMapper.xml"/>
+		<mapper resource="mybatis/mybatis-PssTaskMapper.xml"/>
+		<mapper resource="mybatis/mybatis-PssRefundMapper.xml"/>
+		</mappers>
+</configuration> 

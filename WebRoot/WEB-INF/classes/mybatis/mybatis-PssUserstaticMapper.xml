@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="PSS_USERSTATICDao">
+	<resultMap id="BaseResultMap" type="PssUserstatic">
+        	<result property="id" column="id"/>
+        	<result property="username" column="USERNAME"/>
+        	<result property="logintime" column="LOGINTIME"/>
+        	<result property="exittime" column="EXITTIME"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		id,USERNAME,LOGINTIME,EXITTIME
+	</sql>
+
+	<!-- 插入语句-->
+	<insert id="insertPssUserstatic" parameterType="PssUserstatic">
+        INSERT INTO PSS_USERSTATIC 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        	        ID,
+	        	
+		        	     <if test="username != null" >
+	        		         USERNAME,
+	     		        </if> 
+	        	
+		        	     <if test="logintime != null" >
+	        		         LOGINTIME,
+	     		        </if> 
+	        	
+		        	     <if test="exittime != null" >
+	        		         EXITTIME
+	     		        </if> 
+	        	
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+	        	        PSS_USERSTATIC_SEQ.nextval,
+	     		
+		        	     <if test="username != null" >
+		        	      #{username},
+		        	     </if> 
+	     		
+		        	     <if test="logintime != null" >
+		        	      #{logintime},
+		        	     </if> 
+	     		
+		        	     <if test="exittime != null" >
+		        	      #{exittime}
+		        	     </if> 
+	     		
+   	 </trim>
+	</insert>
+    
+   <!--更新语句-->
+	<update id="updatePssUserstatic" parameterType="PssUserstatic">
+        UPDATE PSS_USERSTATIC 
+        <set >
+	        	<if test="username  != null" >
+	        		USERNAME = #{username} ,
+	     	 	</if>
+	        	<if test="logintime  != null" >
+	        		LOGINTIME = #{logintime} ,
+	     	 	</if>
+	        	<if test="exittime  != null" >
+	        		EXITTIME = #{exittime} 
+	     	 	</if>
+	    </set>
+        WHERE 
+    			id = #{id} 
+	</update>
+
+	<!--删除语句-->
+		    <delete id="deletePssUserstatic" parameterType="Long">
+		        DELETE FROM PSS_USERSTATIC WHERE
+		    			id = #{id} 
+		    </delete>
+    
+    <!--查询语句-->
+    <select id="getPssUserstaticById" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_USERSTATIC 
+	    WHERE 
+				id = #{id} 
+	</select>
+	
+		<!--列表查询-->
+		<select id="getPssUserstaticListByQuery" resultType="PssUserstatic" resultMap="BaseResultMap" parameterType="PssUserstaticQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_USERSTATIC 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="username  != null" >
+	        	AND 	USERNAME = #{username} 
+	     	 	</if>
+				<if test="logintime  != null" >
+	        	AND 	LOGINTIME = #{logintime} 
+	     	 	</if>
+				<if test="exittime  != null" >
+	        	AND 	EXITTIME = #{exittime} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--分页查询-->
+	<select id="getPssUserstaticInfoByQuery" resultType="PssUserstatic" resultMap="BaseResultMap" parameterType="PssUserstaticQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_USERSTATIC 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="username  != null" >
+	        	AND 	USERNAME = #{username} 
+	     	 	</if>
+				<if test="logintime  != null" >
+	        	AND 	LOGINTIME = #{logintime} 
+	     	 	</if>
+				<if test="exittime  != null" >
+	        	AND 	EXITTIME = #{exittime} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="PssUserstaticQuery">
+        SELECT count(*) FROM PSS_USERSTATIC 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="username  != null" >
+	        	AND 	USERNAME = #{username}
+	     	 	</if>
+				<if test="logintime  != null" >
+	        	AND 	LOGINTIME = #{logintime}
+	     	 	</if>
+				<if test="exittime  != null" >
+	        	AND 	EXITTIME = #{exittime}
+	     	 	</if>
+	     	 <if test="sqlWhere  != null" >
+	        	${sqlWhere}
+	     	 	</if>
+		</trim> 
+    </select>
+    
+</mapper>
+

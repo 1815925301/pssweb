@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="constantChildDao" >
+
+  <resultMap id="BaseResultMap" type="constanntChild" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="CONSTANT_ID" property="constant_id" jdbcType="DECIMAL" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="VALUE" property="value" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="update_time" jdbcType="DATE" />
+  </resultMap>
+  
+  <resultMap id="BaseConstantMap" type="extendConstant" >
+    <id column="ID" property="id"/>
+    <result column="CONSTANT_ID" property="constant_id" />
+    <result column="CODE" property="code" />
+    <result column="VALUE" property="value" />
+    <result column="UPDATE_TIME" property="update_time"/>
+    <result column="NAME" property="name" />
+    <result column="DESCRIPTION" property="description"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, CONSTANT_ID, CODE, VALUE, UPDATE_TIME
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseConstantMap" parameterType="Long" >
+     select T1.ID,T1.CONSTANT_ID,T1.CODE,T1.VALUE,T2.NAME,T2.DESCRIPTION 
+	   from CONSTANT_CHILD t1 left JOIN CONSTANT t2 on T1.CONSTANT_ID = T2.ID   
+    where T1.ID = #{id}
+  </select>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="Long" >
+    delete from ${tableName} 
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="constanntChild" useGeneratedKeys="false">
+    insert into ${tableName} 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+       id,
+      <if test="constant_id != null" >
+        CONSTANT_ID,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="value != null" >
+        VALUE,
+      </if>
+      <if test="update_time != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      ${tableName}_SEQ.nextval,
+      <if test="constant_id != null" >
+        #{constant_id,jdbcType=DECIMAL},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="update_time != null" >
+      	sysdate,
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="constanntChild" >
+    update CONSTANT_CHILD
+    <set >
+      <if test="constant_id != null" >
+        CONSTANT_ID = #{constant_id,jdbcType=DECIMAL},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        VALUE = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="update_time != null" >
+        UPDATE_TIME = #{update_time,jdbcType=DATE},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+  <select id="selectConstValueByTableName" resultMap="BaseResultMap" parameterType="constanntChild" >
+    select 
+    <include refid="Base_Column_List" />
+    from ${tableName}
+  </select>
+  
+   <select id="selectCountByQuery" resultType="Integer" parameterType="constantChildQuery" >
+         select count(0)  from ${tableName} 
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ ID = #{id} ]]>
+			</if>
+			<if test="constant_id != null">
+				AND <![CDATA[ CONSTANT_ID = #{constant_id} ]]>
+			</if>
+			<if test="code != null">
+				AND <![CDATA[ CODE = #{code} ]]>
+			</if>
+			<if test="value !=null">
+				AND <![CDATA[ VALUE like '%#{value}%' ]]>
+			</if>
+		</trim>
+  </select>
+  
+   <select id="selectAllByQuery" resultMap="BaseConstantMap" parameterType="constantChildQuery" >
+	   select T1.ID,T1.CONSTANT_ID,T1.CODE,T1.VALUE,T2.NAME,T2.DESCRIPTION 
+	   from CONSTANT_CHILD t1 left JOIN CONSTANT t2 on T1.CONSTANT_ID = T2.ID   
+         <trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="constant_id != null">
+				AND <![CDATA[ T1.CONSTANT_ID = #{constant_id} ]]>
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY T2.id ASC
+			</otherwise>
+		</choose>
+   		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			limit #{startNum}, #{pageSize}
+		</if>
+  </select>
+  
+   <select id="selectAllCountByQuery" resultType="Integer" parameterType="constantChildQuery" >
+	   select count(1) 
+	   from CONSTANT_CHILD t1 left JOIN CONSTANT t2 on T1.CONSTANT_ID = T2.ID   
+         <trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="constant_id != null">
+				AND <![CDATA[ T1.CONSTANT_ID = #{constant_id} ]]>
+			</if>
+		</trim>
+  </select>
+  
+   <select id="selectByQuery" resultMap="BaseResultMap" parameterType="constantChildQuery" >
+    select 
+    <include refid="Base_Column_List" />
+    from ${ tableName} 
+    <trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ ID = #{id} ]]>
+			</if>
+			<if test="constant_id != null">
+				AND <![CDATA[ CONSTANT_ID = #{constant_id} ]]>
+			</if>
+			<if test="code != null">
+				AND <![CDATA[ CODE = #{code} ]]>
+			</if>
+			<if test="value !=null">
+				AND <![CDATA[ VALUE like '%#{value}%' ]]>
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+  </select>
+  
+</mapper>

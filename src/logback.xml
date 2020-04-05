@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration  debug="true" scan="true" scanPeriod="30 minutes">
+
+	<!-- 配置日志打印的根目录 -->
+    <property name="logDir" value="${catalina.home}/sinosoft/log"/>
+    
+	<!-- 打印到控制台 -->
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80} - %msg%n</pattern>
+		</layout>
+	</appender>
+	
+	<!-- DEBUG级别日志打印 -->
+    <appender name="debuglog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+   	 	<Encoding>UTF-8</Encoding>
+   	 	<filter class="ch.qos.logback.classic.filter.ThresholdFilter">   
+			<level>DEBUG</level>   
+		</filter>   
+	    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	      	<fileNamePattern>${logDir}/debug/log.%d{yyyy-MM-dd.HH}.%i.log.gz</fileNamePattern>
+	      	<!-- 限制文件最大保存时间为30天 30*24=720个文件-->
+			<maxHistory>720</maxHistory>
+	      	<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+	    </rollingPolicy>
+	    <encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80} - %msg%n</pattern>
+		</encoder>
+    </appender>
+	
+	<!-- INFO级别日志打印 -->
+	<appender name="infolog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">   
+			<level>INFO</level>   
+		</filter>   
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logDir}/info/log.%d{yyyy-MM-dd.HH}.%i.log.gz</fileNamePattern> 
+			<!-- 限制文件最大保存时间为30天 30*24=720个文件-->
+			<maxHistory>720</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>    
+		      <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80}.%method - %msg%n</pattern>    
+		</encoder>
+	</appender>
+
+	<!-- ERROR级别日志打印 -->
+    <appender name="errorlog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	<Encoding>UTF-8</Encoding>
+   	 	<filter class="ch.qos.logback.classic.filter.ThresholdFilter">   
+			<level>ERROR</level>   
+		</filter>   
+	    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	      	<fileNamePattern>${logDir}/error/log.%d{yyyy-MM-dd.HH}.%i.log.gz</fileNamePattern>
+	      	<!-- 限制文件最大保存时间为30天 30*24=720个文件-->
+			<maxHistory>720</maxHistory>
+	      	<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+	    </rollingPolicy>
+	    <encoder>
+			<pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80} - %msg%n</pattern>
+		</encoder>
+    </appender>
+    
+    <!-- 监控日志打印 -->
+	<appender name="monitorlog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logDir}/monitor/service/log.%d{yyyy-MM-dd.HH}.log.gz</fileNamePattern> 
+			<!-- 限制文件最大保存时间为30天 30*24=720个文件-->
+			<maxHistory>720</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<!-- 对记录事件进行格式化 -->
+		<encoder>    
+		      <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} - %msg%n</pattern>    
+		</encoder>
+	</appender>
+	
+	<!-- sql日志打印 -->
+	<appender name="sqllog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<Encoding>UTF-8</Encoding>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logDir}/monitor/sql/log.%d{yyyy-MM-dd.HH}.%i.log.gz</fileNamePattern> 
+			<!-- 限制文件最大保存时间为30天 30*24=720个文件-->
+			<maxHistory>720</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>20MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<!-- 对记录事件进行格式化 -->
+		<encoder>    
+		      <pattern>%date{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80} - %msg%n</pattern>    
+		</encoder>
+	</appender>
+	
+	<!-- 服务监控日志打印 -->
+	<logger name="com.sinosoft.filter.LogDealFilter" level="DEBUG">
+		<appender-ref ref="monitorlog" />
+	</logger>
+	
+	<!-- SQL日志打印 -->
+	<logger name="org.apache.ibatis.plugin.Interceptor" level="DEBUG">
+		<appender-ref ref="sqllog" />
+	</logger>
+	
+	<root level="INFO">
+		<appender-ref ref="stdout" />
+		<appender-ref ref="infolog" />  
+		<appender-ref ref="debuglog" />
+		<appender-ref ref="errorlog" />  
+	</root>
+	
+	<logger name="java.sql" level="DEBUG" />
+	
+	<!-- <logger name="org.springframework" level="DEBUG">
+		<appender-ref ref="stdout" />
+	</logger> -->
+</configuration>

@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="PSS_MEMBERPRICEDao">
+	<resultMap id="BaseResultMap" type="PssMemberprice">
+        	<result property="id" column="ID"/>
+        	<result property="membertype" column="MEMBERTYPE"/>
+        	<result property="onemonth" column="ONEMONTH"/>
+        	<result property="treemonths" column="TREEMONTHS"/>
+        	<result property="sixmonths" column="SIXMONTHS"/>
+        	<result property="year" column="YEAR"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ID,MEMBERTYPE,ONEMONTH,TREEMONTHS,SIXMONTHS,YEAR
+	</sql>
+	
+	
+	<!-- 插入语句-->
+	<insert id="insertPssMemberprice" parameterType="PssMemberprice">
+        INSERT INTO PSS_MEMBERPRICE 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        	        ID,
+	        	
+		        	     <if test="membertype != null" >
+	        		         MEMBERTYPE,
+	     		        </if> 
+	        	
+		        	     <if test="onemonth != null" >
+	        		         ONEMONTH,
+	     		        </if> 
+	        	
+		        	     <if test="treemonths != null" >
+	        		         TREEMONTHS,
+	     		        </if> 
+	        	
+		        	     <if test="sixmonths != null" >
+	        		         SIXMONTHS,
+	     		        </if> 
+	        	
+		        	     <if test="year != null" >
+	        		         YEAR
+	     		        </if> 
+	        	
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+	        	        PSS_MEMBERPRICE_SEQ.nextval,
+	     		
+		        	     <if test="membertype != null" >
+		        	      #{membertype},
+		        	     </if> 
+	     		
+		        	     <if test="onemonth != null" >
+		        	      #{onemonth},
+		        	     </if> 
+	     		
+		        	     <if test="treemonths != null" >
+		        	      #{treemonths},
+		        	     </if> 
+	     		
+		        	     <if test="sixmonths != null" >
+		        	      #{sixmonths},
+		        	     </if> 
+	     		
+		        	     <if test="year != null" >
+		        	      #{year}
+		        	     </if> 
+	     		
+   	 </trim>
+	</insert>
+    
+   <!--更新语句-->
+	<update id="updatePssMemberprice" parameterType="PssMemberprice">
+        UPDATE PSS_MEMBERPRICE 
+        <set >
+	        	<if test="onemonth  != null" >
+	        		ONEMONTH = #{onemonth} ,
+	     	 	</if>
+	        	<if test="treemonths  != null" >
+	        		TREEMONTHS = #{treemonths} ,
+	     	 	</if>
+	        	<if test="sixmonths  != null" >
+	        		SIXMONTHS = #{sixmonths} ,
+	     	 	</if>
+	        	<if test="year  != null" >
+	        		YEAR = #{year} 
+	     	 	</if>
+	    </set>
+        WHERE 
+    			ID = #{id} 
+	</update>
+
+	<!--删除语句-->
+		    <delete id="deletePssMemberprice" parameterType="Long">
+		        DELETE FROM PSS_MEMBERPRICE WHERE
+		    			ID = #{id} 
+		    </delete>
+    
+    <!--查询语句-->
+    <select id="getPssMemberpriceById" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_MEMBERPRICE 
+	    WHERE 
+				ID = #{id} 
+	</select>
+	
+		<!--列表查询-->
+		<select id="getPssMemberpriceList" resultType="PssMemberprice" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_MEMBERPRICE 
+		
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--分页查询-->
+	<select id="getPssMemberpriceInfoByQuery" resultType="PssMemberprice" resultMap="BaseResultMap" parameterType="PssMemberpriceQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_MEMBERPRICE 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="membertype  != null" >
+	        	AND 	MEMBERTYPE = #{membertype} 
+	     	 	</if>
+				<if test="onemonth  != null" >
+	        	AND 	ONEMONTH = #{onemonth} 
+	     	 	</if>
+				<if test="treemonths  != null" >
+	        	AND 	TREEMONTHS = #{treemonths} 
+	     	 	</if>
+				<if test="sixmonths  != null" >
+	        	AND 	SIXMONTHS = #{sixmonths} 
+	     	 	</if>
+				<if test="year  != null" >
+	        	AND 	YEAR = #{year} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="PssMemberpriceQuery">
+        SELECT count(*) FROM PSS_MEMBERPRICE 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="membertype  != null" >
+	        	AND 	MEMBERTYPE = #{membertype}
+	     	 	</if>
+				<if test="onemonth  != null" >
+	        	AND 	ONEMONTH = #{onemonth}
+	     	 	</if>
+				<if test="treemonths  != null" >
+	        	AND 	TREEMONTHS = #{treemonths}
+	     	 	</if>
+				<if test="sixmonths  != null" >
+	        	AND 	SIXMONTHS = #{sixmonths}
+	     	 	</if>
+				<if test="year  != null" >
+	        	AND 	YEAR = #{year}
+	     	 	</if>
+	     	 <if test="sqlWhere  != null" >
+	        	${sqlWhere}
+	     	 	</if>
+		</trim> 
+    </select>
+    
+</mapper>
+

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="pubZoncodeDao" >
+  <resultMap id="BaseResultMap" type="pubZoncode" >
+    <id column="ZONECODE" property="zonecode" jdbcType="VARCHAR" />
+    <result column="CNNAME" property="cnname" jdbcType="VARCHAR" />
+    <result column="ENNAME" property="enname" jdbcType="CHAR" />
+    <result column="ZONELEVEL" property="zonelevel" jdbcType="DECIMAL" />
+    <result column="ZONETYPE" property="zonetype" jdbcType="DECIMAL" />
+    <result column="POVERTYSTATUS" property="povertystatus" jdbcType="DECIMAL" />
+    <result column="LOCATIONTYPE" property="locationtype" jdbcType="DECIMAL" />
+    <result column="OTHERCODE" property="othercode" jdbcType="CHAR" />
+    <result column="NOTES" property="notes" jdbcType="CHAR" />
+    <result column="BDATE" property="bdate" jdbcType="DATE" />
+    <result column="EDATE" property="edate" jdbcType="DATE" />
+    <result column="GBZONECODE" property="gbzonecode" jdbcType="VARCHAR" />
+    <result column="CUSTOMISE" property="customise" jdbcType="VARCHAR" />
+    <result column="ZONENAME" property="zonename" jdbcType="VARCHAR" />
+    <result column="YEARS" property="years" jdbcType="DECIMAL" />
+    <result column="BORDER" property="border" jdbcType="CHAR" />
+    <result column="XPOSITION" property="xposition" jdbcType="CHAR" />
+    <result column="YPOSITION" property="yposition" jdbcType="CHAR" />
+    <result column="MINORITY" property="minority" jdbcType="CHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ZONECODE, CNNAME, ENNAME, ZONELEVEL, ZONETYPE, POVERTYSTATUS, LOCATIONTYPE, OTHERCODE, 
+    NOTES, BDATE, EDATE, GBZONECODE, CUSTOMISE, ZONENAME, YEARS, BORDER,XPOSITION,YPOSITION, MINORITY
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_PUB_ZONECODE
+    where ZONECODE = #{zonecode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_PUB_ZONECODE
+    where ZONECODE = #{zonecode,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="pubZoncode" >
+    insert into SYS_PUB_ZONECODE
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+       id,
+      <if test="zonecode != null" >
+        ZONECODE,
+      </if>
+      <if test="cnname != null" >
+        CNNAME,
+      </if>
+      <if test="enname != null" >
+        ENNAME,
+      </if>
+      <if test="zonelevel != null" >
+        ZONELEVEL,
+      </if>
+      <if test="zonetype != null" >
+        ZONETYPE,
+      </if>
+      <if test="povertystatus != null" >
+        POVERTYSTATUS,
+      </if>
+      <if test="locationtype != null" >
+        LOCATIONTYPE,
+      </if>
+      <if test="othercode != null" >
+        OTHERCODE,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="bdate != null" >
+        BDATE,
+      </if>
+      <if test="edate != null" >
+        EDATE,
+      </if>
+      <if test="gbzonecode != null" >
+        GBZONECODE,
+      </if>
+      <if test="customise != null" >
+        CUSTOMISE,
+      </if>
+      <if test="zonename != null" >
+        ZONENAME,
+      </if>
+      <if test="years != null" >
+        YEARS,
+      </if>
+      <if test="border != null" >
+        BORDER,
+      </if>
+      <if test="minority != null" >
+        MINORITY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      SYS_PUB_ZONECODE_SEQ.nextval,
+      <if test="zonecode != null" >
+        #{zonecode,jdbcType=VARCHAR},
+      </if>
+      <if test="cnname != null" >
+        #{cnname,jdbcType=VARCHAR},
+      </if>
+      <if test="enname != null" >
+        #{enname,jdbcType=CHAR},
+      </if>
+      <if test="zonelevel != null" >
+        #{zonelevel,jdbcType=DECIMAL},
+      </if>
+      <if test="zonetype != null" >
+        #{zonetype,jdbcType=DECIMAL},
+      </if>
+      <if test="povertystatus != null" >
+        #{povertystatus,jdbcType=DECIMAL},
+      </if>
+      <if test="locationtype != null" >
+        #{locationtype,jdbcType=DECIMAL},
+      </if>
+      <if test="othercode != null" >
+        #{othercode,jdbcType=CHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=CHAR},
+      </if>
+      <if test="bdate != null" >
+        #{bdate,jdbcType=DATE},
+      </if>
+      <if test="edate != null" >
+        #{edate,jdbcType=DATE},
+      </if>
+      <if test="gbzonecode != null" >
+        #{gbzonecode,jdbcType=VARCHAR},
+      </if>
+      <if test="customise != null" >
+        #{customise,jdbcType=VARCHAR},
+      </if>
+      <if test="zonename != null" >
+        #{zonename,jdbcType=VARCHAR},
+      </if>
+      <if test="years != null" >
+        #{years,jdbcType=DECIMAL},
+      </if>
+      <if test="border != null" >
+        #{border,jdbcType=CHAR},
+      </if>
+      <if test="minority != null" >
+        #{minority,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="pubZoncode" >
+    update SYS_PUB_ZONECODE
+    <set >
+      <if test="cnname != null" >
+        CNNAME = #{cnname,jdbcType=VARCHAR},
+      </if>
+      <if test="enname != null" >
+        ENNAME = #{enname,jdbcType=CHAR},
+      </if>
+      <if test="zonelevel != null" >
+        ZONELEVEL = #{zonelevel,jdbcType=DECIMAL},
+      </if>
+      <if test="zonetype != null" >
+        ZONETYPE = #{zonetype,jdbcType=DECIMAL},
+      </if>
+      <if test="povertystatus != null" >
+        POVERTYSTATUS = #{povertystatus,jdbcType=DECIMAL},
+      </if>
+      <if test="locationtype != null" >
+        LOCATIONTYPE = #{locationtype,jdbcType=DECIMAL},
+      </if>
+      <if test="othercode != null" >
+        OTHERCODE = #{othercode,jdbcType=CHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=CHAR},
+      </if>
+      <if test="bdate != null" >
+        BDATE = #{bdate,jdbcType=DATE},
+      </if>
+      <if test="edate != null" >
+        EDATE = #{edate,jdbcType=DATE},
+      </if>
+      <if test="gbzonecode != null" >
+        GBZONECODE = #{gbzonecode,jdbcType=VARCHAR},
+      </if>
+      <if test="customise != null" >
+        CUSTOMISE = #{customise,jdbcType=VARCHAR},
+      </if>
+      <if test="zonename != null" >
+        ZONENAME = #{zonename,jdbcType=VARCHAR},
+      </if>
+      <if test="years != null" >
+        YEARS = #{years,jdbcType=DECIMAL},
+      </if>
+      <if test="border != null" >
+        BORDER = #{border,jdbcType=CHAR},
+      </if>
+      <if test="minority != null" >
+        MINORITY = #{minority,jdbcType=CHAR},
+      </if>
+    </set>
+    where ZONECODE = #{zonecode,jdbcType=VARCHAR}
+  </update>
+  
+ 
+ 	 <select id="selectPubZoncodeByQuery"  resultMap="BaseResultMap" parameterType="pubZoncodeQuery">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM 
+			SYS_PUB_ZONECODE
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+		  <if test="zonecode != null" >
+	       AND  ZONECODE like #{zonecode,jdbcType=VARCHAR}
+	      </if>
+		  <if test="cnname != null" >
+	       AND  CNNAME = #{cnname,jdbcType=VARCHAR}
+	      </if>
+	      <if test="enname != null" >
+	       AND  ENNAME = #{enname,jdbcType=CHAR}
+	      </if>
+	      <if test="zonelevel != null" >
+	       AND  ZONELEVEL = #{zonelevel,jdbcType=DECIMAL}
+	      </if>
+	      <if test="zonetype != null" >
+	       AND  ZONETYPE = #{zonetype,jdbcType=DECIMAL}
+	      </if>
+	      <if test="povertystatus != null" >
+	       AND  POVERTYSTATUS = #{povertystatus,jdbcType=DECIMAL}
+	      </if>
+	      <if test="locationtype != null" >
+	       AND  LOCATIONTYPE = #{locationtype,jdbcType=DECIMAL}
+	      </if>
+	      <if test="othercode != null" >
+	       AND  OTHERCODE = #{othercode,jdbcType=CHAR}
+	      </if>
+	      <if test="notes != null" >
+	       AND  NOTES = #{notes,jdbcType=CHAR}
+	      </if>
+	      <if test="bdate != null" >
+	       AND  BDATE = #{bdate,jdbcType=DATE}
+	      </if>
+	      <if test="edate != null" >
+	       AND  EDATE = #{edate,jdbcType=DATE}
+	      </if>
+	      <if test="gbzonecode != null" >
+	       AND  GBZONECODE = #{gbzonecode,jdbcType=VARCHAR}
+	      </if>
+	      <if test="customise != null" >
+	       AND  CUSTOMISE = #{customise,jdbcType=VARCHAR}
+	      </if>
+	      <if test="zonename != null" >
+	       AND  ZONENAME = #{zonename,jdbcType=VARCHAR}
+	      </if>
+	      <if test="years != null" >
+	       AND  YEARS = #{years,jdbcType=DECIMAL}
+	      </if>
+	      <if test="border != null" >
+	       AND  BORDER = #{border,jdbcType=CHAR}
+	      </if>
+	      <if test="minority != null" >
+	       AND  MINORITY = #{minority,jdbcType=CHAR}
+	      </if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY ZONECODE ASC
+			</otherwise>
+		</choose>
+	</select>
+ 
+ 
+  <sql id="OracleDialectPrefix" >
+    <if test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0" >
+      <![CDATA[ select * from    ( select row_.*, rownum rownum_ from ( ]]>
+    </if>
+  </sql>
+  
+  <sql id="OracleDialectSuffix" >
+    <if test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0" >
+      <![CDATA[  ) row_    where  rownum <= #{page}*#{pageSize}  )  where rownum_ >#{startNum} ]]>
+    </if>
+  </sql>
+  <!--  根据市或县的编码 查询市或县的其他信息-->
+   <select id="selectXYPosition" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_PUB_ZONECODE
+    where ZONECODE = #{zonecode,jdbcType=VARCHAR}
+  </select>
+   <!--  分子分型溯源p中  根据zonecode得到汉字名称 -->
+   <select id="getZonChineseByzonecode"  resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT 
+			CNNAME
+		FROM 
+			SYS_PUB_ZONECODE
+	     where  ZONECODE = #{zonecode}
+
+
+ </select>
+</mapper>

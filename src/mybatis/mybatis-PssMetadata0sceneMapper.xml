@@ -1,0 +1,1515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="PSS_METADATA_0_SCENEDao">
+	<resultMap id="BaseResultMap" type="PssMetadata0scene">
+        	<result property="l0dataid" column="L0DATAID"/>
+        	<result property="sceneid" column="SCENEID"/>
+        	<result property="sceneserialno" column="SCENESERIALNO"/>
+        	<result property="ifgcpexist" column="IFGCPEXIST"/>
+        	<result property="imageingstarttime" column="IMAGEINGSTARTTIME"/>
+        	<result property="imageingstoptime" column="IMAGEINGSTOPTIME"/>
+        	<result property="bands" column="BANDS"/>
+        	<result property="instrumentmode" column="INSTRUMENTMODE"/>
+        	<result property="scenestartline" column="SCENESTARTLINE"/>
+        	<result property="scenestopline" column="SCENESTOPLINE"/>
+        	<result property="gain" column="GAIN"/>
+        	<result property="integratelevel" column="INTEGRATELEVEL"/>
+        	<result property="satpath" column="SATPATH"/>
+        	<result property="satrow" column="SATROW"/>
+        	<result property="satpathbias" column="SATPATHBIAS"/>
+        	<result property="satrowbias" column="SATROWBIAS"/>
+        	<result property="direction" column="DIRECTION"/>
+        	<result property="scenepath" column="SCENEPATH"/>
+        	<result property="scenerow" column="SCENEROW"/>
+        	<result property="scenepathbias" column="SCENEPATHBIAS"/>
+        	<result property="scenerowbias" column="SCENEROWBIAS"/>
+        	<result property="satoffnadir" column="SATOFFNADIR"/>
+        	<result property="mirroroffnadir" column="MIRROROFFNADIR"/>
+        	<result property="scenecenterlat" column="SCENECENTERLAT"/>
+        	<result property="scenecenterlong" column="SCENECENTERLONG"/>
+        	<result property="upperleftlong" column="UPPERLEFTLONG"/>
+        	<result property="upperleftlat" column="UPPERLEFTLAT"/>
+        	<result property="upperrightlat" column="UPPERRIGHTLAT"/>
+        	<result property="upperrightlong" column="UPPERRIGHTLONG"/>
+        	<result property="lowerleftlat" column="LOWERLEFTLAT"/>
+        	<result property="lowerleftlong" column="LOWERLEFTLONG"/>
+        	<result property="lowerrightlong" column="LOWERRIGHTLONG"/>
+        	<result property="lowerrightlat" column="LOWERRIGHTLAT"/>
+        	<result property="sunelevation" column="SUNELEVATION"/>
+        	<result property="sunazimuthelevation" column="SUNAZIMUTHELEVATION"/>
+        	<result property="assessmentmethod" column="ASSESSMENTMETHOD"/>
+        	<result property="cloudcoverquote" column="CLOUDCOVERQUOTE"/>
+        	<result property="cloudcoverquadrant1" column="CLOUDCOVERQUADRANT1"/>
+        	<result property="cloudcoverquadrant2" column="CLOUDCOVERQUADRANT2"/>
+        	<result property="cloudcoverquadrant3" column="CLOUDCOVERQUADRANT3"/>
+        	<result property="cloudcoverquadrant4" column="CLOUDCOVERQUADRANT4"/>
+        	<result property="browsefilename" column="BROWSEFILENAME"/>
+        	<result property="thumbfilename" column="THUMBFILENAME"/>
+        	<result property="metadataid" column="METADATAID"/>
+        	<result property="satelliteid" column="SATELLITEID"/>
+        	<result property="sensorid" column="SENSORID"/>
+        	<result property="orbitid" column="ORBITID"/>
+        	<result property="recstation" column="RECSTATION"/>
+        	<result property="isspatial" column="ISSPATIAL"/>
+        	<result property="productid" column="PRODUCTID"/>
+        	<result property="l0dataimagingstarttime" column="L0DATAIMAGINGSTARTTIME"/>
+        	<result property="l0dataimagingstoptime" column="L0DATAIMAGINGSTOPTIME"/>
+        	<result property="l0dataimageframecount" column="L0DATAIMAGEFRAMECOUNT"/>
+        	<result property="l0dataimageframelength" column="L0DATAIMAGEFRAMELENGTH"/>
+        	<result property="l0dataauxframecount" column="L0DATAAUXFRAMECOUNT"/>
+        	<result property="l0datauxframelength" column="L0DATAUXFRAMELENGTH"/>
+        	<result property="l0dataupperleftlat" column="L0DATAUPPERLEFTLAT"/>
+        	<result property="l0dataupperleftlong" column="L0DATAUPPERLEFTLONG"/>
+        	<result property="l0dataupperrightlat" column="L0DATAUPPERRIGHTLAT"/>
+        	<result property="l0dataupperrightlong" column="L0DATAUPPERRIGHTLONG"/>
+        	<result property="l0datalowerleftlat" column="L0DATALOWERLEFTLAT"/>
+        	<result property="l0datalowerleftlong" column="L0DATALOWERLEFTLONG"/>
+        	<result property="l0datalowerrightlat" column="L0DATALOWERRIGHTLAT"/>
+        	<result property="l0datalowerrightlong" column="L0DATALOWERRIGHTLONG"/>
+        	<result property="scenecount" column="SCENECOUNT"/>
+        	<result property="l0datafilename" column="L0DATAFILENAME"/>
+        	<result property="id" column="ID"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		L0DATAID,SCENEID,SCENESERIALNO,IFGCPEXIST,to_char(IMAGEINGSTARTTIME,'yyyy-MM-dd HH24:mi:ss') as IMAGEINGSTARTTIME,to_char(IMAGEINGSTOPTIME,'yyyy-MM-dd HH24:mi:ss') as IMAGEINGSTOPTIME,BANDS,INSTRUMENTMODE,SCENESTARTLINE,SCENESTOPLINE,GAIN,INTEGRATELEVEL,SATPATH,SATROW,SATPATHBIAS,SATROWBIAS,DIRECTION,SCENEPATH,SCENEROW,SCENEPATHBIAS,SCENEROWBIAS,SATOFFNADIR,MIRROROFFNADIR,SCENECENTERLAT,SCENECENTERLONG,UPPERLEFTLONG,UPPERLEFTLAT,UPPERRIGHTLAT,UPPERRIGHTLONG,LOWERLEFTLAT,LOWERLEFTLONG,LOWERRIGHTLONG,LOWERRIGHTLAT,SUNELEVATION,SUNAZIMUTHELEVATION,ASSESSMENTMETHOD,CLOUDCOVERQUOTE,CLOUDCOVERQUADRANT1,CLOUDCOVERQUADRANT2,CLOUDCOVERQUADRANT3,CLOUDCOVERQUADRANT4,BROWSEFILENAME,THUMBFILENAME,METADATAID,SATELLITEID,SENSORID,ORBITID,RECSTATION,ISSPATIAL,PRODUCTID,L0DATAIMAGINGSTARTTIME,L0DATAIMAGINGSTOPTIME,L0DATAIMAGEFRAMECOUNT,L0DATAIMAGEFRAMELENGTH,L0DATAAUXFRAMECOUNT,L0DATAUXFRAMELENGTH,L0DATAUPPERLEFTLAT,L0DATAUPPERLEFTLONG,L0DATAUPPERRIGHTLAT,L0DATAUPPERRIGHTLONG,L0DATALOWERLEFTLAT,L0DATALOWERLEFTLONG,L0DATALOWERRIGHTLAT,L0DATALOWERRIGHTLONG,SCENECOUNT,L0DATAFILENAME,ID
+	</sql>
+	<select id="getMetadataById" parameterType="String" resultType="PssMetadata0scene">
+		SELECT 
+		*
+		FROM PSS_METADATA_0_SCENE WHERE METADATAID=#{metadataid}
+	</select>
+	<!-- 插入语句-->
+	<insert id="insertPssMetadata0scene" parameterType="com.sinosoft.business.po.PssMetadata0scene">
+        INSERT INTO PSS_METADATA_0_SCENE 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+		        	     <if test="l0dataid != null" >
+	        		         L0DATAID,
+	     		        </if> 
+	        	
+		        	     <if test="sceneid != null" >
+	        		         SCENEID,
+	     		        </if> 
+	        	
+		        	     <if test="sceneserialno != null" >
+	        		         SCENESERIALNO,
+	     		        </if> 
+	        	
+		        	     <if test="ifgcpexist != null" >
+	        		         IFGCPEXIST,
+	     		        </if> 
+	        	
+		        	     <if test="imageingstarttime != null" >
+	        		         IMAGEINGSTARTTIME,
+	     		        </if> 
+	        	
+		        	     <if test="imageingstoptime != null" >
+	        		         IMAGEINGSTOPTIME,
+	     		        </if> 
+	        	
+		        	     <if test="bands != null" >
+	        		         BANDS,
+	     		        </if> 
+	        	
+		        	     <if test="instrumentmode != null" >
+	        		         INSTRUMENTMODE,
+	     		        </if> 
+	        	
+		        	     <if test="scenestartline != null" >
+	        		         SCENESTARTLINE,
+	     		        </if> 
+	        	
+		        	     <if test="scenestopline != null" >
+	        		         SCENESTOPLINE,
+	     		        </if> 
+	        	
+		        	     <if test="gain != null" >
+	        		         GAIN,
+	     		        </if> 
+	        	
+		        	     <if test="integratelevel != null" >
+	        		         INTEGRATELEVEL,
+	     		        </if> 
+	        	
+		        	     <if test="satpath != null" >
+	        		         SATPATH,
+	     		        </if> 
+	        	
+		        	     <if test="satrow != null" >
+	        		         SATROW,
+	     		        </if> 
+	        	
+		        	     <if test="satpathbias != null" >
+	        		         SATPATHBIAS,
+	     		        </if> 
+	        	
+		        	     <if test="satrowbias != null" >
+	        		         SATROWBIAS,
+	     		        </if> 
+	        	
+		        	     <if test="direction != null" >
+	        		         DIRECTION,
+	     		        </if> 
+	        	
+		        	     <if test="scenepath != null" >
+	        		         SCENEPATH,
+	     		        </if> 
+	        	
+		        	     <if test="scenerow != null" >
+	        		         SCENEROW,
+	     		        </if> 
+	        	
+		        	     <if test="scenepathbias != null" >
+	        		         SCENEPATHBIAS,
+	     		        </if> 
+	        	
+		        	     <if test="scenerowbias != null" >
+	        		         SCENEROWBIAS,
+	     		        </if> 
+	        	
+		        	     <if test="satoffnadir != null" >
+	        		         SATOFFNADIR,
+	     		        </if> 
+	        	
+		        	     <if test="mirroroffnadir != null" >
+	        		         MIRROROFFNADIR,
+	     		        </if> 
+	        	
+		        	     <if test="scenecenterlat != null" >
+	        		         SCENECENTERLAT,
+	     		        </if> 
+	        	
+		        	     <if test="scenecenterlong != null" >
+	        		         SCENECENTERLONG,
+	     		        </if> 
+	        	
+		        	     <if test="upperleftlong != null" >
+	        		         UPPERLEFTLONG,
+	     		        </if> 
+	        	
+		        	     <if test="upperleftlat != null" >
+	        		         UPPERLEFTLAT,
+	     		        </if> 
+	        	
+		        	     <if test="upperrightlat != null" >
+	        		         UPPERRIGHTLAT,
+	     		        </if> 
+	        	
+		        	     <if test="upperrightlong != null" >
+	        		         UPPERRIGHTLONG,
+	     		        </if> 
+	        	
+		        	     <if test="lowerleftlat != null" >
+	        		         LOWERLEFTLAT,
+	     		        </if> 
+	        	
+		        	     <if test="lowerleftlong != null" >
+	        		         LOWERLEFTLONG,
+	     		        </if> 
+	        	
+		        	     <if test="lowerrightlong != null" >
+	        		         LOWERRIGHTLONG,
+	     		        </if> 
+	        	
+		        	     <if test="lowerrightlat != null" >
+	        		         LOWERRIGHTLAT,
+	     		        </if> 
+	        	
+		        	     <if test="sunelevation != null" >
+	        		         SUNELEVATION,
+	     		        </if> 
+	        	
+		        	     <if test="sunazimuthelevation != null" >
+	        		         SUNAZIMUTHELEVATION,
+	     		        </if> 
+	        	
+		        	     <if test="assessmentmethod != null" >
+	        		         ASSESSMENTMETHOD,
+	     		        </if> 
+	        	
+		        	     <if test="cloudcoverquote != null" >
+	        		         CLOUDCOVERQUOTE,
+	     		        </if> 
+	        	
+		        	     <if test="cloudcoverquadrant1 != null" >
+	        		         CLOUDCOVERQUADRANT1,
+	     		        </if> 
+	        	
+		        	     <if test="cloudcoverquadrant2 != null" >
+	        		         CLOUDCOVERQUADRANT2,
+	     		        </if> 
+	        	
+		        	     <if test="cloudcoverquadrant3 != null" >
+	        		         CLOUDCOVERQUADRANT3,
+	     		        </if> 
+	        	
+		        	     <if test="cloudcoverquadrant4 != null" >
+	        		         CLOUDCOVERQUADRANT4,
+	     		        </if> 
+	        	
+		        	     <if test="browsefilename != null" >
+	        		         BROWSEFILENAME,
+	     		        </if> 
+	        	
+		        	     <if test="thumbfilename != null" >
+	        		         THUMBFILENAME,
+	     		        </if> 
+	        	
+		        	     <if test="metadataid != null" >
+	        		         METADATAID,
+	     		        </if> 
+	        	
+		        	     <if test="satelliteid != null" >
+	        		         SATELLITEID,
+	     		        </if> 
+	        	
+		        	     <if test="sensorid != null" >
+	        		         SENSORID,
+	     		        </if> 
+	        	
+		        	     <if test="orbitid != null" >
+	        		         ORBITID,
+	     		        </if> 
+	        	
+		        	     <if test="recstation != null" >
+	        		         RECSTATION,
+	     		        </if> 
+	        	
+		        	     <if test="isspatial != null" >
+	        		         ISSPATIAL,
+	     		        </if> 
+	        	
+		        	     <if test="productid != null" >
+	        		         PRODUCTID,
+	     		        </if> 
+	        	
+		        	     <if test="l0dataimagingstarttime != null" >
+	        		         L0DATAIMAGINGSTARTTIME,
+	     		        </if> 
+	        	
+		        	     <if test="l0dataimagingstoptime != null" >
+	        		         L0DATAIMAGINGSTOPTIME,
+	     		        </if> 
+	        	
+		        	     <if test="l0dataimageframecount != null" >
+	        		         L0DATAIMAGEFRAMECOUNT,
+	     		        </if> 
+	        	
+		        	     <if test="l0dataimageframelength != null" >
+	        		         L0DATAIMAGEFRAMELENGTH,
+	     		        </if> 
+	        	
+		        	     <if test="l0dataauxframecount != null" >
+	        		         L0DATAAUXFRAMECOUNT,
+	     		        </if> 
+	        	
+		        	     <if test="l0datauxframelength != null" >
+	        		         L0DATAUXFRAMELENGTH,
+	     		        </if> 
+	        	
+		        	     <if test="l0dataupperleftlat != null" >
+	        		         L0DATAUPPERLEFTLAT,
+	     		        </if> 
+	        	
+		        	     <if test="l0dataupperleftlong != null" >
+	        		         L0DATAUPPERLEFTLONG,
+	     		        </if> 
+	        	
+		        	     <if test="l0dataupperrightlat != null" >
+	        		         L0DATAUPPERRIGHTLAT,
+	     		        </if> 
+	        	
+		        	     <if test="l0dataupperrightlong != null" >
+	        		         L0DATAUPPERRIGHTLONG,
+	     		        </if> 
+	        	
+		        	     <if test="l0datalowerleftlat != null" >
+	        		         L0DATALOWERLEFTLAT,
+	     		        </if> 
+	        	
+		        	     <if test="l0datalowerleftlong != null" >
+	        		         L0DATALOWERLEFTLONG,
+	     		        </if> 
+	        	
+		        	     <if test="l0datalowerrightlat != null" >
+	        		         L0DATALOWERRIGHTLAT,
+	     		        </if> 
+	        	
+		        	     <if test="l0datalowerrightlong != null" >
+	        		         L0DATALOWERRIGHTLONG,
+	     		        </if> 
+	        	
+		        	     <if test="scenecount != null" >
+	        		         SCENECOUNT,
+	     		        </if> 
+	        	
+		        	     <if test="l0datafilename != null" >
+	        		         L0DATAFILENAME,
+	     		        </if> 
+	        	
+	        	        ID,
+	        	
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+		        	     <if test="l0dataid != null" >
+		        	      #{l0dataid},
+		        	     </if> 
+	     		
+		        	     <if test="sceneid != null" >
+		        	      #{sceneid},
+		        	     </if> 
+	     		
+		        	     <if test="sceneserialno != null" >
+		        	      #{sceneserialno},
+		        	     </if> 
+	     		
+		        	     <if test="ifgcpexist != null" >
+		        	      #{ifgcpexist},
+		        	     </if> 
+	     		
+		        	     <if test="imageingstarttime != null" >
+		        	      #{imageingstarttime},
+		        	     </if> 
+	     		
+		        	     <if test="imageingstoptime != null" >
+		        	      #{imageingstoptime},
+		        	     </if> 
+	     		
+		        	     <if test="bands != null" >
+		        	      #{bands},
+		        	     </if> 
+	     		
+		        	     <if test="instrumentmode != null" >
+		        	      #{instrumentmode},
+		        	     </if> 
+	     		
+		        	     <if test="scenestartline != null" >
+		        	      #{scenestartline},
+		        	     </if> 
+	     		
+		        	     <if test="scenestopline != null" >
+		        	      #{scenestopline},
+		        	     </if> 
+	     		
+		        	     <if test="gain != null" >
+		        	      #{gain},
+		        	     </if> 
+	     		
+		        	     <if test="integratelevel != null" >
+		        	      #{integratelevel},
+		        	     </if> 
+	     		
+		        	     <if test="satpath != null" >
+		        	      #{satpath},
+		        	     </if> 
+	     		
+		        	     <if test="satrow != null" >
+		        	      #{satrow},
+		        	     </if> 
+	     		
+		        	     <if test="satpathbias != null" >
+		        	      #{satpathbias},
+		        	     </if> 
+	     		
+		        	     <if test="satrowbias != null" >
+		        	      #{satrowbias},
+		        	     </if> 
+	     		
+		        	     <if test="direction != null" >
+		        	      #{direction},
+		        	     </if> 
+	     		
+		        	     <if test="scenepath != null" >
+		        	      #{scenepath},
+		        	     </if> 
+	     		
+		        	     <if test="scenerow != null" >
+		        	      #{scenerow},
+		        	     </if> 
+	     		
+		        	     <if test="scenepathbias != null" >
+		        	      #{scenepathbias},
+		        	     </if> 
+	     		
+		        	     <if test="scenerowbias != null" >
+		        	      #{scenerowbias},
+		        	     </if> 
+	     		
+		        	     <if test="satoffnadir != null" >
+		        	      #{satoffnadir},
+		        	     </if> 
+	     		
+		        	     <if test="mirroroffnadir != null" >
+		        	      #{mirroroffnadir},
+		        	     </if> 
+	     		
+		        	     <if test="scenecenterlat != null" >
+		        	      #{scenecenterlat},
+		        	     </if> 
+	     		
+		        	     <if test="scenecenterlong != null" >
+		        	      #{scenecenterlong},
+		        	     </if> 
+	     		
+		        	     <if test="upperleftlong != null" >
+		        	      #{upperleftlong},
+		        	     </if> 
+	     		
+		        	     <if test="upperleftlat != null" >
+		        	      #{upperleftlat},
+		        	     </if> 
+	     		
+		        	     <if test="upperrightlat != null" >
+		        	      #{upperrightlat},
+		        	     </if> 
+	     		
+		        	     <if test="upperrightlong != null" >
+		        	      #{upperrightlong},
+		        	     </if> 
+	     		
+		        	     <if test="lowerleftlat != null" >
+		        	      #{lowerleftlat},
+		        	     </if> 
+	     		
+		        	     <if test="lowerleftlong != null" >
+		        	      #{lowerleftlong},
+		        	     </if> 
+	     		
+		        	     <if test="lowerrightlong != null" >
+		        	      #{lowerrightlong},
+		        	     </if> 
+	     		
+		        	     <if test="lowerrightlat != null" >
+		        	      #{lowerrightlat},
+		        	     </if> 
+	     		
+		        	     <if test="sunelevation != null" >
+		        	      #{sunelevation},
+		        	     </if> 
+	     		
+		        	     <if test="sunazimuthelevation != null" >
+		        	      #{sunazimuthelevation},
+		        	     </if> 
+	     		
+		        	     <if test="assessmentmethod != null" >
+		        	      #{assessmentmethod},
+		        	     </if> 
+	     		
+		        	     <if test="cloudcoverquote != null" >
+		        	      #{cloudcoverquote},
+		        	     </if> 
+	     		
+		        	     <if test="cloudcoverquadrant1 != null" >
+		        	      #{cloudcoverquadrant1},
+		        	     </if> 
+	     		
+		        	     <if test="cloudcoverquadrant2 != null" >
+		        	      #{cloudcoverquadrant2},
+		        	     </if> 
+	     		
+		        	     <if test="cloudcoverquadrant3 != null" >
+		        	      #{cloudcoverquadrant3},
+		        	     </if> 
+	     		
+		        	     <if test="cloudcoverquadrant4 != null" >
+		        	      #{cloudcoverquadrant4},
+		        	     </if> 
+	     		
+		        	     <if test="browsefilename != null" >
+		        	      #{browsefilename},
+		        	     </if> 
+	     		
+		        	     <if test="thumbfilename != null" >
+		        	      #{thumbfilename},
+		        	     </if> 
+	     		
+		        	     <if test="metadataid != null" >
+		        	      #{metadataid},
+		        	     </if> 
+	     		
+		        	     <if test="satelliteid != null" >
+		        	      #{satelliteid},
+		        	     </if> 
+	     		
+		        	     <if test="sensorid != null" >
+		        	      #{sensorid},
+		        	     </if> 
+	     		
+		        	     <if test="orbitid != null" >
+		        	      #{orbitid},
+		        	     </if> 
+	     		
+		        	     <if test="recstation != null" >
+		        	      #{recstation},
+		        	     </if> 
+	     		
+		        	     <if test="isspatial != null" >
+		        	      #{isspatial},
+		        	     </if> 
+	     		
+		        	     <if test="productid != null" >
+		        	      #{productid},
+		        	     </if> 
+	     		
+		        	     <if test="l0dataimagingstarttime != null" >
+		        	      #{l0dataimagingstarttime},
+		        	     </if> 
+	     		
+		        	     <if test="l0dataimagingstoptime != null" >
+		        	      #{l0dataimagingstoptime},
+		        	     </if> 
+	     		
+		        	     <if test="l0dataimageframecount != null" >
+		        	      #{l0dataimageframecount},
+		        	     </if> 
+	     		
+		        	     <if test="l0dataimageframelength != null" >
+		        	      #{l0dataimageframelength},
+		        	     </if> 
+	     		
+		        	     <if test="l0dataauxframecount != null" >
+		        	      #{l0dataauxframecount},
+		        	     </if> 
+	     		
+		        	     <if test="l0datauxframelength != null" >
+		        	      #{l0datauxframelength},
+		        	     </if> 
+	     		
+		        	     <if test="l0dataupperleftlat != null" >
+		        	      #{l0dataupperleftlat},
+		        	     </if> 
+	     		
+		        	     <if test="l0dataupperleftlong != null" >
+		        	      #{l0dataupperleftlong},
+		        	     </if> 
+	     		
+		        	     <if test="l0dataupperrightlat != null" >
+		        	      #{l0dataupperrightlat},
+		        	     </if> 
+	     		
+		        	     <if test="l0dataupperrightlong != null" >
+		        	      #{l0dataupperrightlong},
+		        	     </if> 
+	     		
+		        	     <if test="l0datalowerleftlat != null" >
+		        	      #{l0datalowerleftlat},
+		        	     </if> 
+	     		
+		        	     <if test="l0datalowerleftlong != null" >
+		        	      #{l0datalowerleftlong},
+		        	     </if> 
+	     		
+		        	     <if test="l0datalowerrightlat != null" >
+		        	      #{l0datalowerrightlat},
+		        	     </if> 
+	     		
+		        	     <if test="l0datalowerrightlong != null" >
+		        	      #{l0datalowerrightlong},
+		        	     </if> 
+	     		
+		        	     <if test="scenecount != null" >
+		        	      #{scenecount},
+		        	     </if> 
+	     		
+		        	     <if test="l0datafilename != null" >
+		        	      #{l0datafilename},
+		        	     </if> 
+	     		
+	        	        PSS_METADATA_0_SCENE_SEQ.nextval,
+	     		
+   	 </trim>
+	</insert>
+    
+   <!--更新语句-->
+	<update id="updatePssMetadata0scene" parameterType="com.sinosoft.business.po.PssMetadata0scene">
+        UPDATE PSS_METADATA_0_SCENE 
+        <set >
+	        	<if test="l0dataid  != null" >
+	        		L0DATAID = #{l0dataid} ,
+	     	 	</if>
+	        	<if test="sceneid  != null" >
+	        		SCENEID = #{sceneid} ,
+	     	 	</if>
+	        	<if test="sceneserialno  != null" >
+	        		SCENESERIALNO = #{sceneserialno} ,
+	     	 	</if>
+	        	<if test="ifgcpexist  != null" >
+	        		IFGCPEXIST = #{ifgcpexist} ,
+	     	 	</if>
+	        	<if test="imageingstarttime  != null" >
+	        		IMAGEINGSTARTTIME = #{imageingstarttime} ,
+	     	 	</if>
+	        	<if test="imageingstoptime  != null" >
+	        		IMAGEINGSTOPTIME = #{imageingstoptime} ,
+	     	 	</if>
+	        	<if test="bands  != null" >
+	        		BANDS = #{bands} ,
+	     	 	</if>
+	        	<if test="instrumentmode  != null" >
+	        		INSTRUMENTMODE = #{instrumentmode} ,
+	     	 	</if>
+	        	<if test="scenestartline  != null" >
+	        		SCENESTARTLINE = #{scenestartline} ,
+	     	 	</if>
+	        	<if test="scenestopline  != null" >
+	        		SCENESTOPLINE = #{scenestopline} ,
+	     	 	</if>
+	        	<if test="gain  != null" >
+	        		GAIN = #{gain} ,
+	     	 	</if>
+	        	<if test="integratelevel  != null" >
+	        		INTEGRATELEVEL = #{integratelevel} ,
+	     	 	</if>
+	        	<if test="satpath  != null" >
+	        		SATPATH = #{satpath} ,
+	     	 	</if>
+	        	<if test="satrow  != null" >
+	        		SATROW = #{satrow} ,
+	     	 	</if>
+	        	<if test="satpathbias  != null" >
+	        		SATPATHBIAS = #{satpathbias} ,
+	     	 	</if>
+	        	<if test="satrowbias  != null" >
+	        		SATROWBIAS = #{satrowbias} ,
+	     	 	</if>
+	        	<if test="direction  != null" >
+	        		DIRECTION = #{direction} ,
+	     	 	</if>
+	        	<if test="scenepath  != null" >
+	        		SCENEPATH = #{scenepath} ,
+	     	 	</if>
+	        	<if test="scenerow  != null" >
+	        		SCENEROW = #{scenerow} ,
+	     	 	</if>
+	        	<if test="scenepathbias  != null" >
+	        		SCENEPATHBIAS = #{scenepathbias} ,
+	     	 	</if>
+	        	<if test="scenerowbias  != null" >
+	        		SCENEROWBIAS = #{scenerowbias} ,
+	     	 	</if>
+	        	<if test="satoffnadir  != null" >
+	        		SATOFFNADIR = #{satoffnadir} ,
+	     	 	</if>
+	        	<if test="mirroroffnadir  != null" >
+	        		MIRROROFFNADIR = #{mirroroffnadir} ,
+	     	 	</if>
+	        	<if test="scenecenterlat  != null" >
+	        		SCENECENTERLAT = #{scenecenterlat} ,
+	     	 	</if>
+	        	<if test="scenecenterlong  != null" >
+	        		SCENECENTERLONG = #{scenecenterlong} ,
+	     	 	</if>
+	        	<if test="upperleftlong  != null" >
+	        		UPPERLEFTLONG = #{upperleftlong} ,
+	     	 	</if>
+	        	<if test="upperleftlat  != null" >
+	        		UPPERLEFTLAT = #{upperleftlat} ,
+	     	 	</if>
+	        	<if test="upperrightlat  != null" >
+	        		UPPERRIGHTLAT = #{upperrightlat} ,
+	     	 	</if>
+	        	<if test="upperrightlong  != null" >
+	        		UPPERRIGHTLONG = #{upperrightlong} ,
+	     	 	</if>
+	        	<if test="lowerleftlat  != null" >
+	        		LOWERLEFTLAT = #{lowerleftlat} ,
+	     	 	</if>
+	        	<if test="lowerleftlong  != null" >
+	        		LOWERLEFTLONG = #{lowerleftlong} ,
+	     	 	</if>
+	        	<if test="lowerrightlong  != null" >
+	        		LOWERRIGHTLONG = #{lowerrightlong} ,
+	     	 	</if>
+	        	<if test="lowerrightlat  != null" >
+	        		LOWERRIGHTLAT = #{lowerrightlat} ,
+	     	 	</if>
+	        	<if test="sunelevation  != null" >
+	        		SUNELEVATION = #{sunelevation} ,
+	     	 	</if>
+	        	<if test="sunazimuthelevation  != null" >
+	        		SUNAZIMUTHELEVATION = #{sunazimuthelevation} ,
+	     	 	</if>
+	        	<if test="assessmentmethod  != null" >
+	        		ASSESSMENTMETHOD = #{assessmentmethod} ,
+	     	 	</if>
+	        	<if test="cloudcoverquote  != null" >
+	        		CLOUDCOVERQUOTE = #{cloudcoverquote} ,
+	     	 	</if>
+	        	<if test="cloudcoverquadrant1  != null" >
+	        		CLOUDCOVERQUADRANT1 = #{cloudcoverquadrant1} ,
+	     	 	</if>
+	        	<if test="cloudcoverquadrant2  != null" >
+	        		CLOUDCOVERQUADRANT2 = #{cloudcoverquadrant2} ,
+	     	 	</if>
+	        	<if test="cloudcoverquadrant3  != null" >
+	        		CLOUDCOVERQUADRANT3 = #{cloudcoverquadrant3} ,
+	     	 	</if>
+	        	<if test="cloudcoverquadrant4  != null" >
+	        		CLOUDCOVERQUADRANT4 = #{cloudcoverquadrant4} ,
+	     	 	</if>
+	        	<if test="browsefilename  != null" >
+	        		BROWSEFILENAME = #{browsefilename} ,
+	     	 	</if>
+	        	<if test="thumbfilename  != null" >
+	        		THUMBFILENAME = #{thumbfilename} ,
+	     	 	</if>
+	        	<if test="metadataid  != null" >
+	        		METADATAID = #{metadataid} ,
+	     	 	</if>
+	        	<if test="satelliteid  != null" >
+	        		SATELLITEID = #{satelliteid} ,
+	     	 	</if>
+	        	<if test="sensorid  != null" >
+	        		SENSORID = #{sensorid} ,
+	     	 	</if>
+	        	<if test="orbitid  != null" >
+	        		ORBITID = #{orbitid} ,
+	     	 	</if>
+	        	<if test="recstation  != null" >
+	        		RECSTATION = #{recstation} ,
+	     	 	</if>
+	        	<if test="isspatial  != null" >
+	        		ISSPATIAL = #{isspatial} ,
+	     	 	</if>
+	        	<if test="productid  != null" >
+	        		PRODUCTID = #{productid} ,
+	     	 	</if>
+	        	<if test="l0dataimagingstarttime  != null" >
+	        		L0DATAIMAGINGSTARTTIME = #{l0dataimagingstarttime} ,
+	     	 	</if>
+	        	<if test="l0dataimagingstoptime  != null" >
+	        		L0DATAIMAGINGSTOPTIME = #{l0dataimagingstoptime} ,
+	     	 	</if>
+	        	<if test="l0dataimageframecount  != null" >
+	        		L0DATAIMAGEFRAMECOUNT = #{l0dataimageframecount} ,
+	     	 	</if>
+	        	<if test="l0dataimageframelength  != null" >
+	        		L0DATAIMAGEFRAMELENGTH = #{l0dataimageframelength} ,
+	     	 	</if>
+	        	<if test="l0dataauxframecount  != null" >
+	        		L0DATAAUXFRAMECOUNT = #{l0dataauxframecount} ,
+	     	 	</if>
+	        	<if test="l0datauxframelength  != null" >
+	        		L0DATAUXFRAMELENGTH = #{l0datauxframelength} ,
+	     	 	</if>
+	        	<if test="l0dataupperleftlat  != null" >
+	        		L0DATAUPPERLEFTLAT = #{l0dataupperleftlat} ,
+	     	 	</if>
+	        	<if test="l0dataupperleftlong  != null" >
+	        		L0DATAUPPERLEFTLONG = #{l0dataupperleftlong} ,
+	     	 	</if>
+	        	<if test="l0dataupperrightlat  != null" >
+	        		L0DATAUPPERRIGHTLAT = #{l0dataupperrightlat} ,
+	     	 	</if>
+	        	<if test="l0dataupperrightlong  != null" >
+	        		L0DATAUPPERRIGHTLONG = #{l0dataupperrightlong} ,
+	     	 	</if>
+	        	<if test="l0datalowerleftlat  != null" >
+	        		L0DATALOWERLEFTLAT = #{l0datalowerleftlat} ,
+	     	 	</if>
+	        	<if test="l0datalowerleftlong  != null" >
+	        		L0DATALOWERLEFTLONG = #{l0datalowerleftlong} ,
+	     	 	</if>
+	        	<if test="l0datalowerrightlat  != null" >
+	        		L0DATALOWERRIGHTLAT = #{l0datalowerrightlat} ,
+	     	 	</if>
+	        	<if test="l0datalowerrightlong  != null" >
+	        		L0DATALOWERRIGHTLONG = #{l0datalowerrightlong} ,
+	     	 	</if>
+	        	<if test="scenecount  != null" >
+	        		SCENECOUNT = #{scenecount} ,
+	     	 	</if>
+	        	<if test="l0datafilename  != null" >
+	        		L0DATAFILENAME = #{l0datafilename} ,
+	     	 	</if>
+	        	<if test="id  != null" >
+	        		ID = #{id} 
+	     	 	</if>
+	    </set>
+        WHERE 
+	</update>
+
+	<!--删除语句-->
+    
+    <!--查询语句-->
+    <select id="getPssMetadata0sceneById" resultMap="BaseResultMap" parameterType="com.sinosoft.business.po.PssMetadata0scene">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_METADATA_0_SCENE 
+		WHERE 1 = 1
+	        <if test="sceneid != null and sceneid != ''">
+	           AND  SCENEID = #{sceneid}
+	        </if>
+	</select>
+	
+		<!--列表查询-->
+		<select id="getPssMetadata0sceneListByQuery" resultMap="BaseResultMap" parameterType="com.sinosoft.business.po.query.PssMetadata0sceneQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_METADATA_0_SCENE 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="l0dataid  != null" >
+	        	AND 	L0DATAID = #{l0dataid} 
+	     	 	</if>
+				<if test="sceneid  != null" >
+	        	AND 	SCENEID = #{sceneid} 
+	     	 	</if>
+				<if test="sceneserialno  != null" >
+	        	AND 	SCENESERIALNO = #{sceneserialno} 
+	     	 	</if>
+				<if test="ifgcpexist  != null" >
+	        	AND 	IFGCPEXIST = #{ifgcpexist} 
+	     	 	</if>
+				<if test="imageingstarttime  != null" >
+	        	AND 	IMAGEINGSTARTTIME = #{imageingstarttime} 
+	     	 	</if>
+				<if test="imageingstoptime  != null" >
+	        	AND 	IMAGEINGSTOPTIME = #{imageingstoptime} 
+	     	 	</if>
+				<if test="bands  != null" >
+	        	AND 	BANDS = #{bands} 
+	     	 	</if>
+				<if test="instrumentmode  != null" >
+	        	AND 	INSTRUMENTMODE = #{instrumentmode} 
+	     	 	</if>
+				<if test="scenestartline  != null" >
+	        	AND 	SCENESTARTLINE = #{scenestartline} 
+	     	 	</if>
+				<if test="scenestopline  != null" >
+	        	AND 	SCENESTOPLINE = #{scenestopline} 
+	     	 	</if>
+				<if test="gain  != null" >
+	        	AND 	GAIN = #{gain} 
+	     	 	</if>
+				<if test="integratelevel  != null" >
+	        	AND 	INTEGRATELEVEL = #{integratelevel} 
+	     	 	</if>
+				<if test="satpath  != null" >
+	        	AND 	SATPATH = #{satpath} 
+	     	 	</if>
+				<if test="satrow  != null" >
+	        	AND 	SATROW = #{satrow} 
+	     	 	</if>
+				<if test="satpathbias  != null" >
+	        	AND 	SATPATHBIAS = #{satpathbias} 
+	     	 	</if>
+				<if test="satrowbias  != null" >
+	        	AND 	SATROWBIAS = #{satrowbias} 
+	     	 	</if>
+				<if test="direction  != null" >
+	        	AND 	DIRECTION = #{direction} 
+	     	 	</if>
+				<if test="scenepath  != null" >
+	        	AND 	SCENEPATH = #{scenepath} 
+	     	 	</if>
+				<if test="scenerow  != null" >
+	        	AND 	SCENEROW = #{scenerow} 
+	     	 	</if>
+				<if test="scenepathbias  != null" >
+	        	AND 	SCENEPATHBIAS = #{scenepathbias} 
+	     	 	</if>
+				<if test="scenerowbias  != null" >
+	        	AND 	SCENEROWBIAS = #{scenerowbias} 
+	     	 	</if>
+				<if test="satoffnadir  != null" >
+	        	AND 	SATOFFNADIR = #{satoffnadir} 
+	     	 	</if>
+				<if test="mirroroffnadir  != null" >
+	        	AND 	MIRROROFFNADIR = #{mirroroffnadir} 
+	     	 	</if>
+				<if test="scenecenterlat  != null" >
+	        	AND 	SCENECENTERLAT = #{scenecenterlat} 
+	     	 	</if>
+				<if test="scenecenterlong  != null" >
+	        	AND 	SCENECENTERLONG = #{scenecenterlong} 
+	     	 	</if>
+				<if test="upperleftlong  != null" >
+	        	AND 	UPPERLEFTLONG = #{upperleftlong} 
+	     	 	</if>
+				<if test="upperleftlat  != null" >
+	        	AND 	UPPERLEFTLAT = #{upperleftlat} 
+	     	 	</if>
+				<if test="upperrightlat  != null" >
+	        	AND 	UPPERRIGHTLAT = #{upperrightlat} 
+	     	 	</if>
+				<if test="upperrightlong  != null" >
+	        	AND 	UPPERRIGHTLONG = #{upperrightlong} 
+	     	 	</if>
+				<if test="lowerleftlat  != null" >
+	        	AND 	LOWERLEFTLAT = #{lowerleftlat} 
+	     	 	</if>
+				<if test="lowerleftlong  != null" >
+	        	AND 	LOWERLEFTLONG = #{lowerleftlong} 
+	     	 	</if>
+				<if test="lowerrightlong  != null" >
+	        	AND 	LOWERRIGHTLONG = #{lowerrightlong} 
+	     	 	</if>
+				<if test="lowerrightlat  != null" >
+	        	AND 	LOWERRIGHTLAT = #{lowerrightlat} 
+	     	 	</if>
+				<if test="sunelevation  != null" >
+	        	AND 	SUNELEVATION = #{sunelevation} 
+	     	 	</if>
+				<if test="sunazimuthelevation  != null" >
+	        	AND 	SUNAZIMUTHELEVATION = #{sunazimuthelevation} 
+	     	 	</if>
+				<if test="assessmentmethod  != null" >
+	        	AND 	ASSESSMENTMETHOD = #{assessmentmethod} 
+	     	 	</if>
+				<if test="cloudcoverquote  != null" >
+	        	AND 	CLOUDCOVERQUOTE = #{cloudcoverquote} 
+	     	 	</if>
+				<if test="cloudcoverquadrant1  != null" >
+	        	AND 	CLOUDCOVERQUADRANT1 = #{cloudcoverquadrant1} 
+	     	 	</if>
+				<if test="cloudcoverquadrant2  != null" >
+	        	AND 	CLOUDCOVERQUADRANT2 = #{cloudcoverquadrant2} 
+	     	 	</if>
+				<if test="cloudcoverquadrant3  != null" >
+	        	AND 	CLOUDCOVERQUADRANT3 = #{cloudcoverquadrant3} 
+	     	 	</if>
+				<if test="cloudcoverquadrant4  != null" >
+	        	AND 	CLOUDCOVERQUADRANT4 = #{cloudcoverquadrant4} 
+	     	 	</if>
+				<if test="browsefilename  != null" >
+	        	AND 	BROWSEFILENAME = #{browsefilename} 
+	     	 	</if>
+				<if test="thumbfilename  != null" >
+	        	AND 	THUMBFILENAME = #{thumbfilename} 
+	     	 	</if>
+				<if test="metadataid  != null" >
+	        	AND 	METADATAID = #{metadataid} 
+	     	 	</if>
+				<if test="satelliteid  != null" >
+	        	AND 	SATELLITEID = #{satelliteid} 
+	     	 	</if>
+				<if test="sensorid  != null" >
+	        	AND 	SENSORID = #{sensorid} 
+	     	 	</if>
+				<if test="orbitid  != null" >
+	        	AND 	ORBITID = #{orbitid} 
+	     	 	</if>
+				<if test="recstation  != null" >
+	        	AND 	RECSTATION = #{recstation} 
+	     	 	</if>
+				<if test="isspatial  != null" >
+	        	AND 	ISSPATIAL = #{isspatial} 
+	     	 	</if>
+				<if test="productid  != null" >
+	        	AND 	PRODUCTID = #{productid} 
+	     	 	</if>
+				<if test="l0dataimagingstarttime  != null" >
+	        	AND 	L0DATAIMAGINGSTARTTIME = #{l0dataimagingstarttime} 
+	     	 	</if>
+				<if test="l0dataimagingstoptime  != null" >
+	        	AND 	L0DATAIMAGINGSTOPTIME = #{l0dataimagingstoptime} 
+	     	 	</if>
+				<if test="l0dataimageframecount  != null" >
+	        	AND 	L0DATAIMAGEFRAMECOUNT = #{l0dataimageframecount} 
+	     	 	</if>
+				<if test="l0dataimageframelength  != null" >
+	        	AND 	L0DATAIMAGEFRAMELENGTH = #{l0dataimageframelength} 
+	     	 	</if>
+				<if test="l0dataauxframecount  != null" >
+	        	AND 	L0DATAAUXFRAMECOUNT = #{l0dataauxframecount} 
+	     	 	</if>
+				<if test="l0datauxframelength  != null" >
+	        	AND 	L0DATAUXFRAMELENGTH = #{l0datauxframelength} 
+	     	 	</if>
+				<if test="l0dataupperleftlat  != null" >
+	        	AND 	L0DATAUPPERLEFTLAT = #{l0dataupperleftlat} 
+	     	 	</if>
+				<if test="l0dataupperleftlong  != null" >
+	        	AND 	L0DATAUPPERLEFTLONG = #{l0dataupperleftlong} 
+	     	 	</if>
+				<if test="l0dataupperrightlat  != null" >
+	        	AND 	L0DATAUPPERRIGHTLAT = #{l0dataupperrightlat} 
+	     	 	</if>
+				<if test="l0dataupperrightlong  != null" >
+	        	AND 	L0DATAUPPERRIGHTLONG = #{l0dataupperrightlong} 
+	     	 	</if>
+				<if test="l0datalowerleftlat  != null" >
+	        	AND 	L0DATALOWERLEFTLAT = #{l0datalowerleftlat} 
+	     	 	</if>
+				<if test="l0datalowerleftlong  != null" >
+	        	AND 	L0DATALOWERLEFTLONG = #{l0datalowerleftlong} 
+	     	 	</if>
+				<if test="l0datalowerrightlat  != null" >
+	        	AND 	L0DATALOWERRIGHTLAT = #{l0datalowerrightlat} 
+	     	 	</if>
+				<if test="l0datalowerrightlong  != null" >
+	        	AND 	L0DATALOWERRIGHTLONG = #{l0datalowerrightlong} 
+	     	 	</if>
+				<if test="scenecount  != null" >
+	        	AND 	SCENECOUNT = #{scenecount} 
+	     	 	</if>
+				<if test="l0datafilename  != null" >
+	        	AND 	L0DATAFILENAME = #{l0datafilename} 
+	     	 	</if>
+				<if test="id  != null" >
+	        	AND 	ID = #{id} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--分页查询-->
+	<select id="getPssMetadata0sceneInfoByQuery" resultMap="BaseResultMap" parameterType="com.sinosoft.business.po.query.PssMetadata0sceneQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_METADATA_0_SCENE 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="l0dataid  != null" >
+	        	AND 	L0DATAID = #{l0dataid} 
+	     	 	</if>
+				<if test="sceneid  != null" >
+	        	AND 	SCENEID = #{sceneid} 
+	     	 	</if>
+				<if test="sceneserialno  != null" >
+	        	AND 	SCENESERIALNO = #{sceneserialno} 
+	     	 	</if>
+				<if test="ifgcpexist  != null" >
+	        	AND 	IFGCPEXIST = #{ifgcpexist} 
+	     	 	</if>
+				<if test="imageingstarttime  != null" >
+	        	AND 	IMAGEINGSTARTTIME = #{imageingstarttime} 
+	     	 	</if>
+				<if test="imageingstoptime  != null" >
+	        	AND 	IMAGEINGSTOPTIME = #{imageingstoptime} 
+	     	 	</if>
+				<if test="bands  != null" >
+	        	AND 	BANDS = #{bands} 
+	     	 	</if>
+				<if test="instrumentmode  != null" >
+	        	AND 	INSTRUMENTMODE = #{instrumentmode} 
+	     	 	</if>
+				<if test="scenestartline  != null" >
+	        	AND 	SCENESTARTLINE = #{scenestartline} 
+	     	 	</if>
+				<if test="scenestopline  != null" >
+	        	AND 	SCENESTOPLINE = #{scenestopline} 
+	     	 	</if>
+				<if test="gain  != null" >
+	        	AND 	GAIN = #{gain} 
+	     	 	</if>
+				<if test="integratelevel  != null" >
+	        	AND 	INTEGRATELEVEL = #{integratelevel} 
+	     	 	</if>
+				<if test="satpath  != null" >
+	        	AND 	SATPATH = #{satpath} 
+	     	 	</if>
+				<if test="satrow  != null" >
+	        	AND 	SATROW = #{satrow} 
+	     	 	</if>
+				<if test="satpathbias  != null" >
+	        	AND 	SATPATHBIAS = #{satpathbias} 
+	     	 	</if>
+				<if test="satrowbias  != null" >
+	        	AND 	SATROWBIAS = #{satrowbias} 
+	     	 	</if>
+				<if test="direction  != null" >
+	        	AND 	DIRECTION = #{direction} 
+	     	 	</if>
+				<if test="scenepath  != null" >
+	        	AND 	SCENEPATH = #{scenepath} 
+	     	 	</if>
+				<if test="scenerow  != null" >
+	        	AND 	SCENEROW = #{scenerow} 
+	     	 	</if>
+				<if test="scenepathbias  != null" >
+	        	AND 	SCENEPATHBIAS = #{scenepathbias} 
+	     	 	</if>
+				<if test="scenerowbias  != null" >
+	        	AND 	SCENEROWBIAS = #{scenerowbias} 
+	     	 	</if>
+				<if test="satoffnadir  != null" >
+	        	AND 	SATOFFNADIR = #{satoffnadir} 
+	     	 	</if>
+				<if test="mirroroffnadir  != null" >
+	        	AND 	MIRROROFFNADIR = #{mirroroffnadir} 
+	     	 	</if>
+				<if test="scenecenterlat  != null" >
+	        	AND 	SCENECENTERLAT = #{scenecenterlat} 
+	     	 	</if>
+				<if test="scenecenterlong  != null" >
+	        	AND 	SCENECENTERLONG = #{scenecenterlong} 
+	     	 	</if>
+				<if test="upperleftlong  != null" >
+	        	AND 	UPPERLEFTLONG = #{upperleftlong} 
+	     	 	</if>
+				<if test="upperleftlat  != null" >
+	        	AND 	UPPERLEFTLAT = #{upperleftlat} 
+	     	 	</if>
+				<if test="upperrightlat  != null" >
+	        	AND 	UPPERRIGHTLAT = #{upperrightlat} 
+	     	 	</if>
+				<if test="upperrightlong  != null" >
+	        	AND 	UPPERRIGHTLONG = #{upperrightlong} 
+	     	 	</if>
+				<if test="lowerleftlat  != null" >
+	        	AND 	LOWERLEFTLAT = #{lowerleftlat} 
+	     	 	</if>
+				<if test="lowerleftlong  != null" >
+	        	AND 	LOWERLEFTLONG = #{lowerleftlong} 
+	     	 	</if>
+				<if test="lowerrightlong  != null" >
+	        	AND 	LOWERRIGHTLONG = #{lowerrightlong} 
+	     	 	</if>
+				<if test="lowerrightlat  != null" >
+	        	AND 	LOWERRIGHTLAT = #{lowerrightlat} 
+	     	 	</if>
+				<if test="sunelevation  != null" >
+	        	AND 	SUNELEVATION = #{sunelevation} 
+	     	 	</if>
+				<if test="sunazimuthelevation  != null" >
+	        	AND 	SUNAZIMUTHELEVATION = #{sunazimuthelevation} 
+	     	 	</if>
+				<if test="assessmentmethod  != null" >
+	        	AND 	ASSESSMENTMETHOD = #{assessmentmethod} 
+	     	 	</if>
+				<if test="cloudcoverquote  != null" >
+	        	AND 	CLOUDCOVERQUOTE = #{cloudcoverquote} 
+	     	 	</if>
+				<if test="cloudcoverquadrant1  != null" >
+	        	AND 	CLOUDCOVERQUADRANT1 = #{cloudcoverquadrant1} 
+	     	 	</if>
+				<if test="cloudcoverquadrant2  != null" >
+	        	AND 	CLOUDCOVERQUADRANT2 = #{cloudcoverquadrant2} 
+	     	 	</if>
+				<if test="cloudcoverquadrant3  != null" >
+	        	AND 	CLOUDCOVERQUADRANT3 = #{cloudcoverquadrant3} 
+	     	 	</if>
+				<if test="cloudcoverquadrant4  != null" >
+	        	AND 	CLOUDCOVERQUADRANT4 = #{cloudcoverquadrant4} 
+	     	 	</if>
+				<if test="browsefilename  != null" >
+	        	AND 	BROWSEFILENAME = #{browsefilename} 
+	     	 	</if>
+				<if test="thumbfilename  != null" >
+	        	AND 	THUMBFILENAME = #{thumbfilename} 
+	     	 	</if>
+				<if test="metadataid  != null" >
+	        	AND 	METADATAID = #{metadataid} 
+	     	 	</if>
+				<if test="satelliteid  != null" >
+	        	AND 	SATELLITEID = #{satelliteid} 
+	     	 	</if>
+				<if test="sensorid  != null" >
+	        	AND 	SENSORID = #{sensorid} 
+	     	 	</if>
+				<if test="orbitid  != null" >
+	        	AND 	ORBITID = #{orbitid} 
+	     	 	</if>
+				<if test="recstation  != null" >
+	        	AND 	RECSTATION = #{recstation} 
+	     	 	</if>
+				<if test="isspatial  != null" >
+	        	AND 	ISSPATIAL = #{isspatial} 
+	     	 	</if>
+				<if test="productid  != null" >
+	        	AND 	PRODUCTID = #{productid} 
+	     	 	</if>
+				<if test="l0dataimagingstarttime  != null" >
+	        	AND 	L0DATAIMAGINGSTARTTIME = #{l0dataimagingstarttime} 
+	     	 	</if>
+				<if test="l0dataimagingstoptime  != null" >
+	        	AND 	L0DATAIMAGINGSTOPTIME = #{l0dataimagingstoptime} 
+	     	 	</if>
+				<if test="l0dataimageframecount  != null" >
+	        	AND 	L0DATAIMAGEFRAMECOUNT = #{l0dataimageframecount} 
+	     	 	</if>
+				<if test="l0dataimageframelength  != null" >
+	        	AND 	L0DATAIMAGEFRAMELENGTH = #{l0dataimageframelength} 
+	     	 	</if>
+				<if test="l0dataauxframecount  != null" >
+	        	AND 	L0DATAAUXFRAMECOUNT = #{l0dataauxframecount} 
+	     	 	</if>
+				<if test="l0datauxframelength  != null" >
+	        	AND 	L0DATAUXFRAMELENGTH = #{l0datauxframelength} 
+	     	 	</if>
+				<if test="l0dataupperleftlat  != null" >
+	        	AND 	L0DATAUPPERLEFTLAT = #{l0dataupperleftlat} 
+	     	 	</if>
+				<if test="l0dataupperleftlong  != null" >
+	        	AND 	L0DATAUPPERLEFTLONG = #{l0dataupperleftlong} 
+	     	 	</if>
+				<if test="l0dataupperrightlat  != null" >
+	        	AND 	L0DATAUPPERRIGHTLAT = #{l0dataupperrightlat} 
+	     	 	</if>
+				<if test="l0dataupperrightlong  != null" >
+	        	AND 	L0DATAUPPERRIGHTLONG = #{l0dataupperrightlong} 
+	     	 	</if>
+				<if test="l0datalowerleftlat  != null" >
+	        	AND 	L0DATALOWERLEFTLAT = #{l0datalowerleftlat} 
+	     	 	</if>
+				<if test="l0datalowerleftlong  != null" >
+	        	AND 	L0DATALOWERLEFTLONG = #{l0datalowerleftlong} 
+	     	 	</if>
+				<if test="l0datalowerrightlat  != null" >
+	        	AND 	L0DATALOWERRIGHTLAT = #{l0datalowerrightlat} 
+	     	 	</if>
+				<if test="l0datalowerrightlong  != null" >
+	        	AND 	L0DATALOWERRIGHTLONG = #{l0datalowerrightlong} 
+	     	 	</if>
+				<if test="scenecount  != null" >
+	        	AND 	SCENECOUNT = #{scenecount} 
+	     	 	</if>
+				<if test="l0datafilename  != null" >
+	        	AND 	L0DATAFILENAME = #{l0datafilename} 
+	     	 	</if>
+				<if test="id  != null" >
+	        	AND 	ID = #{id} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="com.sinosoft.business.po.query.PssMetadata0sceneQuery">
+        SELECT count(*) FROM PSS_METADATA_0_SCENE 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="l0dataid  != null" >
+	        	AND 	L0DATAID = #{l0dataid}
+	     	 	</if>
+				<if test="sceneid  != null" >
+	        	AND 	SCENEID = #{sceneid}
+	     	 	</if>
+				<if test="sceneserialno  != null" >
+	        	AND 	SCENESERIALNO = #{sceneserialno}
+	     	 	</if>
+				<if test="ifgcpexist  != null" >
+	        	AND 	IFGCPEXIST = #{ifgcpexist}
+	     	 	</if>
+				<if test="imageingstarttime  != null" >
+	        	AND 	IMAGEINGSTARTTIME = #{imageingstarttime}
+	     	 	</if>
+				<if test="imageingstoptime  != null" >
+	        	AND 	IMAGEINGSTOPTIME = #{imageingstoptime}
+	     	 	</if>
+				<if test="bands  != null" >
+	        	AND 	BANDS = #{bands}
+	     	 	</if>
+				<if test="instrumentmode  != null" >
+	        	AND 	INSTRUMENTMODE = #{instrumentmode}
+	     	 	</if>
+				<if test="scenestartline  != null" >
+	        	AND 	SCENESTARTLINE = #{scenestartline}
+	     	 	</if>
+				<if test="scenestopline  != null" >
+	        	AND 	SCENESTOPLINE = #{scenestopline}
+	     	 	</if>
+				<if test="gain  != null" >
+	        	AND 	GAIN = #{gain}
+	     	 	</if>
+				<if test="integratelevel  != null" >
+	        	AND 	INTEGRATELEVEL = #{integratelevel}
+	     	 	</if>
+				<if test="satpath  != null" >
+	        	AND 	SATPATH = #{satpath}
+	     	 	</if>
+				<if test="satrow  != null" >
+	        	AND 	SATROW = #{satrow}
+	     	 	</if>
+				<if test="satpathbias  != null" >
+	        	AND 	SATPATHBIAS = #{satpathbias}
+	     	 	</if>
+				<if test="satrowbias  != null" >
+	        	AND 	SATROWBIAS = #{satrowbias}
+	     	 	</if>
+				<if test="direction  != null" >
+	        	AND 	DIRECTION = #{direction}
+	     	 	</if>
+				<if test="scenepath  != null" >
+	        	AND 	SCENEPATH = #{scenepath}
+	     	 	</if>
+				<if test="scenerow  != null" >
+	        	AND 	SCENEROW = #{scenerow}
+	     	 	</if>
+				<if test="scenepathbias  != null" >
+	        	AND 	SCENEPATHBIAS = #{scenepathbias}
+	     	 	</if>
+				<if test="scenerowbias  != null" >
+	        	AND 	SCENEROWBIAS = #{scenerowbias}
+	     	 	</if>
+				<if test="satoffnadir  != null" >
+	        	AND 	SATOFFNADIR = #{satoffnadir}
+	     	 	</if>
+				<if test="mirroroffnadir  != null" >
+	        	AND 	MIRROROFFNADIR = #{mirroroffnadir}
+	     	 	</if>
+				<if test="scenecenterlat  != null" >
+	        	AND 	SCENECENTERLAT = #{scenecenterlat}
+	     	 	</if>
+				<if test="scenecenterlong  != null" >
+	        	AND 	SCENECENTERLONG = #{scenecenterlong}
+	     	 	</if>
+				<if test="upperleftlong  != null" >
+	        	AND 	UPPERLEFTLONG = #{upperleftlong}
+	     	 	</if>
+				<if test="upperleftlat  != null" >
+	        	AND 	UPPERLEFTLAT = #{upperleftlat}
+	     	 	</if>
+				<if test="upperrightlat  != null" >
+	        	AND 	UPPERRIGHTLAT = #{upperrightlat}
+	     	 	</if>
+				<if test="upperrightlong  != null" >
+	        	AND 	UPPERRIGHTLONG = #{upperrightlong}
+	     	 	</if>
+				<if test="lowerleftlat  != null" >
+	        	AND 	LOWERLEFTLAT = #{lowerleftlat}
+	     	 	</if>
+				<if test="lowerleftlong  != null" >
+	        	AND 	LOWERLEFTLONG = #{lowerleftlong}
+	     	 	</if>
+				<if test="lowerrightlong  != null" >
+	        	AND 	LOWERRIGHTLONG = #{lowerrightlong}
+	     	 	</if>
+				<if test="lowerrightlat  != null" >
+	        	AND 	LOWERRIGHTLAT = #{lowerrightlat}
+	     	 	</if>
+				<if test="sunelevation  != null" >
+	        	AND 	SUNELEVATION = #{sunelevation}
+	     	 	</if>
+				<if test="sunazimuthelevation  != null" >
+	        	AND 	SUNAZIMUTHELEVATION = #{sunazimuthelevation}
+	     	 	</if>
+				<if test="assessmentmethod  != null" >
+	        	AND 	ASSESSMENTMETHOD = #{assessmentmethod}
+	     	 	</if>
+				<if test="cloudcoverquote  != null" >
+	        	AND 	CLOUDCOVERQUOTE = #{cloudcoverquote}
+	     	 	</if>
+				<if test="cloudcoverquadrant1  != null" >
+	        	AND 	CLOUDCOVERQUADRANT1 = #{cloudcoverquadrant1}
+	     	 	</if>
+				<if test="cloudcoverquadrant2  != null" >
+	        	AND 	CLOUDCOVERQUADRANT2 = #{cloudcoverquadrant2}
+	     	 	</if>
+				<if test="cloudcoverquadrant3  != null" >
+	        	AND 	CLOUDCOVERQUADRANT3 = #{cloudcoverquadrant3}
+	     	 	</if>
+				<if test="cloudcoverquadrant4  != null" >
+	        	AND 	CLOUDCOVERQUADRANT4 = #{cloudcoverquadrant4}
+	     	 	</if>
+				<if test="browsefilename  != null" >
+	        	AND 	BROWSEFILENAME = #{browsefilename}
+	     	 	</if>
+				<if test="thumbfilename  != null" >
+	        	AND 	THUMBFILENAME = #{thumbfilename}
+	     	 	</if>
+				<if test="metadataid  != null" >
+	        	AND 	METADATAID = #{metadataid}
+	     	 	</if>
+				<if test="satelliteid  != null" >
+	        	AND 	SATELLITEID = #{satelliteid}
+	     	 	</if>
+				<if test="sensorid  != null" >
+	        	AND 	SENSORID = #{sensorid}
+	     	 	</if>
+				<if test="orbitid  != null" >
+	        	AND 	ORBITID = #{orbitid}
+	     	 	</if>
+				<if test="recstation  != null" >
+	        	AND 	RECSTATION = #{recstation}
+	     	 	</if>
+				<if test="isspatial  != null" >
+	        	AND 	ISSPATIAL = #{isspatial}
+	     	 	</if>
+				<if test="productid  != null" >
+	        	AND 	PRODUCTID = #{productid}
+	     	 	</if>
+				<if test="l0dataimagingstarttime  != null" >
+	        	AND 	L0DATAIMAGINGSTARTTIME = #{l0dataimagingstarttime}
+	     	 	</if>
+				<if test="l0dataimagingstoptime  != null" >
+	        	AND 	L0DATAIMAGINGSTOPTIME = #{l0dataimagingstoptime}
+	     	 	</if>
+				<if test="l0dataimageframecount  != null" >
+	        	AND 	L0DATAIMAGEFRAMECOUNT = #{l0dataimageframecount}
+	     	 	</if>
+				<if test="l0dataimageframelength  != null" >
+	        	AND 	L0DATAIMAGEFRAMELENGTH = #{l0dataimageframelength}
+	     	 	</if>
+				<if test="l0dataauxframecount  != null" >
+	        	AND 	L0DATAAUXFRAMECOUNT = #{l0dataauxframecount}
+	     	 	</if>
+				<if test="l0datauxframelength  != null" >
+	        	AND 	L0DATAUXFRAMELENGTH = #{l0datauxframelength}
+	     	 	</if>
+				<if test="l0dataupperleftlat  != null" >
+	        	AND 	L0DATAUPPERLEFTLAT = #{l0dataupperleftlat}
+	     	 	</if>
+				<if test="l0dataupperleftlong  != null" >
+	        	AND 	L0DATAUPPERLEFTLONG = #{l0dataupperleftlong}
+	     	 	</if>
+				<if test="l0dataupperrightlat  != null" >
+	        	AND 	L0DATAUPPERRIGHTLAT = #{l0dataupperrightlat}
+	     	 	</if>
+				<if test="l0dataupperrightlong  != null" >
+	        	AND 	L0DATAUPPERRIGHTLONG = #{l0dataupperrightlong}
+	     	 	</if>
+				<if test="l0datalowerleftlat  != null" >
+	        	AND 	L0DATALOWERLEFTLAT = #{l0datalowerleftlat}
+	     	 	</if>
+				<if test="l0datalowerleftlong  != null" >
+	        	AND 	L0DATALOWERLEFTLONG = #{l0datalowerleftlong}
+	     	 	</if>
+				<if test="l0datalowerrightlat  != null" >
+	        	AND 	L0DATALOWERRIGHTLAT = #{l0datalowerrightlat}
+	     	 	</if>
+				<if test="l0datalowerrightlong  != null" >
+	        	AND 	L0DATALOWERRIGHTLONG = #{l0datalowerrightlong}
+	     	 	</if>
+				<if test="scenecount  != null" >
+	        	AND 	SCENECOUNT = #{scenecount}
+	     	 	</if>
+				<if test="l0datafilename  != null" >
+	        	AND 	L0DATAFILENAME = #{l0datafilename}
+	     	 	</if>
+				<if test="id  != null" >
+	        	AND 	ID = #{id}
+	     	 	</if>
+	     	 <if test="sqlWhere  != null" >
+	        	${sqlWhere}
+	     	 	</if>
+		</trim> 
+    </select>
+    
+</mapper>
+

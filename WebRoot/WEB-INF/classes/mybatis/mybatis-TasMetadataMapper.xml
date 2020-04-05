@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="PssTasMetadataDao">
+	<resultMap id="BaseResultMap" type="PssTasMetadata">
+        	<result property="productid" column="PRODUCTID"/>
+        	<result property="productname" column="PRODUCTNAME"/>
+        	<result property="producttype" column="PRODUCTTYPE"/>
+        	<result property="satelliteid" column="SATELLITEID"/>
+        	<result property="sensorid" column="SENSORID"/>
+        	<result property="stationid" column="STATIONID"/>
+        	<result property="pixeltype" column="PIXELTYPE"/>
+        	<result property="imagewidth" column="IMAGEWIDTH"/>
+        	<result property="imageheight" column="IMAGEHEIGHT"/>
+        	<result property="imagebandnum" column="IMAGEBANDNUM"/>
+        	<result property="imagingstarttime" column="IMAGINGSTARTTIME"/>
+        	<result property="imagingstoptime" column="IMAGINGSTOPTIME"/>
+        	<result property="sunazimuth" column="SUNAZIMUTH"/>
+        	<result property="sunelevation" column="SUNELEVATION"/>
+        	<result property="earthmodel" column="EARTHMODEL"/>
+        	<result property="mapprojection" column="MAPPROJECTION"/>
+        	<result property="unit" column="UNIT"/>
+        	<result property="resolutionx" column="RESOLUTIONX"/>
+        	<result property="resolutiony" column="RESOLUTIONY"/>
+        	<result property="scenecenterlat" column="SCENECENTERLAT"/>
+        	<result property="scenecenterlong" column="SCENECENTERLONG"/>
+        	<result property="dataupperleftlat" column="DATAUPPERLEFTLAT"/>
+        	<result property="dataupperleftlong" column="DATAUPPERLEFTLONG"/>
+        	<result property="dataupperrightlat" column="DATAUPPERRIGHTLAT"/>
+        	<result property="dataupperrightlong" column="DATAUPPERRIGHTLONG"/>
+        	<result property="datalowerleftlat" column="DATALOWERLEFTLAT"/>
+        	<result property="datalowerleftlong" column="DATALOWERLEFTLONG"/>
+        	<result property="datalowerrightlat" column="DATALOWERRIGHTLAT"/>
+        	<result property="datalowerrightlong" column="DATALOWERRIGHTLONG"/>
+        	<result property="processnum" column="PROCESSNUM"/>
+        	<result property="processinfo" column="PROCESSINFO"/>
+        	<result property="processtime" column="PROCESSTIME"/>
+        	<result property="processmodule" column="PROCESSMODULE"/>
+        	<result property="inputdataname" column="INPUTDATANAME"/>
+        	<result property="browsename" column="BROWSENAME"/>
+        	<result property="thumbname" column="THUMBNAME"/>
+        	<result property="metadataid" column="METADATAID"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		PRODUCTID,PRODUCTNAME,PRODUCTTYPE,SATELLITEID,SENSORID,STATIONID,PIXELTYPE,IMAGEWIDTH,IMAGEHEIGHT,IMAGEBANDNUM,to_char(IMAGINGSTARTTIME,'yyyy-MM-dd HH24:mi:ss') as IMAGINGSTARTTIME,to_char(IMAGINGSTARTTIME,'yyyy-MM-dd HH24:mi:ss') as IMAGINGSTARTTIME,SUNAZIMUTH,SUNELEVATION,EARTHMODEL,MAPPROJECTION,UNIT,RESOLUTIONX,RESOLUTIONY,SCENECENTERLAT,SCENECENTERLONG,DATAUPPERLEFTLAT,DATAUPPERLEFTLONG,DATAUPPERRIGHTLAT,DATAUPPERRIGHTLONG,DATALOWERLEFTLAT,DATALOWERLEFTLONG,DATALOWERRIGHTLAT,DATALOWERRIGHTLONG,PROCESSNUM,PROCESSINFO,PROCESSTIME,PROCESSMODULE,INPUTDATANAME,BROWSENAME,THUMBNAME,METADATAID
+	</sql> 
+	<!-- 根据matedataid查询 -->
+	<select id="getTasMetadataById" resultMap="BaseResultMap" parameterType="PssTasMetadataQuery">
+		SELECT 
+		<!--<include refid="Base_Column_List" />  -->
+	SATELLITEID,
+	SENSORID,
+	    PRODUCTTYPE,
+		PRODUCTID,
+		DATAUPPERLEFTLAT,
+		DATAUPPERLEFTLONG,
+		DATAUPPERRIGHTLAT,DATAUPPERRIGHTLONG,DATALOWERLEFTLAT,DATALOWERLEFTLONG,DATALOWERRIGHTLAT,DATALOWERRIGHTLONG
+		FROM
+		PSS_TAS_METADATA
+		WHERE
+		METADATAID = #{metadataid}
+	</select>
+	
+	  <!--查询语句-->
+    <select id="selectProductById" resultMap="BaseResultMap" parameterType="PssProductQuery">
+		SELECT
+		 PRODUCTID
+		FROM PSS_TAS_METADATA 
+	    WHERE 1=1
+	    <if test="productid != null and productid != ''"> 
+				and PRODUCTID = #{productid} 
+		</if>
+		 <if test="metadataid != null and metadataid != ''"> 
+				and METADATAID = #{metadataid} 
+		</if>
+
+	</select>
+	<!--删除语句-->
+	
+	<!--查询语句-->
+    <select id="getMetadataByproductId" resultMap="BaseResultMap" parameterType="PssTasMetadataQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_TAS_METADATA 
+	    WHERE 1 = 1
+	    	<if test="productid != null and productid != ''">
+	           AND  PRODUCTID = #{productid}
+	        </if>
+	</select>
+    
+    <!--查询详情通过id语句-->
+    <select id="findSonProductByCond" resultType="Map" parameterType="String">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_TAS_METADATA 
+	    WHERE 1 = 1
+	           AND  PRODUCTID = #{_parameter}
+	</select>
+    
+    <!--查询语句-->
+    <select id="getPssTasMetadataById" resultMap="BaseResultMap" parameterType="PssTasMetadataQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_TAS_METADATA 
+	    WHERE  1=1
+	</select>
+	<sql id="whereClause_common">
+  			<if test="sensorid_array != null and sensorid_array != ''">
+  			AND
+				<foreach item="item" index="index" collection="sensorid_array"  separator="or"  open="("  close=")">  
+			 	METADATAID like '%${item}%'  
+				</foreach> 
+		    </if>
+		    <if test="producttypes_array != null and producttypes_array != ''">
+				AND PRODUCTTYPE in
+				<foreach item="item" index="index" collection="producttypes_array"   open="("  separator=","  close=")">  
+			 	  #{item}
+  
+				</foreach> 
+			</if>
+		</sql>
+	<sql id="whereClause_basic">
+			<where>
+				<include refid="whereClause_common" />
+				<if test="shape != null and shape != ''" >
+	        	AND sde.st_intersects (sde.st_geometry(#{shape,jdbcType=VARCHAR},4326),shape) = 1 
+	     	   </if>
+			</where>
+		</sql>
+		<sql id="whereClause_shape">
+			<where>
+			   <include refid="whereClause_common" />
+				<if test="shapename != null and shapename != ''"> 
+  				and  r.NAME like '%${shapename}%'
+	 		    </if>
+	 		    and sde.st_intersects (t.shape, r.shape) = 1
+			</where>
+		</sql>
+		<sql id="whereClause_world">
+			<where>
+			<include refid="whereClause_common" />
+			<if test="country != null and country != ''"> 
+  				and  m.CNTRY_NAME like '%${country}%'
+	 		</if>
+			<if test="states != null and states != ''"> 
+  				and  m.CNTRY_NAME like '%${states}%'
+	 		</if>
+				and sde.st_intersects (t.shape, m.shape) = 1
+			</where>
+		</sql>
+		<!--分页查询-->
+		<select id="getPssTasMetadataByQuery" resultType="PssTasMetadataQuery"  parameterType="PssTasMetadataQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		<if test="difference_table=='basic'">
+			SELECT * FROM  PSS_TAS_METADATA
+		<include refid="whereClause_basic"/>
+		</if>
+		<if test="difference_table=='shapename'">
+			SELECT t.productid,t.topleftlongitude,t.topleftlatitude,t.toprightlongitude,t.toprightlatitude,t.bottomrightlongitude,
+			t.bottomrightlatitude,t.bottomleftlongitude,t.bottomleftlatitude,t.metadataid,t.thumbname,t.satelliteid,t.sensorid,
+			t.centerlong,t.centerlat FROM PSS_TAS_METADATA t,regions r
+		<include refid="whereClause_shape"/>
+		</if>
+		<if test="difference_table=='world'">
+			SELECT  t.productid,t.topleftlongitude,t.topleftlatitude,t.toprightlongitude,t.toprightlatitude,t.bottomrightlongitude,
+			t.bottomrightlatitude,t.bottomleftlongitude,t.bottomleftlatitude,t.metadataid,t.thumbname,t.satelliteid,t.sensorid,
+			t.centerlong,t.centerlat  FROM PSS_TAS_METADATA t,WORLD m
+		<include refid="whereClause_world" />
+		</if>
+		
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY PRODUCTID ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	
+		<!--列表查询-->
+		<select id="getPssTasMetadataListByQuery" resultType="PssTasMetadata" resultMap="BaseResultMap" parameterType="PssTasMetadataQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_TAS_METADATA 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="productid  != null" >
+	        	AND 	PRODUCTID = #{productid} 
+	     	 	</if>
+				<if test="productname  != null" >
+	        	AND 	PRODUCTNAME = #{productname} 
+	     	 	</if>
+				<if test="producttype  != null" >
+	        	AND 	PRODUCTTYPE = #{producttype} 
+	     	 	</if>
+				<if test="satelliteid  != null" >
+	        	AND 	SATELLITEID = #{satelliteid} 
+	     	 	</if>
+				<if test="sensorid  != null" >
+	        	AND 	SENSORID = #{sensorid} 
+	     	 	</if>
+				<if test="stationid  != null" >
+	        	AND 	STATIONID = #{stationid} 
+	     	 	</if>
+				<if test="pixeltype  != null" >
+	        	AND 	PIXELTYPE = #{pixeltype} 
+	     	 	</if>
+				<if test="imagewidth  != null" >
+	        	AND 	IMAGEWIDTH = #{imagewidth} 
+	     	 	</if>
+				<if test="imageheight  != null" >
+	        	AND 	IMAGEHEIGHT = #{imageheight} 
+	     	 	</if>
+				<if test="imagebandnum  != null" >
+	        	AND 	IMAGEBANDNUM = #{imagebandnum} 
+	     	 	</if>
+				<if test="imagingstarttime  != null" >
+	        	AND 	IMAGINGSTARTTIME = #{imagingstarttime} 
+	     	 	</if>
+				<if test="imagingstoptime  != null" >
+	        	AND 	IMAGINGSTOPTIME = #{imagingstoptime} 
+	     	 	</if>
+				<if test="sunazimuth  != null" >
+	        	AND 	SUNAZIMUTH = #{sunazimuth} 
+	     	 	</if>
+				<if test="sunelevation  != null" >
+	        	AND 	SUNELEVATION = #{sunelevation} 
+	     	 	</if>
+				<if test="earthmodel  != null" >
+	        	AND 	EARTHMODEL = #{earthmodel} 
+	     	 	</if>
+				<if test="mapprojection  != null" >
+	        	AND 	MAPPROJECTION = #{mapprojection} 
+	     	 	</if>
+				<if test="unit  != null" >
+	        	AND 	UNIT = #{unit} 
+	     	 	</if>
+				<if test="resolutionx  != null" >
+	        	AND 	RESOLUTIONX = #{resolutionx} 
+	     	 	</if>
+				<if test="resolutiony  != null" >
+	        	AND 	RESOLUTIONY = #{resolutiony} 
+	     	 	</if>
+				<if test="scenecenterlat  != null" >
+	        	AND 	SCENECENTERLAT = #{scenecenterlat} 
+	     	 	</if>
+				<if test="scenecenterlong  != null" >
+	        	AND 	SCENECENTERLONG = #{scenecenterlong} 
+	     	 	</if>
+				<if test="dataupperleftlat  != null" >
+	        	AND 	DATAUPPERLEFTLAT = #{dataupperleftlat} 
+	     	 	</if>
+				<if test="dataupperleftlong  != null" >
+	        	AND 	DATAUPPERLEFTLONG = #{dataupperleftlong} 
+	     	 	</if>
+				<if test="dataupperrightlat  != null" >
+	        	AND 	DATAUPPERRIGHTLAT = #{dataupperrightlat} 
+	     	 	</if>
+				<if test="dataupperrightlong  != null" >
+	        	AND 	DATAUPPERRIGHTLONG = #{dataupperrightlong} 
+	     	 	</if>
+				<if test="datalowerleftlat  != null" >
+	        	AND 	DATALOWERLEFTLAT = #{datalowerleftlat} 
+	     	 	</if>
+				<if test="datalowerleftlong  != null" >
+	        	AND 	DATALOWERLEFTLONG = #{datalowerleftlong} 
+	     	 	</if>
+				<if test="datalowerrightlat  != null" >
+	        	AND 	DATALOWERRIGHTLAT = #{datalowerrightlat} 
+	     	 	</if>
+				<if test="datalowerrightlong  != null" >
+	        	AND 	DATALOWERRIGHTLONG = #{datalowerrightlong} 
+	     	 	</if>
+				<if test="processnum  != null" >
+	        	AND 	PROCESSNUM = #{processnum} 
+	     	 	</if>
+				<if test="processinfo  != null" >
+	        	AND 	PROCESSINFO = #{processinfo} 
+	     	 	</if>
+				<if test="processtime  != null" >
+	        	AND 	PROCESSTIME = #{processtime} 
+	     	 	</if>
+				<if test="processmodule  != null" >
+	        	AND 	PROCESSMODULE = #{processmodule} 
+	     	 	</if>
+				<if test="inputdataname  != null" >
+	        	AND 	INPUTDATANAME = #{inputdataname} 
+	     	 	</if>
+				<if test="browsename  != null" >
+	        	AND 	BROWSENAME = #{browsename} 
+	     	 	</if>
+				<if test="thumbname  != null" >
+	        	AND 	THUMBNAME = #{thumbname} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY PRODUCTID ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="PssTasMetadataQuery">
+        SELECT count(*) FROM PSS_TAS_METADATA 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="productid  != null" >
+	        	AND 	PRODUCTID = #{productid}
+	     	 	</if>
+				<if test="productname  != null" >
+	        	AND 	PRODUCTNAME = #{productname}
+	     	 	</if>
+				<if test="producttype  != null" >
+	        	AND 	PRODUCTTYPE = #{producttype}
+	     	 	</if>
+				<if test="satelliteid  != null" >
+	        	AND 	SATELLITEID = #{satelliteid}
+	     	 	</if>
+				<if test="sensorid  != null" >
+	        	AND 	SENSORID = #{sensorid}
+	     	 	</if>
+				<if test="stationid  != null" >
+	        	AND 	STATIONID = #{stationid}
+	     	 	</if>
+				<if test="pixeltype  != null" >
+	        	AND 	PIXELTYPE = #{pixeltype}
+	     	 	</if>
+				<if test="imagewidth  != null" >
+	        	AND 	IMAGEWIDTH = #{imagewidth}
+	     	 	</if>
+				<if test="imageheight  != null" >
+	        	AND 	IMAGEHEIGHT = #{imageheight}
+	     	 	</if>
+				<if test="imagebandnum  != null" >
+	        	AND 	IMAGEBANDNUM = #{imagebandnum}
+	     	 	</if>
+				<if test="imagingstarttime  != null" >
+	        	AND 	IMAGINGSTARTTIME = #{imagingstarttime}
+	     	 	</if>
+				<if test="imagingstoptime  != null" >
+	        	AND 	IMAGINGSTOPTIME = #{imagingstoptime}
+	     	 	</if>
+				<if test="sunazimuth  != null" >
+	        	AND 	SUNAZIMUTH = #{sunazimuth}
+	     	 	</if>
+				<if test="sunelevation  != null" >
+	        	AND 	SUNELEVATION = #{sunelevation}
+	     	 	</if>
+				<if test="earthmodel  != null" >
+	        	AND 	EARTHMODEL = #{earthmodel}
+	     	 	</if>
+				<if test="mapprojection  != null" >
+	        	AND 	MAPPROJECTION = #{mapprojection}
+	     	 	</if>
+				<if test="unit  != null" >
+	        	AND 	UNIT = #{unit}
+	     	 	</if>
+				<if test="resolutionx  != null" >
+	        	AND 	RESOLUTIONX = #{resolutionx}
+	     	 	</if>
+				<if test="resolutiony  != null" >
+	        	AND 	RESOLUTIONY = #{resolutiony}
+	     	 	</if>
+				<if test="scenecenterlat  != null" >
+	        	AND 	SCENECENTERLAT = #{scenecenterlat}
+	     	 	</if>
+				<if test="scenecenterlong  != null" >
+	        	AND 	SCENECENTERLONG = #{scenecenterlong}
+	     	 	</if>
+				<if test="dataupperleftlat  != null" >
+	        	AND 	DATAUPPERLEFTLAT = #{dataupperleftlat}
+	     	 	</if>
+				<if test="dataupperleftlong  != null" >
+	        	AND 	DATAUPPERLEFTLONG = #{dataupperleftlong}
+	     	 	</if>
+				<if test="dataupperrightlat  != null" >
+	        	AND 	DATAUPPERRIGHTLAT = #{dataupperrightlat}
+	     	 	</if>
+				<if test="dataupperrightlong  != null" >
+	        	AND 	DATAUPPERRIGHTLONG = #{dataupperrightlong}
+	     	 	</if>
+				<if test="datalowerleftlat  != null" >
+	        	AND 	DATALOWERLEFTLAT = #{datalowerleftlat}
+	     	 	</if>
+				<if test="datalowerleftlong  != null" >
+	        	AND 	DATALOWERLEFTLONG = #{datalowerleftlong}
+	     	 	</if>
+				<if test="datalowerrightlat  != null" >
+	        	AND 	DATALOWERRIGHTLAT = #{datalowerrightlat}
+	     	 	</if>
+				<if test="datalowerrightlong  != null" >
+	        	AND 	DATALOWERRIGHTLONG = #{datalowerrightlong}
+	     	 	</if>
+				<if test="processnum  != null" >
+	        	AND 	PROCESSNUM = #{processnum}
+	     	 	</if>
+				<if test="processinfo  != null" >
+	        	AND 	PROCESSINFO = #{processinfo}
+	     	 	</if>
+				<if test="processtime  != null" >
+	        	AND 	PROCESSTIME = #{processtime}
+	     	 	</if>
+				<if test="processmodule  != null" >
+	        	AND 	PROCESSMODULE = #{processmodule}
+	     	 	</if>
+				<if test="inputdataname  != null" >
+	        	AND 	INPUTDATANAME = #{inputdataname}
+	     	 	</if>
+				<if test="browsename  != null" >
+	        	AND 	BROWSENAME = #{browsename}
+	     	 	</if>
+				<if test="thumbname  != null" >
+	        	AND 	THUMBNAME = #{thumbname}
+	     	 	</if>
+	     	 <if test="sqlWhere  != null" >
+	        	${sqlWhere}
+	     	 	</if>
+		</trim> 
+    </select>
+    
+</mapper>
+

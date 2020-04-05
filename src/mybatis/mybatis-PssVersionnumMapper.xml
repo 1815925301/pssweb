@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="PSS_VERSIONNUMDao">
+	<resultMap id="BaseResultMap" type="PssVersionnum">
+            <result property="id" column="ID"/>
+        	<result property="versionnum" column="VERSIONNUM"/>
+        	<result property="isaudit" column="ISAUDIT"/>
+        	<result property="isornoteffect" column="ISORNOTEFFECT"/>
+        	<result property="checktime" column="CHECKTIME"/>
+        	<result property="checkname" column="CHECKNAME"/>
+        	<result property="note" column="NOTE"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		id,versionnum,isaudit,isornoteffect,to_char(checktime,'yyyy-MM-dd HH24:mi:ss') as checktime,CHECKNAME,NOTE
+	</sql>
+
+	<!-- 插入语句-->
+	<insert id="insertPssVersionnum" parameterType="PssVersionnum">
+        INSERT INTO PSS_VERSIONNUM 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        	        ID,
+	        	
+		        	     <if test="versionnum != null" >
+	        		         VERSIONNUM,
+	     		        </if> 
+	        	
+		        	     <if test="isaudit != null" >
+	        		         ISAUDIT,
+	     		        </if> 
+	        	
+		        	     <if test="isornoteffect != null" >
+	        		         ISORNOTEFFECT,
+	     		        </if> 
+	        	
+		        	     <if test="checktime != null" >
+	        		         CHECKTIME,
+	     		        </if> 
+	        	
+		        	     <if test="checkname != null" >
+	        		         CHECKNAME
+	     		        </if> 
+	     		         <if test="note != null" >
+	        		         NOTE
+	     		        </if> 
+	        	
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+	        	        PSS_VERSIONNUM_SEQ.nextval,
+	     		
+		        	     <if test="versionnum != null" >
+		        	      #{versionnum},
+		        	     </if> 
+	     		
+		        	     <if test="isaudit != null" >
+		        	      #{isaudit},
+		        	     </if> 
+	     		
+		        	     <if test="isornoteffect != null" >
+		        	      #{isornoteffect},
+		        	     </if> 
+	     		
+		        	     <if test="checktime != null" >
+		        	      #{checktime},
+		        	     </if> 
+	     		
+		        	     <if test="checkname != null" >
+		        	      #{checkname}
+		        	     </if> 
+		        	     <if test="note != null" >
+	        		         NOTE
+	     		        </if> 
+	     		
+   	 </trim>
+	</insert>
+    
+   <!--更新语句-->
+	<update id="updatePssVersionnum" parameterType="PssVersionnum">
+        UPDATE PSS_VERSIONNUM 
+        <set >
+	        	<if test="isaudit  != null" >
+	        		ISAUDIT = #{isaudit} ,
+	     	 	</if>
+	        	<if test="isornoteffect  != null" >
+	        		ISORNOTEFFECT = #{isornoteffect} ,
+	     	 	</if>
+	        	<if test="checktime  != null" >
+	        		CHECKTIME = to_date(#{checktime},'yyyy-mm-dd HH24:mi:ss'),
+	     	 	</if>
+	        	<if test="checkname  != null" >
+	        		CHECKNAME = #{checkname} ,
+	     	 	</if>
+	     	 	<if test="note != null" >
+	        		   NOTE = #{note}
+	     		 </if> 
+	    </set>
+        WHERE 
+    			VERSIONNUM = #{versionnum} 
+	</update>
+
+	<!--删除语句-->
+		    <delete id="deletePssVersionnum" parameterType="Long">
+		        DELETE FROM PSS_VERSIONNUM WHERE
+		    			ID = #{id} 
+		    </delete>
+    
+    <!--查询语句-->
+    <select id="getPssVersionnumById" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_VERSIONNUM 
+	    WHERE 
+				VERSIONNUM = #{versionnum} 
+	</select>
+	
+		<!--列表查询-->
+		<select id="getPssVersionnumListByQuery" resultType="PssVersionnum" resultMap="BaseResultMap" parameterType="PssVersionnumQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_VERSIONNUM 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="versionnum  != null" >
+	        	AND 	VERSIONNUM = #{versionnum} 
+	     	 	</if>
+				<if test="isaudit  != null" >
+	        	AND 	ISAUDIT = #{isaudit} 
+	     	 	</if>
+				<if test="isornoteffect  != null" >
+	        	AND 	ISORNOTEFFECT = #{isornoteffect} 
+	     	 	</if>
+				<if test="checktime  != null" >
+	        	AND 	CHECKTIME = #{checktime} 
+	     	 	</if>
+				<if test="checkname  != null" >
+	        	AND 	CHECKNAME = #{checkname} 
+	     	 	</if>
+	     	 	<if test="note != null" >
+	        	AND         NOTE=#{note}
+	     		</if> 
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--分页查询-->
+	<select id="getPssVersionnumInfoByQuery" resultType="PssVersionnum" resultMap="BaseResultMap" parameterType="PssVersionnumQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_VERSIONNUM 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="versionnum  != null" >
+	        	AND 	VERSIONNUM = #{versionnum} 
+	     	 	</if>
+				<if test="isaudit  != null" >
+	        	AND 	ISAUDIT = #{isaudit} 
+	     	 	</if>
+				<if test="isornoteffect  != null" >
+	        	AND 	ISORNOTEFFECT = #{isornoteffect} 
+	     	 	</if>
+				<if test="checktime  != null" >
+	        	AND 	CHECKTIME = #{checktime} 
+	     	 	</if>
+				<if test="checkname  != null" >
+	        	AND 	CHECKNAME = #{checkname} 
+	     	 	</if>
+	     	 	<if test="note  != null" >
+	        	AND 	NOTE = #{note} 
+	     	 	</if>
+	     	 	
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="PssVersionnumQuery">
+        SELECT count(*) FROM PSS_VERSIONNUM 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="versionnum  != null" >
+	        	AND 	VERSIONNUM = #{versionnum}
+	     	 	</if>
+				<if test="isaudit  != null" >
+	        	AND 	ISAUDIT = #{isaudit}
+	     	 	</if>
+				<if test="isornoteffect  != null" >
+	        	AND 	ISORNOTEFFECT = #{isornoteffect}
+	     	 	</if>
+				<if test="checktime  != null" >
+	        	AND 	CHECKTIME = #{checktime}
+	     	 	</if>
+				<if test="checkname  != null" >
+	        	AND 	CHECKNAME = #{checkname}
+	     	 	</if>
+	     	 	<if test="note  != null" >
+	        	AND 	NOTE = #{note} 
+	     	 	</if>
+	     	 <if test="sqlWhere  != null" >
+	        	${sqlWhere}
+	     	 	</if>
+		</trim> 
+    </select>
+    
+</mapper>
+

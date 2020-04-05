@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="PSS_REFUNDDao">
+	<resultMap id="BaseResultMap" type="PssRefund">
+        	<result property="id" column="ID"/>
+        	<result property="ticketid" column="TICKETID"/>
+        	<result property="amount" column="AMOUNT"/>
+        	<result property="trandate" column="TRANDATE"/>
+        	<result property="imageaddress" column="IMAGEADDRESS"/>
+        	<result property="ordermainid" column="ORDERMAINID"/>
+        	<result property="sysname" column="SYSNAME"/>
+        	<result property="unit" column="UNIT"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ID,TICKETID,AMOUNT,TRANDATE,IMAGEADDRESS,ORDERMAINID,SYSNAME,UNIT
+	</sql>
+
+	<!-- 插入语句-->
+	<insert id="insertPssRefund" parameterType="PssRefund">
+        INSERT INTO PSS_REFUND 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        	        ID,
+	        	
+		        	     <if test="ticketid != null" >
+	        		         TICKETID,
+	     		        </if> 
+	        	
+		        	     <if test="amount != null" >
+	        		         AMOUNT,
+	     		        </if> 
+	        	
+		        	     <if test="trandate != null" >
+	        		         TRANDATE,
+	     		        </if> 
+	        	
+		        	     <if test="imageaddress != null" >
+	        		         IMAGEADDRESS,
+	     		        </if> 
+	        	
+		        	     <if test="ordermainid != null" >
+	        		         ORDERMAINID,
+	     		        </if> 
+	        	
+		        	     <if test="sysname != null" >
+	        		         SYSNAME
+	     		        </if> 
+	        	
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+	        	        PSS_REFUND_SEQ.nextval,
+	     		
+		        	     <if test="ticketid != null" >
+		        	      #{ticketid},
+		        	     </if> 
+	     		
+		        	     <if test="amount != null" >
+		        	      #{amount},
+		        	     </if> 
+	     		
+		        	     <if test="trandate != null" >
+		        	      #{trandate},
+		        	     </if> 
+	     		
+		        	     <if test="imageaddress != null" >
+		        	      #{imageaddress},
+		        	     </if> 
+	     		
+		        	     <if test="ordermainid != null" >
+		        	      #{ordermainid},
+		        	     </if> 
+	     		
+		        	     <if test="sysname != null" >
+		        	      #{sysname}
+		        	     </if> 
+	     		
+   	 </trim>
+	</insert>
+    
+   <!--更新语句-->
+	<update id="updatePssRefund" parameterType="PssRefund">
+        UPDATE PSS_REFUND 
+        <set >
+	        	<if test="ticketid  != null" >
+	        		TICKETID = #{ticketid} ,
+	     	 	</if>
+	        	<if test="amount  != null" >
+	        		AMOUNT = #{amount} ,
+	     	 	</if>
+	        	<if test="trandate  != null" >
+	        		TRANDATE = #{trandate} ,
+	     	 	</if>
+	        	<if test="imageaddress  != null" >
+	        		IMAGEADDRESS = #{imageaddress} ,
+	     	 	</if>
+	        	<if test="ordermainid  != null" >
+	        		ORDERMAINID = #{ordermainid} ,
+	     	 	</if>
+	        	<if test="sysname  != null" >
+	        		SYSNAME = #{sysname} 
+	     	 	</if>
+	    </set>
+        WHERE 
+    			ID = #{id} 
+	</update>
+
+	<!--删除语句-->
+		    <delete id="deletePssRefund" parameterType="Long">
+		        DELETE FROM PSS_REFUND WHERE
+		    			ID = #{id} 
+		    </delete>
+    
+    <!--查询语句-->
+    <select id="getPssRefundById" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_REFUND 
+	    WHERE 
+				 ORDERMAINID= #{orderMainid} 
+	</select>
+	<select id="getPssRefundBycollId" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_REFUND 
+	    WHERE 
+				COLLECTID = #{collectid} 
+	</select>
+		<!--列表查询-->
+		<select id="getPssRefundListByQuery" resultType="PssRefund" resultMap="BaseResultMap" parameterType="PssRefundQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_REFUND 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="ticketid  != null" >
+	        	AND 	TICKETID = #{ticketid} 
+	     	 	</if>
+				<if test="amount  != null" >
+	        	AND 	AMOUNT = #{amount} 
+	     	 	</if>
+				<if test="trandate  != null" >
+	        	AND 	TRANDATE = #{trandate} 
+	     	 	</if>
+				<if test="imageaddress  != null" >
+	        	AND 	IMAGEADDRESS = #{imageaddress} 
+	     	 	</if>
+				<if test="ordermainid  != null" >
+	        	AND 	ORDERMAINID = #{ordermainid} 
+	     	 	</if>
+				<if test="sysname  != null" >
+	        	AND 	SYSNAME = #{sysname} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--分页查询-->
+	<select id="getPssRefundInfoByQuery" resultType="PssRefund" resultMap="BaseResultMap" parameterType="PssRefundQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_REFUND 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="ticketid  != null" >
+	        	AND 	TICKETID = #{ticketid} 
+	     	 	</if>
+				<if test="amount  != null" >
+	        	AND 	AMOUNT = #{amount} 
+	     	 	</if>
+				<if test="trandate  != null" >
+	        	AND 	TRANDATE = #{trandate} 
+	     	 	</if>
+				<if test="imageaddress  != null" >
+	        	AND 	IMAGEADDRESS = #{imageaddress} 
+	     	 	</if>
+				<if test="ordermainid  != null" >
+	        	AND 	ORDERMAINID = #{ordermainid} 
+	     	 	</if>
+				<if test="sysname  != null" >
+	        	AND 	SYSNAME = #{sysname} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="PssRefundQuery">
+        SELECT count(*) FROM PSS_REFUND 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="ticketid  != null" >
+	        	AND 	TICKETID = #{ticketid}
+	     	 	</if>
+				<if test="amount  != null" >
+	        	AND 	AMOUNT = #{amount}
+	     	 	</if>
+				<if test="trandate  != null" >
+	        	AND 	TRANDATE = #{trandate}
+	     	 	</if>
+				<if test="imageaddress  != null" >
+	        	AND 	IMAGEADDRESS = #{imageaddress}
+	     	 	</if>
+				<if test="ordermainid  != null" >
+	        	AND 	ORDERMAINID = #{ordermainid}
+	     	 	</if>
+				<if test="sysname  != null" >
+	        	AND 	SYSNAME = #{sysname}
+	     	 	</if>
+	     	 <if test="sqlWhere  != null" >
+	        	${sqlWhere}
+	     	 	</if>
+		</trim> 
+    </select>
+    
+</mapper>
+

@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="PssPromptDao">
+	<resultMap id="pssPromptResultMap" type="PssPrompt">
+        	<result property="id" column="ID"/>
+        	<result property="key" column="KEY"/>
+        	<result property="value" column="VALUE"/>
+        	<result property="des" column="DES"/>
+        	<result property="createtime" column="CREATETIME"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ID,KEY,VALUE,DES,to_char(CREATETIME,'yyyy-MM-dd HH24:mi:ss') as CREATETIME
+	</sql>
+
+	<!-- 插入语句-->
+	<insert id="insertPssPrompt" parameterType="PssPrompt">
+        INSERT INTO PSS_PROMPT 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        	        ID,
+	        	
+		        	     <if test="key != null" >
+	        		         KEY,
+	     		        </if> 
+	        	
+		        	     <if test="value != null" >
+	        		         VALUE,
+	     		        </if> 
+	        	
+		        	     <if test="des != null" >
+	        		         DES,
+	     		        </if> 
+	        	
+		        	     <if test="createtime != null" >
+	        		         CREATETIME
+	     		        </if> 
+	        	
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+	        	        PSS_PROMPT_SEQ.nextval,
+	     		
+		        	     <if test="key != null" >
+		        	      #{key},
+		        	     </if> 
+	     		
+		        	     <if test="value != null" >
+		        	      #{value},
+		        	     </if> 
+	     		
+		        	     <if test="des != null" >
+		        	      #{des},
+		        	     </if> 
+	     		
+		        	     <if test="createtime != null" >
+		        	      to_date(#{createtime},'yyyy-mm-dd hh24:mi:ss')
+		        	     </if> 
+	     		
+   	 </trim>
+	</insert>
+    
+   <!--更新语句-->
+	<update id="updatePssPrompt" parameterType="PssPrompt">
+        UPDATE PSS_PROMPT 
+        <set >
+	        	<if test="key  != null" >
+	        		KEY = #{key} ,
+	     	 	</if>
+	        	<if test="value  != null" >
+	        		VALUE = #{value} ,
+	     	 	</if>
+	        	<if test="des  != null" >
+	        		DES = #{des} ,
+	     	 	</if>
+	        	<if test="createtime  != null" >
+	        		CREATETIME = #{createtime} 
+	     	 	</if>
+	    </set>
+        WHERE 
+    			ID = #{id} 
+	</update>
+
+	<!--删除语句-->
+		    <delete id="deletePssPrompt" parameterType="Double">
+		        DELETE FROM PSS_PROMPT WHERE
+		    			ID = #{id} 
+		    </delete>
+    
+    <!--查询语句-->
+    <select id="getPssPromptById" resultMap="pssPromptResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_PROMPT 
+	    WHERE 
+				ID = #{id} 
+	</select>
+	
+		<!--列表查询-->
+		<select id="getPssPromptListByQuery" resultType="PssPrompt" resultMap="pssPromptResultMap" parameterType="PssPromptQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_PROMPT 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="key  != null" >
+	        	AND 	KEY = #{key} 
+	     	 	</if>
+				<if test="value  != null" >
+	        	AND 	VALUE = #{value} 
+	     	 	</if>
+				<if test="des  != null" >
+	        	AND 	DES = #{des} 
+	     	 	</if>
+				<if test="createtime  != null" >
+	        	AND 	CREATETIME = #{createtime} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--分页查询-->
+	<select id="getPssPromptByQuery" resultType="PssPrompt" resultMap="pssPromptResultMap" parameterType="PssPromptQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_PROMPT 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="key  != null" >
+	        	AND 	KEY = #{key} 
+	     	 	</if>
+				<if test="value  != null" >
+	        	AND 	VALUE = #{value} 
+	     	 	</if>
+				<if test="des  != null" >
+	        	AND 	DES like CONCAT('%${des}','%' ) 
+	     	 	</if>
+				<if test="createtime  != null" >
+	        	AND 	CREATETIME = #{createtime} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="PssPromptQuery">
+        SELECT count(*) FROM PSS_PROMPT 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="key  != null" >
+	        	AND 	KEY = #{key}
+	     	 	</if>
+				<if test="value  != null" >
+	        	AND 	VALUE = #{value}
+	     	 	</if>
+				<if test="des  != null" >
+	        	AND 	DES = #{des}
+	     	 	</if>
+				<if test="createtime  != null" >
+	        	AND 	CREATETIME = #{createtime}
+	     	 	</if>
+	     	 <if test="sqlWhere  != null" >
+	        	${sqlWhere}
+	     	 	</if>
+		</trim> 
+    </select>
+    
+</mapper>
+

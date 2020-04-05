@@ -1,0 +1,850 @@
+<insert id="insertPssOrderInfo" parameterType="PssOrderInfo"
+		useGeneratedKeys="false">
+		INSERT INTO PSS_ORDER_INFO(
+		<trim suffix="" suffixOverrides=",">
+			ORDERID,
+			<if test="tasktype != null">
+				TASKTYPE,
+			</if>
+			<if test="tasktime != null">
+				TASKTIME,
+			</if>
+			<if test="orderMainId != null and orderMainId != '' ">
+				ORDERMAINID,
+			</if>
+
+
+			<if test="operatorname != null">
+				OPERATORNAME,
+			</if>
+
+			<if test="priority != null">
+				PRIORITY,
+			</if>
+
+			<if test="username != null">
+				USERNAME,
+			</if>
+
+			<if test="productid != null">
+				PRODUCTID,
+			</if>
+
+			<if test="sceneid != null">
+				SCENEID,
+			</if>
+
+			<if test="productdate != null">
+				PRODUCTDATE,
+			</if>
+
+			<if test="productlevel != null">
+				PRODUCTLEVEL,
+			</if>
+
+			<if test="productuploaddir != null">
+				PRODUCTUPLOADDIR,
+			</if>
+
+			<if test="orderstate != null">
+				ORDERSTATE,
+			</if>
+
+			<if test="delflag != null">
+				DELFLAG,
+			</if>
+
+			<if test="areadystate != null">
+				AREADYSTATE,
+			</if>
+
+			<if test="productsize != null">
+				PRODUCTSIZE,
+			</if>
+
+			<if test="checkusername != null">
+				CHECKUSERNAME,
+			</if>
+
+
+			<if test="note != null">
+				NOTE,
+			</if>
+
+			<if test="price != null">
+				PRICE,
+			</if>
+
+			<if test="clearform != null">
+				CLEARFORM,
+			</if>
+
+			<if test="dataformatdes != null">
+				DATAFORMATDES,
+			</if>
+
+			<if test="overallquality != null">
+				OVERALLQUALITY,
+			</if>
+
+			<if test="producttype != null">
+				PRODUCTTYPE,
+			</if>
+
+			<if test="scenecount != null">
+				SCENECOUNT,
+			</if>
+
+			<if test="sceneshift != null">
+				SCENESHIFT,
+			</if>
+
+			<if test="gain != null">
+				GAIN,
+			</if>
+
+			<if test="intergrallevel != null">
+				INTERGRALLEVEL,
+			</if>
+
+			<if test="sunelevation != null">
+				SUNELEVATION,
+			</if>
+
+			<if test="sunazimuth != null">
+				SUNAZIMUTH,
+			</if>
+
+			<if test="scenedate != null">
+				SCENEDATE,
+			</if>
+
+
+			<if test="satpath != null">
+				SATPATH,
+			</if>
+
+			<if test="satrow != null">
+				SATROW,
+			</if>
+
+			<if test="scenepath != null">
+				SCENEPATH,
+			</if>
+
+			<if test="scenerow != null">
+				SCENEROW,
+			</if>
+
+			<if test="scenecenterlat != null">
+				SCENECENTERLAT,
+			</if>
+
+			<if test="scenecenterlong != null">
+				SCENECENTERLONG,
+			</if>
+
+			<if test="dataupperleftlat != null">
+				DATAUPPERLEFTLAT,
+			</if>
+
+			<if test="dataupperleftlong != null">
+				DATAUPPERLEFTLONG,
+			</if>
+
+			<if test="dataupperrightlat != null">
+				DATAUPPERRIGHTLAT,
+			</if>
+
+			<if test="dataupperrightupperlong != null">
+				DATAUPPERRIGHTUPPERLONG,
+			</if>
+
+			<if test="datalowerleftlat != null">
+				DATALOWERLEFTLAT,
+			</if>
+
+			<if test="datalowerleftlong != null">
+				DATALOWERLEFTLONG,
+			</if>
+
+			<if test="datalowerrightlat != null">
+				DATALOWERRIGHTLAT,
+			</if>
+
+			<if test="datalowerrightlong != null">
+				DATALOWERRIGHTLONG,
+			</if>
+
+			<if test="bands != null">
+				BANDS,
+			</if>
+
+			<if test="radiometricmethod != null">
+				RADIOMETRICMETHOD,
+			</if>
+
+			<if test="abccalibtype != null">
+				ABCCALIBTYPE,
+			</if>
+
+			<if test="mtfcpromode != null">
+				MTFCPROMODE,
+			</if>
+
+			<if test="satelliteid != null">
+				SATELLITEID,
+			</if>
+
+			<if test="pixelspacing != null">
+				PIXELSPACING,
+			</if>
+
+			<if test="ephemerisdata != null">
+				EPHEMERISDATA,
+			</if>
+
+			<if test="attitudedata != null">
+				ATTITUDEDATA,
+			</if>
+
+			<if test="productorientation != null">
+				PRODUCTORIENTATION,
+			</if>
+
+			<if test="earthmodel != null">
+				EARTHMODEL,
+			</if>
+
+			<if test="mapprojection != null">
+				MAPPROJECTION,
+			</if>
+
+			<if test="resampletechnique != null">
+				RESAMPLETECHNIQUE,
+			</if>
+
+			<if test="productupperleftlat != null">
+				PRODUCTUPPERLEFTLAT,
+			</if>
+
+			<if test="productupperleftlong != null">
+				PRODUCTUPPERLEFTLONG,
+			</if>
+
+			<if test="productupperrightlat != null">
+				PRODUCTUPPERRIGHTLAT,
+			</if>
+
+			<if test="productupperrightlong != null">
+				PRODUCTUPPERRIGHTLONG,
+			</if>
+
+			<if test="productlowerleftlat != null">
+				PRODUCTLOWERLEFTLAT,
+			</if>
+
+			<if test="productlowerleftlong != null">
+				PRODUCTLOWERLEFTLONG,
+			</if>
+
+			<if test="productlowerrightlat != null">
+				PRODUCTLOWERRIGHTLAT,
+			</if>
+
+			<if test="productlowerrightlong != null">
+				PRODUCTLOWERRIGHTLONG,
+			</if>
+
+			<if test="dataupperleftx != null">
+				DATAUPPERLEFTX,
+			</if>
+
+			<if test="dataupperlefty != null">
+				DATAUPPERLEFTY,
+			</if>
+
+			<if test="dataupperrightx != null">
+				DATAUPPERRIGHTX,
+			</if>
+
+			<if test="dataupperrighty != null">
+				DATAUPPERRIGHTY,
+			</if>
+
+			<if test="datalowerleftx != null">
+				DATALOWERLEFTX,
+			</if>
+
+			<if test="datalowerlefty != null">
+				DATALOWERLEFTY,
+			</if>
+
+			<if test="datalowerrightx != null">
+				DATALOWERRIGHTX,
+			</if>
+
+			<if test="datalowerrighty != null">
+				DATALOWERRIGHTY,
+			</if>
+
+			<if test="productupperleftx != null">
+				PRODUCTUPPERLEFTX,
+			</if>
+
+			<if test="productupperlefty != null">
+				PRODUCTUPPERLEFTY,
+			</if>
+
+			<if test="productupperrightx != null">
+				PRODUCTUPPERRIGHTX,
+			</if>
+
+			<if test="productupperrighty != null">
+				PRODUCTUPPERRIGHTY,
+			</if>
+
+			<if test="productlowerleftx != null">
+				PRODUCTLOWERLEFTX,
+			</if>
+
+			<if test="productlowerlefty != null">
+				PRODUCTLOWERLEFTY,
+			</if>
+
+			<if test="productlowerrightx != null">
+				PRODUCTLOWERRIGHTX,
+			</if>
+
+			<if test="productlowerrighty != null">
+				PRODUCTLOWERRIGHTY,
+			</if>
+
+			<if test="geodeticmethod != null">
+				GEODETICMETHOD,
+			</if>
+
+			<if test="demtype != null">
+				DEMTYPE,
+			</if>
+
+			<if test="failreason != null">
+				FAILREASON,
+			</if>
+
+			<if test="delstatus != null">
+				DELSTATUS,
+			</if>
+
+			<if test="sensorid != null">
+				SENSORID,
+			</if>
+
+			<if test="finishdownloadif != null">
+				FINISHDOWNLOADIF,
+			</if>
+
+
+
+			<if test="urgerncylevel != null">
+				URGERNCYLEVEL,
+			</if>
+
+			<if test="stationid != null">
+				STATIONID,
+			</if>
+
+			<if test="ordermediumid != null">
+				ORDERMEDIUMID,
+			</if>
+
+			<if test="issend != null">
+				ISSEND,
+			</if>
+
+			<if test="orderidstringrel != null">
+				ORDERIDSTRINGREL,
+			</if>
+
+			<if test="cloudcover != null">
+				CLOUDCOVER,
+			</if>
+
+
+
+			<if test="orderidstring != null">
+				ORDERIDSTRING,
+			</if>
+
+			<if test="ftpurl != null">
+				FTPURL,
+			</if>
+
+			<if test="describe != null">
+				DESCRIBE,
+			</if>
+
+			<if test="auditnote != null">
+				AUDITNOTE,
+			</if>
+
+			<if test="scenerowbias != null">
+				SCENEROWBIAS,
+			</if>
+
+			<if test="scenepathbias != null">
+				SCENEPATHBIAS,
+			</if>
+
+			<if test="checkstate != null">
+				CHECKSTATE,
+			</if>
+
+			<if test="isdownload != null">
+				ISDOWNLOAD,
+			</if>
+
+			<if test="paytheline != null">
+				PAYTHELINE,
+			</if>
+			<if test="isfault != null">
+				ISFAULT,
+			</if>
+			<if test="friendlyprompt != null">
+				FRIENDLYPROMPT,
+			</if>
+
+			<if test="ispay != null">
+				ISPAY,
+			</if>
+			<if test="productcate != null">
+				PRODUCTCATE
+			</if>
+
+		</trim>
+		) VALUES(
+		<trim suffix="" suffixOverrides=",">
+			#{orderid},
+			<if test="tasktype != null">
+				#{tasktype},
+			</if>
+			<if test="tasktime != null">
+
+				to_date(#{tasktime},'yyyy-mm-dd HH24:mi:ss'),
+			</if>
+
+			<if test="orderMainId != null and orderMainId != ''">
+				#{orderMainId},
+			</if>
+			<if test="operatorname != null">
+				#{operatorname},
+			</if>
+
+			<if test="priority != null">
+				#{priority},
+			</if>
+
+			<if test="username != null">
+				#{username},
+			</if>
+
+			<if test="productid != null">
+				#{productid},
+			</if>
+
+			<if test="sceneid != null">
+				#{sceneid},
+			</if>
+
+			<if test="productdate != null">
+				#{productdate},
+			</if>
+
+			<if test="productlevel != null">
+				#{productlevel},
+			</if>
+
+			<if test="productuploaddir != null">
+				#{productuploaddir},
+			</if>
+
+			<if test="orderstate != null">
+				#{orderstate},
+			</if>
+
+			<if test="delflag != null">
+				#{delflag},
+			</if>
+
+			<if test="areadystate != null">
+				#{areadystate},
+			</if>
+
+			<if test="productsize != null">
+				#{productsize},
+			</if>
+
+			<if test="checkusername != null">
+				#{checkusername},
+			</if>
+
+
+
+			<if test="note != null">
+				#{note},
+			</if>
+
+			<if test="price != null">
+				#{price},
+			</if>
+
+			<if test="clearform != null">
+				#{clearform},
+			</if>
+
+			<if test="dataformatdes != null">
+				#{dataformatdes},
+			</if>
+
+			<if test="overallquality != null">
+				#{overallquality},
+			</if>
+
+			<if test="producttype != null">
+				#{producttype},
+			</if>
+
+			<if test="scenecount != null">
+				#{scenecount},
+			</if>
+
+			<if test="sceneshift != null">
+				#{sceneshift},
+			</if>
+
+			<if test="gain != null">
+				#{gain},
+			</if>
+
+			<if test="intergrallevel != null">
+				#{intergrallevel},
+			</if>
+
+			<if test="sunelevation != null">
+				#{sunelevation},
+			</if>
+
+			<if test="sunazimuth != null">
+				#{sunazimuth},
+			</if>
+
+			<if test="scenedate != null">
+				#{scenedate},
+			</if>
+
+
+
+
+
+			<if test="satpath != null">
+				#{satpath},
+			</if>
+
+			<if test="satrow != null">
+				#{satrow},
+			</if>
+
+			<if test="scenepath != null">
+				#{scenepath},
+			</if>
+
+			<if test="scenerow != null">
+				#{scenerow},
+			</if>
+
+			<if test="scenecenterlat != null">
+				#{scenecenterlat},
+			</if>
+
+			<if test="scenecenterlong != null">
+				#{scenecenterlong},
+			</if>
+
+			<if test="dataupperleftlat != null">
+				#{dataupperleftlat},
+			</if>
+
+			<if test="dataupperleftlong != null">
+				#{dataupperleftlong},
+			</if>
+
+			<if test="dataupperrightlat != null">
+				#{dataupperrightlat},
+			</if>
+
+			<if test="dataupperrightupperlong != null">
+				#{dataupperrightupperlong},
+			</if>
+
+			<if test="datalowerleftlat != null">
+				#{datalowerleftlat},
+			</if>
+
+			<if test="datalowerleftlong != null">
+				#{datalowerleftlong},
+			</if>
+
+			<if test="datalowerrightlat != null">
+				#{datalowerrightlat},
+			</if>
+
+			<if test="datalowerrightlong != null">
+				#{datalowerrightlong},
+			</if>
+
+			<if test="bands != null">
+				#{bands},
+			</if>
+
+			<if test="radiometricmethod != null">
+				#{radiometricmethod},
+			</if>
+
+			<if test="abccalibtype != null">
+				#{abccalibtype},
+			</if>
+
+			<if test="mtfcpromode != null">
+				#{mtfcpromode},
+			</if>
+
+			<if test="satelliteid != null">
+				#{satelliteid},
+			</if>
+
+			<if test="pixelspacing != null">
+				#{pixelspacing},
+			</if>
+
+			<if test="ephemerisdata != null">
+				#{ephemerisdata},
+			</if>
+
+			<if test="attitudedata != null">
+				#{attitudedata},
+			</if>
+
+			<if test="productorientation != null">
+				#{productorientation},
+			</if>
+
+			<if test="earthmodel != null">
+				#{earthmodel},
+			</if>
+
+			<if test="mapprojection != null">
+				#{mapprojection},
+			</if>
+
+			<if test="resampletechnique != null">
+				#{resampletechnique},
+			</if>
+
+			<if test="productupperleftlat != null">
+				#{productupperleftlat},
+			</if>
+
+			<if test="productupperleftlong != null">
+				#{productupperleftlong},
+			</if>
+
+			<if test="productupperrightlat != null">
+				#{productupperrightlat},
+			</if>
+
+			<if test="productupperrightlong != null">
+				#{productupperrightlong},
+			</if>
+
+			<if test="productlowerleftlat != null">
+				#{productlowerleftlat},
+			</if>
+
+			<if test="productlowerleftlong != null">
+				#{productlowerleftlong},
+			</if>
+
+			<if test="productlowerrightlat != null">
+				#{productlowerrightlat},
+			</if>
+
+			<if test="productlowerrightlong != null">
+				#{productlowerrightlong},
+			</if>
+
+			<if test="dataupperleftx != null">
+				#{dataupperleftx},
+			</if>
+
+			<if test="dataupperlefty != null">
+				#{dataupperlefty},
+			</if>
+
+			<if test="dataupperrightx != null">
+				#{dataupperrightx},
+			</if>
+
+			<if test="dataupperrighty != null">
+				#{dataupperrighty},
+			</if>
+
+			<if test="datalowerleftx != null">
+				#{datalowerleftx},
+			</if>
+
+			<if test="datalowerlefty != null">
+				#{datalowerlefty},
+			</if>
+
+			<if test="datalowerrightx != null">
+				#{datalowerrightx},
+			</if>
+
+			<if test="datalowerrighty != null">
+				#{datalowerrighty},
+			</if>
+
+			<if test="productupperleftx != null">
+				#{productupperleftx},
+			</if>
+
+			<if test="productupperlefty != null">
+				#{productupperlefty},
+			</if>
+
+			<if test="productupperrightx != null">
+				#{productupperrightx},
+			</if>
+
+			<if test="productupperrighty != null">
+				#{productupperrighty},
+			</if>
+
+			<if test="productlowerleftx != null">
+				#{productlowerleftx},
+			</if>
+
+			<if test="productlowerlefty != null">
+				#{productlowerlefty},
+			</if>
+
+			<if test="productlowerrightx != null">
+				#{productlowerrightx},
+			</if>
+
+			<if test="productlowerrighty != null">
+				#{productlowerrighty},
+			</if>
+
+			<if test="geodeticmethod != null">
+				#{geodeticmethod},
+			</if>
+
+			<if test="demtype != null">
+				#{demtype},
+			</if>
+
+			<if test="failreason != null">
+				#{failreason},
+			</if>
+
+			<if test="delstatus != null">
+				#{delstatus},
+			</if>
+
+			<if test="sensorid != null">
+				#{sensorid},
+			</if>
+
+			<if test="finishdownloadif != null">
+				#{finishdownloadif},
+			</if>
+
+
+
+			<if test="urgerncylevel != null">
+				#{urgerncylevel},
+			</if>
+
+			<if test="stationid != null">
+				#{stationid},
+			</if>
+
+			<if test="ordermediumid != null">
+				#{ordermediumid},
+			</if>
+
+			<if test="issend != null">
+				#{issend},
+			</if>
+
+			<if test="orderidstringrel != null">
+				#{orderidstringrel},
+			</if>
+
+			<if test="cloudcover != null">
+				#{cloudcover},
+			</if>
+
+
+			<if test="orderidstring != null">
+				#{orderidstring},
+			</if>
+
+			<if test="ftpurl != null">
+				#{ftpurl},
+			</if>
+
+			<if test="describe != null">
+				#{describe},
+			</if>
+
+			<if test="auditnote != null">
+				#{auditnote},
+			</if>
+
+			<if test="scenerowbias != null">
+				#{scenerowbias},
+			</if>
+
+			<if test="scenepathbias != null">
+				#{scenepathbias},
+			</if>
+
+			<if test="checkstate != null">
+				#{checkstate},
+			</if>
+
+			<if test="isdownload != null">
+				#{isdownload},
+			</if>
+
+			<if test="paytheline != null">
+				#{paytheline},
+			</if>
+				<if test="isfault != null">
+				#{isfault},
+			</if>
+			<if test="friendlyprompt != null">
+				#{friendlyprompt},
+			</if>
+			
+			<if test="ispay != null">
+				#{ispay},
+			</if>
+			<if test="productcate != null">
+				#{productcate}
+			</if>
+		</trim>
+		)
+	</insert>

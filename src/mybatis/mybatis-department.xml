@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.dept//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="departmentDao">
+	<resultMap id="deptInfoResult" type="department">
+		<id property="id" column="id"/>
+		<id property="pId" column="pId"/>
+		<result property="deptName" column="dept_name"/>
+		<result property="name" column="dept_name"/>
+		<result property="deptDuty" column="dept_duty"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createUserId" column="create_userid"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateUserId" column="update_userid"/>
+	</resultMap>
+	
+	<sql id="allColumn">
+		id, pId, dept_name, dept_duty, create_time, create_userid, update_time, update_userid
+    </sql>
+
+	<insert id="insertNewDepartment" parameterType="department" useGeneratedKeys="false" keyProperty="id">
+		insert into sys_department (
+		<trim suffix="" suffixOverrides=",">
+				id,
+		    <if test="deptName != null">
+				dept_name,
+			</if>
+			<if test="pId != null">
+				pId,
+			</if>
+			<if test="deptDuty != null">
+				dept_duty,
+			</if>
+			<if test="createUserId != null">
+				create_userid,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateUserId != null">
+				update_userid,
+			</if>
+		</trim>
+		) values(
+		<trim suffix="" suffixOverrides=",">
+			   SYS_DEPARTMENT_SEQ.nextval,
+		   <if test="deptName != null">
+				#{deptName},
+			</if>
+			<if test="pId != null">
+				#{pId},
+			</if>
+			<if test="deptDuty != null">
+				#{deptDuty},
+			</if>
+			<if test="createUserId != null">
+				#{createUserId},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId},
+			</if>
+		</trim>
+		)
+	</insert>
+	
+	<!-- 根据机构id获取机构信息 -->
+	<select id="selectDeptInfoByDeptId" resultMap="deptInfoResult" resultType="department" parameterType="long">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_department
+		WHERE id = #{deptId}
+	</select>
+	
+	<!-- 获取机构树 -->
+	<select id="selectDeptInfoTree" resultMap="deptInfoResult" resultType="department">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_department
+	</select>
+	
+	<!-- 根据机构名称获取机构信息 -->
+	<select id="selectDeptInfoByDeptName" resultMap="deptInfoResult" resultType="department" parameterType="string">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_department
+		WHERE dept_name = #{deptName}
+	</select>
+	
+	<!-- 根据机构名称获取机构信息 -->
+	<select id="selectDeptCountByDeptName" resultType="Integer" parameterType="departmentQuery">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			sys_department
+		WHERE dept_name = #{deptName}
+			<if test="id != null">
+				AND <![CDATA[ id <> #{id} ]]>
+			</if>
+	</select>
+	
+	<!-- 根据检索条件获取机构的数量 -->
+	<select id="selectDeptCountByQuery" resultType="Integer" parameterType="departmentQuery">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			sys_department 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="deptName !=null">
+				AND dept_name like CONCAT('%','${deptName}','%' )
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 根据检索条件获取机构的信息 -->
+	<select id="selectDeptInfoByQuery" resultType="department" resultMap="deptInfoResult" parameterType="departmentQuery">
+		select
+			<include refid="allColumn"/> 
+		FROM 
+			sys_department 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="pId != null">
+				AND <![CDATA[ pId = #{pId} ]]>
+			</if>
+			<if test="deptName !=null">
+				AND dept_name like CONCAT('%','${deptName}','%' )
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			limit #{startNum}, #{pageSize}
+		</if>
+	</select>
+	
+	<!-- 根据机构ID更新机构信息 -->
+    <update id="updateDeptInfoByDeptId" parameterType="department">
+    	UPDATE sys_department SET
+			<trim suffix="" suffixOverrides=",">
+				<if test="deptName != null and deptName != ''">
+					dept_name = #{deptName},
+				</if>
+				<if test="deptDuty != null and deptDuty != ''">
+					dept_duty = #{deptDuty},
+				</if>
+				update_time = sysdate,
+				<if test="updateUserId != null">
+					update_userid = #{updateUserId},
+				</if>
+			</trim>
+			WHERE id = #{id} 
+    </update>
+    
+    <!-- 根据机构ID删除机构信息 物理删除 -->
+    <delete id="deleteDeptInfoByDeptId" parameterType="long">
+    	DELETE FROM sys_department WHERE id = #{id}
+    </delete>
+	
+</mapper>

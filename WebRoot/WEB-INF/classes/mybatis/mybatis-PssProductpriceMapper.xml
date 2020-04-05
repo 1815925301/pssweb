@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="PSS_PRODUCTPRICEDao">
+	<resultMap id="BaseResultMap" type="PssProductprice">
+        	<result property="id" column="ID"/>
+        	<result property="producttype" column="PRODUCTTYPE"/>
+        	<result property="productlevel" column="PRODUCTLEVEL"/>
+        	<result property="productarea" column="PRODUCTAREA"/>
+        	<result property="price" column="PRICE"/>
+        	<result property="versionnum" column="VERSIONNUM"/>
+        	<result property="unit" column="UNIT"/>
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		ID,PRODUCTTYPE,PRODUCTLEVEL,PRODUCTAREA,PRICE,VERSIONNUM,UNIT
+	</sql>
+
+	<!-- 插入语句-->
+	<insert id="insertPssProductprice" parameterType="PssProductprice">
+        INSERT INTO PSS_PRODUCTPRICE 
+         <trim prefix="(" suffix=")" suffixOverrides="," >
+	        	        ID,
+	        	
+		        	     <if test="producttype != null" >
+	        		         PRODUCTTYPE,
+	     		        </if> 
+	        	
+		        	     <if test="productlevel != null" >
+	        		         PRODUCTLEVEL,
+	     		        </if> 
+	        	
+		        	     <if test="productarea != null" >
+	        		         PRODUCTAREA,
+	     		        </if> 
+	        	
+		        	     <if test="price != null" >
+	        		         PRICE,
+	     		        </if> 
+	        	
+		        	     <if test="versionnum != null" >
+	        		         VERSIONNUM,
+	     		        </if> 
+	     		        <if test="unit != null" >
+	        		         UNIT
+	     		        </if> 
+	        	
+       	 </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+	        	        PSS_PRODUCTPRICE_SEQ.nextval,
+	     		
+		        	     <if test="producttype != null" >
+		        	      #{producttype},
+		        	     </if> 
+	     		
+		        	     <if test="productlevel != null" >
+		        	      #{productlevel},
+		        	     </if> 
+	     		
+		        	     <if test="productarea != null" >
+		        	      #{productarea},
+		        	     </if> 
+	     		
+		        	     <if test="price != null" >
+		        	      #{price},
+		        	     </if> 
+	     		
+	     		
+		        	     <if test="versionnum != null" >
+		        	      #{versionnum},
+		        	     </if> 
+		        	       <if test="unit != null" >
+		        	      #{unit}
+		        	     </if> 
+	     		
+	     		
+   	 </trim>
+	</insert>
+    
+   <!--更新语句-->
+	<update id="updatePssProductprice" parameterType="PssProductprice">
+        UPDATE PSS_PRODUCTPRICE 
+        <set >
+	        	<if test="producttype  != null" >
+	        		PRODUCTTYPE = #{producttype} ,
+	     	 	</if>
+	        	<if test="productlevel  != null" >
+	        		PRODUCTLEVEL = #{productlevel} ,
+	     	 	</if>
+	        	<if test="productarea  != null" >
+	        		PRODUCTAREA = #{productarea} ,
+	     	 	</if>
+	        	<if test="price  != null" >
+	        		PRICE = #{price} ,
+	     	 	</if>
+	        	
+	        	<if test="versionnum  != null" >
+	        		VERSIONNUM = #{versionnum} 
+	     	 	</if>
+	    </set>
+        WHERE 
+    			ID = #{id} 
+	</update>
+
+	<!--查询出所有合格的版本号-->
+	<select id="getPriceThough"  resultMap="BaseResultMap">
+				SELECT
+			productlevel,
+			price,
+			unit
+		FROM
+			PSS_PRODUCTPRICE
+		WHERE
+			VERSIONNUM = (
+				SELECT
+					VERSIONNUM
+				FROM
+					PSS_VERSIONNUM
+				WHERE
+					ISORNOTEFFECT = 1
+			)
+	</select>
+
+	<!--删除语句-->
+		    <delete id="deletePssProductprice" parameterType="Double">
+		        DELETE FROM PSS_PRODUCTPRICE WHERE
+		    			ID = #{id} 
+		    </delete>
+    
+    <!--查询语句-->
+    <select id="getPssProductpriceById" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_PRODUCTPRICE 
+	    WHERE 
+				ID = #{id} 
+	</select>
+	
+	  <select id="getProductpriceByVersion" resultMap="BaseResultMap" resultType="PssProductprice">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_PRODUCTPRICE 
+	    WHERE 
+				VERSIONNUM = #{versionnum} 
+	</select>
+	
+		<!--列表查询-->
+		<select id="getPssProductpriceListByQuery" resultType="PssProductprice" resultMap="BaseResultMap" parameterType="PssProductpriceQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM PSS_PRODUCTPRICE 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="producttype  != null" >
+	        	AND 	PRODUCTTYPE = #{producttype} 
+	     	 	</if>
+				<if test="productlevel  != null" >
+	        	AND 	PRODUCTLEVEL = #{productlevel} 
+	     	 	</if>
+				<if test="productarea  != null" >
+	        	AND 	PRODUCTAREA = #{productarea} 
+	     	 	</if>
+				<if test="price  != null" >
+	        	AND 	PRICE = #{price} 
+	     	 	</if>
+				
+				<if test="versionnum  != null" >
+	        	AND 	VERSIONNUM = #{versionnum} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!--分页查询-->
+	<select id="getPssProductpriceInfoByQuery" resultType="PssProductprice" resultMap="BaseResultMap" parameterType="PssProductpriceQuery">
+	    <if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT VERSIONNUM FROM PSS_PRODUCTPRICE 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="producttype  != null" >
+	        	AND 	PRODUCTTYPE = #{producttype} 
+	     	 	</if>
+				<if test="productlevel  != null" >
+	        	AND 	PRODUCTLEVEL = #{productlevel} 
+	     	 	</if>
+				<if test="productarea  != null" >
+	        	AND 	PRODUCTAREA = #{productarea} 
+	     	 	</if>
+				<if test="price  != null" >
+	        	AND 	PRICE = #{price} 
+	     	 	</if>
+				
+				<if test="versionnum  != null" >
+				 AND VERSIONNUM like CONCAT('%${versionnum}','%' )
+	     	 	</if>
+		</trim>
+		GROUP BY VERSIONNUM 
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if
+			test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum}]]>
+		</if>
+	</select>
+	<select id="getversionnumList" parameterType="PssProductpriceQuery" resultMap="BaseResultMap">
+		SELECT VERSIONNUM FROM PSS_PRODUCTPRICE GROUP BY VERSIONNUM
+	</select>
+	<!--查询数量-->
+    <select id="getCountByQuery" resultType="Integer" parameterType="PssProductpriceQuery">
+        SELECT count(*) FROM PSS_PRODUCTPRICE 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="producttype  != null" >
+	        	AND 	PRODUCTTYPE = #{producttype}
+	     	 	</if>
+				<if test="productlevel  != null" >
+	        	AND 	PRODUCTLEVEL = #{productlevel}
+	     	 	</if>
+				<if test="productarea  != null" >
+	        	AND 	PRODUCTAREA = #{productarea}
+	     	 	</if>
+				<if test="price  != null" >
+	        	AND 	PRICE = #{price}
+	     	 	</if>
+			
+				<if test="versionnum  != null" >
+	        	AND VERSIONNUM like CONCAT('%${versionnum}','%' )
+	     	 	</if>
+	     	 <if test="sqlWhere  != null" >
+	        	${sqlWhere}
+	     	 	</if>
+		</trim> 
+    </select>
+    <!-- 根据产品级别和类型查询产品价格 -->
+     <select id="getEveryPrice" resultType="PssProductprice" resultMap="BaseResultMap"  parameterType="PssProductpriceQuery">
+        SELECT 
+         <include refid="Base_Column_List" />
+         FROM PSS_PRODUCTPRICE 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="producttype  != null" >
+	        	AND 	PRODUCTTYPE = #{producttype}
+	     	 	</if>
+				<if test="productlevel  != null" >
+	        	AND 	PRODUCTLEVEL = #{productlevel}
+	     	 	</if>
+				
+		</trim>
+		WHERE 
+    </select>
+        <!-- 根据产品级别和类型查询产品价格 -->
+     <select id="getpricebyLevel" resultType="PssProductprice"   parameterType="String">
+       SELECT PRICE,UNIT FROM PSS_PRODUCTPRICE WHERE PRODUCTLEVEL=#{collection} AND VERSIONNUM=(SELECT
+					VERSIONNUM
+				FROM
+					PSS_VERSIONNUM
+				WHERE
+					ISORNOTEFFECT = 1)
+    </select>
+    
+</mapper>
+

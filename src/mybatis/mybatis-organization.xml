@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="organizationDao">
+	<resultMap id="orgInfoResult" type="organization">
+		<id property="id" column="id"/>
+		<result property="orgName" column="org_name"/>
+		<result property="type" column="type"/>
+		<result property="editable" column="editable"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createUserId" column="create_userid"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateUserId" column="update_userid"/>
+		<result property="note" column="note"/>
+		<result property="pid" column="pid"/>
+		<result property="createUserName" column="createUserName"/>
+	</resultMap>
+	
+	<sql id="allColumn">
+		sys_organization.id, org_name, type, sys_organization.editable, sys_organization.create_time, sys_organization.create_userid, 
+		sys_organization.update_time, sys_organization.update_userid, sys_organization.note,pid
+    </sql>
+  
+	<insert id="insertNewOrganization" parameterType="organization" useGeneratedKeys="false" keyProperty="id">
+		insert into sys_organization (
+		<trim suffix="" suffixOverrides=",">
+				id,
+		    <if test="orgName != null">
+				org_name,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="editable != null">
+				editable,
+			</if>
+			create_time,
+			<if test="createUserId != null">
+				create_userid,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="updateUserId != null">
+				update_userid,
+			</if>
+			<if test="note != null">
+				note,
+			</if>
+			<if test="pid != null">
+				pid,
+			</if>
+		</trim>
+		) values(
+		<trim suffix="" suffixOverrides=",">
+			  SYS_ORGANIZATION_SEQ.nextval,
+		   <if test="orgName != null">
+				#{orgName},
+			</if>
+			<if test="type != null">
+				#{type},
+			</if>
+			<if test="editable != null">
+				#{editable},
+			</if>
+			   sysdate,
+			<if test="createUserId != null">
+				#{createUserId},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime},
+			</if>
+			<if test="updateUserId != null">
+				#{updateUserId},
+			</if>
+			<if test="note != null">
+				#{note},
+			</if>
+			<if test="pid != null">
+				#{pid},
+			</if>
+		</trim>
+		)
+	</insert>
+	
+	<!-- 根据机构id获取机构信息 -->
+	<select id="selectOrgInfoByOrgId" resultMap="orgInfoResult" resultType="organization" parameterType="long">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_organization
+		WHERE id = #{orgId}
+	</select>
+	
+	<!-- 获取机构树 -->
+	<select id="selectOrgInfoTree" resultMap="orgInfoResult" resultType="organization">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_organization
+	</select>
+	
+	<!-- 根据机构名称获取机构信息 -->
+	<select id="selectOrgInfoByOrgName" resultMap="orgInfoResult" resultType="organization" parameterType="string">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_organization
+		WHERE org_name = #{orgName}
+	</select>
+	
+	<!-- 根据机构名称获取机构信息 -->
+	<select id="selectOrgCountByOrgName" resultType="Integer" parameterType="organizationQuery">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			sys_organization
+		WHERE org_name = #{orgName}
+			<if test="id != null">
+				AND <![CDATA[ id <> #{id} ]]>
+			</if>
+	</select>
+	
+	<!-- 根据检索条件获取机构的数量 -->
+	<select id="selectOrgCountByQuery" resultType="Integer" parameterType="organizationQuery">
+		SELECT 
+			COUNT(1) 
+		FROM 
+			sys_organization 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="type != null">
+				AND <![CDATA[ type = #{type} ]]>
+			</if>
+			<if test="orgNum != null">
+				AND <![CDATA[ org_num = #{orgNum} ]]>
+			</if>
+			<if test="pId != null">
+				AND <![CDATA[ pId = #{pId} ]]>
+			</if>
+			<if test="orgName !=null">
+				AND org_name like '%${orgName}%'
+			</if>
+		</trim>
+	</select>
+	
+	<!-- 根据检索条件获取机构的信息 -->
+	<select id="selectOrgInfoByQuery" resultType="organization" resultMap="orgInfoResult" parameterType="organizationQuery">
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+		  <![CDATA[select * from    ( select row_.*, rownum rownum_ from ( ]]>
+		</if>
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_organization 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="type != null">
+				AND <![CDATA[ type = #{type} ]]>
+			</if>
+			<if test="pId != null">
+				AND <![CDATA[ pId = #{pId} ]]>
+			</if>
+			<if test="orgNum != null">
+				AND <![CDATA[ org_num = #{orgNum} ]]>
+			</if>
+			<if test="orgName !=null">
+				AND org_name like '%${orgName}%'
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+		<if	test="startNum != null and startNum >= 0 and pageSize != null and pageSize > 0">
+			) row_    where <![CDATA[ rownum <= #{page}*#{pageSize} ]]>  )  where 
+				
+				<![CDATA[ rownum_ >#{startNum} ]]>
+		</if>
+	</select>
+	
+	<!-- 根据机构ID更新机构信息 -->
+    <update id="updateOrgInfoByOrgId" parameterType="organization">
+    	UPDATE sys_organization SET
+			<trim suffix="" suffixOverrides=",">
+				<if test="orgName != null and orgName != ''">
+					org_name = #{orgName},
+				</if>
+				<if test="orgNum != null and orgNum != ''">
+					org_num = #{orgNum},
+				</if>
+				
+				    type = #{type},
+			   
+			    <if test="sort != null">
+					sort = #{sort},
+				</if> 
+				<if test="orgZonecode != null">
+				  ORG_ZONECODE = #{orgZonecode},
+				</if>
+				<if test="orgLevel != null">
+				  ORG_LEVEL = #{orgLevel},
+				</if>
+				<if test="sourcestate != null">
+				  sourcestate = #{sourcestate},
+				</if>
+				<if test="sourcecounty != null">
+				  sourcecounty = #{sourcecounty},
+				</if>
+				<if test="sourcecity != null">
+				  sourcecity = #{sourcecity},
+				</if>
+				update_time = sysdate,
+				<if test="updateUserId != null">
+					update_userid = #{updateUserId},
+				</if>
+				<if test="note != null">
+					note = #{note},
+				</if>
+			</trim>
+			WHERE id = #{id} 
+    </update>
+    
+    <!-- 根据机构ID删除机构信息 物理删除 -->
+    <delete id="deleteOrgInfoByOrgId" parameterType="long">
+    	DELETE FROM sys_organization WHERE id = #{id}
+    </delete>
+	
+	<!-- 根据检索条件获取机构的信息(不带分页)addedby liuying -->
+	<select id="selectOrgInfoByQueryWithoutPager" resultType="organization" resultMap="orgInfoResult" parameterType="organizationQuery">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_organization 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="type != null">
+				AND <![CDATA[ type = #{type} ]]>
+			</if>
+			<if test="pId != null">
+				AND <![CDATA[ pId = #{pId} ]]>
+			</if>
+			<if test="orgName !=null">
+				AND org_name like '%${orgName}%'
+			</if>
+			<if test="orgNum != null and orgNum != ''">
+				AND  org_num = #{orgNum}
+			</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	<select id="selectOrgInfoByQueryPid" resultType="organization" resultMap="orgInfoResult" parameterType="organizationQuery">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_organization 
+				<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="type != null">
+				AND <![CDATA[ type = #{type} ]]>
+			</if>
+			<if test="orgName !=null">
+				AND org_name like '%${orgName}%'
+			</if>
+			<if test="orgNum != null and orgNum != ''">
+				AND  org_num = #{orgNum}
+			</if>
+			
+		</trim>
+			<if test="pId !=null and pId!=''">
+				 where 	FIND_IN_SET(id,getChildList(#{pId})) 
+			</if>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY ${sortBy} ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY ${sortBy} DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY id ASC
+			</otherwise>
+		</choose>
+	</select>
+	<select id="selectOrgInfoUpperByQuery" resultType="organization" resultMap="orgInfoResult" parameterType="organizationQuery">
+		SELECT 
+			<include refid="allColumn"/> 
+		FROM 
+			sys_organization 
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null">
+				AND <![CDATA[ id = #{id} ]]>
+			</if>
+			<if test="type != null">
+				AND <![CDATA[ type = #{type} ]]>
+			</if>
+			<if test="orgName !=null">
+				AND org_name like '%${orgName}%'
+			</if>
+			<if test="orgNum != null and orgNum != ''">
+				AND  org_num = #{orgNum}
+			</if>
+			<if test="sqlWhere != null" >
+	         ${sqlWhere}
+	        </if>
+		</trim>
+		<if test="pId != null">
+			start  with <![CDATA[ Id = #{Id} ]]>
+			 connect by prior pid = id
+		</if>
+	</select>
+	
+	<select id="selectMaxId" resultType="long">
+		SELECT
+			MAX(id)
+		FROM 
+			sys_organization
+	</select>
+</mapper>

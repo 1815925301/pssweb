@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+
+<mapper namespace="PssProvinceDao">
+	<resultMap id="BaseResultMap" type="PssProvince">
+        	<result property="gid" column="GID"/>
+        	<result property="code" column="CODE"/>
+        	<result property="name" column="NAME"/>
+        	<result property="area" column="AREA"/>
+        	<result property="incountryCode" column="INCOUNTRYCODE"/>
+        	<!-- <result property="esName" column="ES_NAME"/> -->
+	</resultMap>
+	
+	<!-- 用于select查询公用抽取的列 -->
+	<sql id="Base_Column_List">
+		GID,CODE,NAME,AREA,INCOUNTRYCODE
+	</sql>
+
+	<!--删除语句-->
+    
+    <!--查询通过国家语句-->
+    <select id="getPssProvinceByCountry" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM S_PROVINCE 
+	    WHERE INCOUNTRYCODE = #{incountryCode}
+	</select>
+	
+	 <select id="getPssCodeByProvince" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM S_PROVINCE 
+	    WHERE NAME = #{name}
+	</select>
+	<!--查询语句-->
+    <select id="getPssProvinceById" resultMap="BaseResultMap">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM S_PROVINCE
+	    WHERE GID = #{gid} 
+	</select>
+	
+		<!--列表查询-->
+		<select id="getPssProvinceListByQuery" resultType="PssProvince" resultMap="BaseResultMap" parameterType="PssProvinceQuery">
+		SELECT
+		  <include refid="Base_Column_List" />
+		FROM S_PROVINCE
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+				<if test="gid  != null" >
+	        	AND 	GID = #{gid} 
+	     	 	</if>
+				<if test="name  != null" >
+	        	AND 	NAME = #{name} 
+	     	 	</if>
+				<if test="incountry  != null" >
+	        	AND 	INCOUNTRYCODE = #{incountryCode} 
+	     	 	</if>
+				<if test="area  != null" >
+	        	AND 	AREA = #{area} 
+	     	 	</if>
+		</trim>
+		<choose>
+			<when test="sortBy != null and sortBy != ''">
+				<if test="sortType == 1">
+					ORDER BY  ${sortBy}  ASC
+				</if>
+				<if test="sortType == 2">
+					ORDER BY  ${sortBy}  DESC
+				</if>
+			</when>
+			<otherwise>
+				ORDER BY gid ASC
+			</otherwise>
+		</choose>
+	</select>
+    
+</mapper>
+

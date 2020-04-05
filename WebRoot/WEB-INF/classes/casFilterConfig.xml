@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <loginServer>http://cas.upc.edu.cn/cas</loginServer>
+    <validateServer>http://cas.upc.edu.cn/cas</validateServer>
+    <this>localhost:8080</this>
+    <wrapRequest>false</wrapRequest>
+    <checkAlive>false</checkAlive>
+</config>
